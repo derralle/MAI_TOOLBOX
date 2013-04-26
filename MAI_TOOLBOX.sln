@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Basic Express 2010
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "MAI_TOOLBOX", "MAI_TOOLBOX\MAI_TOOLBOX.vbproj", "{96AD9F35-0FB2-47D7-99FF-C01D92A0A9FC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Release-TB|Any CPU = Release-TB|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96AD9F35-0FB2-47D7-99FF-C01D92A0A9FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96AD9F35-0FB2-47D7-99FF-C01D92A0A9FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96AD9F35-0FB2-47D7-99FF-C01D92A0A9FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96AD9F35-0FB2-47D7-99FF-C01D92A0A9FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96AD9F35-0FB2-47D7-99FF-C01D92A0A9FC}.Release-TB|Any CPU.ActiveCfg = Release-TB|Any CPU
+		{96AD9F35-0FB2-47D7-99FF-C01D92A0A9FC}.Release-TB|Any CPU.Build.0 = Release-TB|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,12 @@
+﻿---6.3.2013---
+
+Universelle Kaufteile-Taste fertiggemacht (Für Teile und Baugruppen)
+
+---19.3.2013---
+
+Eigenschaften aus Dateinamen übernehmen kann jetzt mit überlangen Teilenummern umgehen und gibt eine Warnung heraus.
+
+---21.03.2013---
+
+Neuer Befehl alles fixieren (auch Unterbaugruppen)
+
