@@ -33,6 +33,7 @@
         End Get
         Set(ByVal value As String)
             _bezeichnung = value
+            CB_Bezeichnung.Text = _bezeichnung
         End Set
     End Property
 
@@ -49,6 +50,7 @@
         End Get
         Set(ByVal value As String)
             _bestellnummer = value
+            CB_Bestellnummer.Text = _bestellnummer
         End Set
     End Property
 
@@ -65,6 +67,7 @@
         End Get
         Set(ByVal value As String)
             _hersteller = value
+            CB_Hersteller.Text = _hersteller
         End Set
     End Property
 

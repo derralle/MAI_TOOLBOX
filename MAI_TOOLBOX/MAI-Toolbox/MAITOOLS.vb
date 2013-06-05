@@ -402,6 +402,10 @@ Public Class MAITOOLS
             'Eigenschaften Auslesen
             SwPropMgr.GetAll(Propnames, Proptypes, Propvalues)
 
+            '
+            Form.bezeichung = GetProp(modeldoc, "name")
+            Form.bestellnummer = GetProp(modeldoc, "Best.Nr")
+            Form.hersteller = GetProp(modeldoc, "Hersteller")
 
 
             Dim i As Integer = 0
@@ -434,7 +438,7 @@ Public Class MAITOOLS
             modeldoc.CustomInfo2("", "Hersteller") = Form.hersteller
 
 
-            
+
 
             If modeldoc.GetType = swDocumentTypes_e.swDocASSEMBLY Then
 
@@ -693,6 +697,25 @@ Public Class MAITOOLS
         End If
 
         Return False
+
+    End Function
+
+    'Vorhandene Eigenschaften auslesen
+    Function GetProp(ByRef modeldoc As ModelDoc2, ByVal propname As String) As String
+        Dim SwModelDocExt As ModelDocExtension = modeldoc.Extension
+        Dim SwPropMgr As CustomPropertyManager = SwModelDocExt.CustomPropertyManager("")
+        Dim returnval As String = ""
+        Dim returnvalresolved As String = ""
+
+        If SwPropMgr.Get4(propname, False, returnval, returnvalresolved) Then
+            Return returnval
+        Else
+            Return ""
+        End If
+
+
+
+
 
     End Function
 
