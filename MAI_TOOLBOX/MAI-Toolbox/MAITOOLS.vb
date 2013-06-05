@@ -1384,9 +1384,9 @@ Public Class MAITOOLS
 
 
         For Each item As SketchLine In lines
-            Dim punkt As MathPoint
+            Dim punkt As New MathPoint
 
-            punkt. = item.GetStartPoint2
+            punkt.ArrayData = item.GetStartPoint2
 
             If sketch.Is3D = False Then
 
