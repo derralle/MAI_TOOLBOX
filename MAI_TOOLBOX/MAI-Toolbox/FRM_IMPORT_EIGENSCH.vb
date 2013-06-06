@@ -115,7 +115,7 @@
         InitializeComponent()
 
         ' Fügen Sie Initialisierungen nach dem InitializeComponent()-Aufruf hinzu.
-        
+        Me.Cancel = True
 
 
 
@@ -148,4 +148,7 @@
         Me.CancelValue = True
         Me.Close()
     End Sub
+
+
+    
 End Class

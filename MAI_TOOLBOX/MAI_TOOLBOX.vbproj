@@ -255,6 +255,8 @@
     <None Include="MAI_TOOLBOX_KEY.snk" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Install\DataMatrix.net.dll" />
+    <Content Include="Install\SolidWorksTools.dll" />
     <Content Include="Verlauf.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
