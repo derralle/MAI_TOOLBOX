@@ -6,19 +6,26 @@
 ''' <remarks></remarks>
 Public Class MAI_Teilenummer
 
+    Private Const Projektnummerlaenge As Long = 6
+    Private Const BGNummerlaenge As Long = 2
+    Private Const Teilenummerlaenge As Long = 2
+    Private Const maxBGTiefe As Long = 3
+    Private Const Indexlaenge As Long = 1
 
 
 #Region "Eigenschaften"
 
 
-    'Private ProjektNrValue As String
+
+
+    Private ProjektNrValue As String
     Public Property ProjektNr As String
         Get
 
-            Return CreateTnr()
+            Return ProjektNrValue
         End Get
         Set(ByVal value As String)
-            CheckinStr(value)
+            ProjektNrValue = value
         End Set
     End Property
 
@@ -67,6 +74,13 @@ Public Class MAI_Teilenummer
     End Property
 
 
+    Public ReadOnly Property Gueltig As Boolean
+        Get
+
+            Return CheckAll()
+
+        End Get
+    End Property
 
 
 #End Region
@@ -83,6 +97,13 @@ Public Class MAI_Teilenummer
         CheckinStr(Teilenummer)
 
     End Sub
+
+
+    Public Shared Narrowing Operator CType(ByVal Teilenummer As String) As MAI_Teilenummer
+        Return New MAI_Teilenummer(Teilenummer)
+    End Operator
+
+
 
     ''' <summary>
     ''' Teilenummer als String einchecken und Prüfen
@@ -161,19 +182,19 @@ Public Class MAI_Teilenummer
     ''' </summary>
     ''' <returns>Komponentennummer als String</returns>
     ''' <remarks></remarks>
-    Private Function CreateTnr() As String
+    Public Function CreateTnr() As String
         Dim BGStr As String = ""
         Dim ReturnStr As String
 
         'Baugruppenkette zusammenbauen
         For Each item In Me.BaugruppenNr
 
-            BGStr = BGStr & item
+            BGStr = BGStr & item & Me.Trennzeichen
 
         Next
 
         'RückgabeString zusammenbauen
-        ReturnStr = Me.ProjektNr & BGStr & Me.TeileNr & Me.Index
+        ReturnStr = Me.ProjektNr & Me.Trennzeichen & BGStr & Me.TeileNr & Me.Index
 
         Return ReturnStr
 
@@ -356,11 +377,146 @@ Public Class MAI_Teilenummer
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks></remarks>
-    Public Function IsTeil() As Boolean
+    Public Function IstTeil() As Boolean
 
         Return Not Me.IsBaugruppe
 
     End Function
+
+    ''' <summary>
+    ''' Fragt Tiefe der Baugruppe ab
+    ''' </summary>
+    ''' <returns>Tiefe der Baugruppe </returns>
+    ''' <remarks></remarks>
+    Public Function BGTiefe() As Long
+        Return Me.BaugruppenNr.Count
+    End Function
+
+
+    ''' <summary>
+    ''' Checkt Baugruppennummern
+    ''' </summary>
+    ''' <returns>False wenn Baugruppennummern nicht gültig</returns>
+    ''' <remarks></remarks>
+    Private Function CheckBG() As Boolean
+
+
+        'Tiefe prüfen
+        If BGTiefe() >= maxBGTiefe Then
+
+            Return False
+
+        End If
+
+
+        For Each item In Me.BaugruppenNr
+
+            'Prüfen ob Baugruppennummer numerisch ist
+            If IsNumeric(item) = False Then
+                Return False
+            End If
+
+            'Prüfen ob Baugruppennummer die richtige Länge hat
+            If item.Length <> BGNummerlaenge Then
+                Return False
+            End If
+
+        Next
+
+        Return True
+
+    End Function
+
+
+    ''' <summary>
+    ''' Checkt Projektnummern
+    ''' </summary>
+    ''' <returns> False wenn Projektnummer nicht gültig</returns>
+    ''' <remarks></remarks>
+    Private Function CheckProjektNr() As Boolean
+
+        'Prüfen ob Projektnummer die richtige Länge hat
+        If Me.ProjektNr.Length <> Projektnummerlaenge Then
+            Return False
+        End If
+
+        'Prüfen ob Projektnummer Numerisch ist
+        If IsNumeric(Me.ProjektNr) = False Then
+            Return False
+        End If
+
+        Return True
+
+    End Function
+
+    ''' <summary>
+    ''' Checkt Teilenummern
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Private Function CheckTeilenummer() As Boolean
+
+        'Prüfen ob Teilenummer numerisch ist
+        If IsNumeric(Me.TeileNr) = False Then
+            Return False
+        End If
+
+        'Richtige Länge prüfen
+        If Me.TeileNr.Length <> Teilenummerlaenge Then
+            Return False
+        End If
+
+        Return True
+
+    End Function
+
+
+    ''' <summary>
+    ''' Checkt Index
+    ''' </summary>
+    ''' <returns></returns>
+    ''' <remarks></remarks>
+    Private Function CheckIndex() As Boolean
+
+        Dim validchars As String = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        Dim switch As Boolean = False
+        'Prüfen ob Teilenummer numerisch ist
+
+        For Each item As Char In validchars
+
+            If item = Index Then
+                switch = True
+                Exit For
+            Else
+                switch = False
+            End If
+        Next
+       
+
+
+
+        'Richtige Länge prüfen
+        If Me.Index.Length = Indexlaenge Then
+            switch = True
+        Else
+            switch = False
+        End If
+
+        Return switch
+    End Function
+
+    Private Function CheckAll() As Boolean
+
+        If CheckProjektNr() And CheckBG() And CheckTeilenummer() And CheckIndex() Then
+            Return True
+        End If
+
+        Return False
+
+    End Function
+
+
+
 
 
 #End Region
