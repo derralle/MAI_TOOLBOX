@@ -115,61 +115,65 @@ Public Class MAI_Teilenummer
         Dim k As Long = 0
         Dim str As String
 
-        If CheckTnr(Teilenummer) Then
-
-            'Trennzeichenpositionen ermitteln (-1 wg. Zeichenlänge Trennzeichen)
-            For i = 0 To (Teilenummer.Length - 1)
-
-                If Teilenummer.Substring(i, 1) = Me.Trennzeichen Then
-                    TrennzeichenPos.Add(i)
-                    k = k + 1
-                End If
-            Next
 
 
-            'Index zurücksetzen
-            k = 0
+        ' If CheckTnr(Teilenummer) Then
 
+        'Trennzeichenpositionen ermitteln (-1 wg. Zeichenlänge Trennzeichen)
+        For i = 0 To (Teilenummer.Length - 1)
 
-            'Projektnummer einlesen
-            Me.ProjektNr = Teilenummer.Substring(0, TrennzeichenPos(k))
-            Debug.Print("Projektnummer: " & Me.ProjektNr)
-
-
-            'Baugruppennummern einlesen
-            For i = 0 To (TrennzeichenPos.Count - 2)
-
-                Dim start As Long = TrennzeichenPos(i) + 1
-                Dim length As Long = TrennzeichenPos(i + 1) - TrennzeichenPos(i) - 1
-
-                Me.BaugruppenNr.Add(Teilenummer.Substring(start, length))
-                Debug.Print("Baugruppennummer " & i & ": " & Me.BaugruppenNr(i))
-
-            Next
-
-
-            'Teilenummer Einlesen
-            str = Teilenummer.Substring(TrennzeichenPos(TrennzeichenPos.Count - 1) + 1)
-
-            'Auf Index prüfen 
-            If IsNumeric(str(str.Length - 2)) Then
-
-                Me.TeileNr = str.Substring(0, str.Length - 1)
-                Me.Index = str.Substring(str.Length - 1)
-
-                Debug.Print("Teilenummer: " & Me.TeileNr)
-                Debug.Print("Index: " & Me.Index)
-            Else
-                Me.TeileNr = str
-                Debug.Print("Teilenummer: " & Me.TeileNr)
+            If Teilenummer.Substring(i, 1) = Me.Trennzeichen Then
+                TrennzeichenPos.Add(i)
+                k = k + 1
             End If
+        Next
 
 
+        'Index zurücksetzen
+        k = 0
+
+
+        'Projektnummer einlesen
+        Me.ProjektNr = Teilenummer.Substring(0, TrennzeichenPos(k))
+        Debug.Print("Projektnummer: " & Me.ProjektNr)
+
+
+        'Baugruppennummern einlesen
+        For i = 0 To (TrennzeichenPos.Count - 2)
+
+            Dim start As Long = TrennzeichenPos(i) + 1
+            Dim length As Long = TrennzeichenPos(i + 1) - TrennzeichenPos(i) - 1
+
+            Me.BaugruppenNr.Add(Teilenummer.Substring(start, length))
+            Debug.Print("Baugruppennummer " & i & ": " & Me.BaugruppenNr(i))
+
+        Next
+
+
+        'Teilenummer Einlesen
+        str = Teilenummer.Substring(TrennzeichenPos(TrennzeichenPos.Count - 1) + 1)
+
+        'Auf Index prüfen 
+        'If IsNumeric(str(str.Length - 2)) Then
+
+        If str.Length <> Teilenummerlaenge Then
+
+            Me.TeileNr = str.Substring(0, str.Length - 1)
+            Me.Index = str.Substring(str.Length - 1)
+
+            Debug.Print("Teilenummer: " & Me.TeileNr)
+            Debug.Print("Index: " & Me.Index)
         Else
-
-            '  Throw New ArgumentException("Falsches Format für Teilenummer")
-
+            Me.TeileNr = str
+            Debug.Print("Teilenummer: " & Me.TeileNr)
         End If
+
+
+        'Else
+
+        '  Throw New ArgumentException("Falsches Format für Teilenummer")
+
+        'End If
 
 
 
@@ -480,8 +484,15 @@ Public Class MAI_Teilenummer
 
         Dim validchars As String = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         Dim switch As Boolean = False
-        'Prüfen ob Teilenummer numerisch ist
 
+        'Prüfen ob Index vorhanden ist
+
+        If Me.Index = "" Or Nothing Then
+            Return True
+        End If
+
+
+        'Prüfen ob Teilenummer numerisch ist
         For Each item As Char In validchars
 
             If item = Index Then
