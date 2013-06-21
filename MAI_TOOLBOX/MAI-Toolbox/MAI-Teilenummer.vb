@@ -128,12 +128,18 @@ Public Class MAI_Teilenummer
             End If
         Next
 
+        'prüfen ob trennzeichnen vorhanden
+        If TrennzeichenPos.Count <= 0 Then
+            Exit Sub
+        End If
+
 
         'Index zurücksetzen
         k = 0
 
 
         'Projektnummer einlesen
+
         Me.ProjektNr = Teilenummer.Substring(0, TrennzeichenPos(k))
         Debug.Print("Projektnummer: " & Me.ProjektNr)
 
@@ -152,6 +158,10 @@ Public Class MAI_Teilenummer
 
         'Teilenummer Einlesen
         str = Teilenummer.Substring(TrennzeichenPos(TrennzeichenPos.Count - 1) + 1)
+
+        If IsNothing(str) Or str = "" Then
+            Exit Sub
+        End If
 
         'Auf Index prüfen 
         'If IsNumeric(str(str.Length - 2)) Then
@@ -406,7 +416,7 @@ Public Class MAI_Teilenummer
 
 
         'Tiefe prüfen
-        If BGTiefe() >= maxBGTiefe Then
+        If BGTiefe() > maxBGTiefe Then
 
             Return False
 
@@ -438,6 +448,12 @@ Public Class MAI_Teilenummer
     ''' <returns> False wenn Projektnummer nicht gültig</returns>
     ''' <remarks></remarks>
     Private Function CheckProjektNr() As Boolean
+
+        'Prüfen ob Projektnummer exitsiert
+        If IsNothing(Me.ProjektNr) Then
+            Return False
+        End If
+
 
         'Prüfen ob Projektnummer die richtige Länge hat
         If Me.ProjektNr.Length <> Projektnummerlaenge Then
@@ -507,7 +523,7 @@ Public Class MAI_Teilenummer
 
 
         'Richtige Länge prüfen
-        If Me.Index.Length = Indexlaenge Then
+        If Me.Index.Length = Indexlaenge And switch Then
             switch = True
         Else
             switch = False

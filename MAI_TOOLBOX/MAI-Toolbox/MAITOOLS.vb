@@ -110,6 +110,7 @@ Public Class MAITOOLS
             Exit Sub
         End If
 
+        'neuen Pfad zusammenbauen
         newpath = folder & newname & ending
 
         If FileIO.FileSystem.FileExists(newpath) Then
@@ -117,7 +118,10 @@ Public Class MAITOOLS
             Exit Sub
         End If
 
+        'Datei unter neuen Namen speichern 
         SpeichernUnter(modeldoc, newpath)
+
+        'alte Datei löschen
         FileIO.FileSystem.DeleteFile(path)
 
 
@@ -205,6 +209,8 @@ Public Class MAITOOLS
 
 
     End Sub
+
+
 #End Region
 
 #Region "Eigenschaften bearbeiten"
@@ -352,7 +358,7 @@ Public Class MAITOOLS
 
     End Sub
 
-    '
+    'Kaufteileigenschaften mit Dialog einlesen und in alle Teile einer Baugruppe übernehmen
     Public Sub IMPORT_PROP(ByRef modeldoc As ModelDoc2)
 
         Dim swAssy As AssemblyDoc = Nothing
@@ -448,7 +454,7 @@ Public Class MAITOOLS
         End If
 
         MsgBox("Folgende Eigenschaften geschrieben: " & vbNewLine & vbNewLine & _
-                 "Hersteller:" & vbTab & Form.hersteller & vbNewLine & _
+                 "Hersteller:" & vbTab & vbTab & Form.hersteller & vbNewLine & _
                  "Name: " & vbTab & vbTab & Form.bezeichung & vbNewLine & _
                  "Bestellnummer: " & vbTab & Form.bestellnummer)
 
