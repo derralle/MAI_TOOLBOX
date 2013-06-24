@@ -563,7 +563,7 @@ Public Class MAITOOLS
         Dim Pos_bez As String = "Position"
         Dim Pos_datei As String = ""
         Dim points As Long = 0
-        'Dim TSTTNR As New MaiTeilenummer
+        Dim MAITNR As New MAI_Teilenummer
 
         If IsNothing(doc) Then
             Exit Sub
@@ -609,7 +609,10 @@ Public Class MAITOOLS
         'Ohne Benutzereingriff aber MIT Teilenummerncheck
         If Silent Then
 
-            If CHKTNR(Teilenummer_datei) Then
+            'If CHKTNR(Teilenummer_datei) Then
+            MAITNR = Teilenummer_datei
+
+            If MAITNR.Gueltig Then
                 'Wenn ohne Benutzereingabe ausgeführt
 
                 Pos_datei = Teilenummer_datei.Substring(Teilenummer_datei.LastIndexOf(".") + 1, Teilenummer_datei.Length - Teilenummer_datei.LastIndexOf(".") - 1)
@@ -638,10 +641,10 @@ Public Class MAITOOLS
 
             End Try
 
-
+            'Gibt eine Meldung heraus das die Teilenummern nicht der Norm entsprechen
             form.Position = Pos_datei
-
-            If CHKTNR(Teilenummer_datei) = False Then
+            MAITNR = Teilenummer_datei
+            If MAITNR.BGTiefe > 2 Or MAITNR.Gueltig = False Then
                 form.NormTNR = False
             End If
 
@@ -828,7 +831,6 @@ Public Class MAITOOLS
         swAssy = doc
 
         'Array der Komponenten
-
         comps = swAssy.GetComponents(True)
 
         'anzahl der Komponenten
