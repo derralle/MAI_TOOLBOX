@@ -533,6 +533,7 @@ Public Class SwAddin
 
 #Region "Event Handlers"
     Function SldWorks_ActiveDocChangeNotify() As Integer
+        Toolbox.AddBGList(SwApp.ActiveDoc)
         'MsgBox("Dokument gewechselt!")
     End Function
 

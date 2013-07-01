@@ -17,16 +17,22 @@ Public Class MAITOOLS
     End Property
 
 
-
-
-
-
+    Private _BGList As New List(Of String)
+    Private Property BGList As List(Of String)
+        Get
+            Return _BGList
+        End Get
+        Set(ByVal value As List(Of String))
+            _BGList = value
+        End Set
+    End Property
 
 
 
     Public Sub New(ByRef iswapp As SldWorks)
         _swApp = iswapp
     End Sub
+
 
 
 
@@ -80,6 +86,16 @@ Public Class MAITOOLS
         End Try
     End Sub
 
+    Public Sub AddBGList(ByVal modeldoc As ModelDoc2)
+
+        If modeldoc.GetType = swDocumentTypes_e.swDocASSEMBLY Then
+            Me.BGList.Add(modeldoc.GetPathName)
+            Debug.Print(modeldoc.GetPathName)
+        End If
+
+
+
+    End Sub
 
     'Komponente umbenennen ohne Dialog
     Public Sub UNAME(ByRef modeldoc As ModelDoc2, ByVal newname As String)
@@ -380,7 +396,7 @@ Public Class MAITOOLS
 
 
 
-    Dim Form As New FRM_IMPORT_EIGENSCH
+        Dim Form As New FRM_IMPORT_EIGENSCH
 
         ' Ausführen in Baugruppe oder Teil
         If modeldoc.GetType = swDocumentTypes_e.swDocASSEMBLY Or modeldoc.GetType = swDocumentTypes_e.swDocPART Then
@@ -590,7 +606,7 @@ Public Class MAITOOLS
 
 
 
-            
+
 
 
 
