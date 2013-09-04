@@ -164,6 +164,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MAI-Toolbox\exporttools.vb" />
+    <Compile Include="MAI-Toolbox\FRM_Baugruppenmeister.Designer.vb">
+      <DependentUpon>FRM_Baugruppenmeister.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MAI-Toolbox\FRM_Baugruppenmeister.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MAI-Toolbox\Frm_Eigensch.Designer.vb">
       <DependentUpon>Frm_Eigensch.vb</DependentUpon>
     </Compile>
