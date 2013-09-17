@@ -108,8 +108,8 @@ Public Class MAITOOLS
         Dim name As String
         Dim ending As String
         Dim folder As String
-
-
+        Dim VPart As String = Nothing 'Teil nach "^" in virtuellen Teilen
+        Dim VFlag As Boolean = False
 
         'Pfad ermitteln
         path = modeldoc.GetPathName()
@@ -120,6 +120,14 @@ Public Class MAITOOLS
 
         name = path.Substring(path.LastIndexOf("\") + 1, path.Length - folder.Length - ending.Length)
 
+        If name.Contains("^") Then
+            VPart = name.Substring(name.IndexOf("^"))
+            name = name.Remove(name.IndexOf("^"))
+            VFlag = True
+        End If
+
+
+
         ' Prüfen ob name leer oder gleich
         If (name = newname) Or newname = "" Then
             MsgBox("Fehler der Name wurde nicht geändert, keine Aktion durchgeführt")
@@ -127,7 +135,19 @@ Public Class MAITOOLS
         End If
 
         'neuen Pfad zusammenbauen
+        If VFlag = True Then
+
+            newname = newname & VPart
+
+        End If
+
+
+
         newpath = folder & newname & ending
+
+
+
+
 
         If FileIO.FileSystem.FileExists(newpath) Then
             MsgBox("Fehler: Eine Datei mit diesem Namen existiert schon!")
@@ -167,7 +187,6 @@ Public Class MAITOOLS
         ending = path.Substring(path.LastIndexOf("."), (path.Length) - path.LastIndexOf("."))
 
         name = path.Substring(path.LastIndexOf("\") + 1, path.Length - folder.Length - ending.Length)
-
 
 
         'Namen in Dialog ändern
@@ -221,6 +240,74 @@ Public Class MAITOOLS
             FileIO.FileSystem.DeleteFile(path)
         End If
 
+
+
+
+    End Sub
+
+    'Baugruppenteile anonymisieren
+    Public Sub AnonymizeComponents(ByVal modeldoc As ModelDoc2)
+
+        Dim components As Object 'List(Of Component2)
+        Dim SwAssy As AssemblyDoc
+        Dim Complist As New List(Of ModelDoc2)
+        Dim ComplistShort As New List(Of ModelDoc2)
+        ' Dim Komponente As ModelDoc2
+        'Dim Fileerrors As Long
+        'Dim Filewarnings As Long
+        Dim newname As String
+        Dim counter As Long = 1
+
+
+
+        'Prüfen ob das Dokument eine Baugruppe ist
+        If modeldoc.GetType <> swDocumentTypes_e.swDocASSEMBLY Then
+
+            MsgBox("Dokument ist keine Baugruppe!")
+            Throw New AggregateException
+
+        End If
+
+        'Assembly aus Model 
+        SwAssy = modeldoc
+
+
+
+        'Komponenten der Baugruppe erhalten(True für nur Toplevel)
+        components = SwAssy.GetComponents(True)
+
+
+        'Komponenten in Liste eintragen
+        For Each item As Component2 In components
+            Complist.Add(item.GetModelDoc2)
+        Next
+
+        'Gleiche Pfade aus Liste Löschen
+        For Each item As ModelDoc2 In Complist
+
+            If ComplistShort.Contains(item) = False Then
+                ComplistShort.Add(item)
+            End If
+        Next
+
+        'Komponenten umbenennen
+        For Each item As ModelDoc2 In ComplistShort
+
+            If item.GetType() = swDocumentTypes_e.swDocPART Then
+
+                newname = counter.ToString
+                UNAME(item, newname)
+                counter = counter + 1
+            End If
+
+
+
+
+        Next
+
+
+        'Neuaufbau
+        modeldoc.ForceRebuild3(True)
 
 
 
@@ -288,6 +375,16 @@ Public Class MAITOOLS
             modeldoc.CustomInfo2("", "Hersteller") = hersteller
 
         End If
+
+        'Teile virtuell machen
+        VirtuiseComponents(modeldoc)
+
+        'Teile anonymisieren
+        AnonymizeComponents(modeldoc)
+
+
+
+
 
         MsgBox("Folgende Eigenschaften geschrieben: " & vbNewLine & vbNewLine & _
                    "Hersteller:" & vbTab & vbTab & hersteller & vbNewLine & _
@@ -600,15 +697,6 @@ Public Class MAITOOLS
 
             'Teilenummer extrahieren
             Teilenummer_datei = Dateiname.Substring(0, Dateiname.IndexOf("-"))
-
-
-
-
-
-
-
-
-
 
 
         Catch ex As Exception
@@ -970,6 +1058,60 @@ Public Class MAITOOLS
         doc.ForceRebuild3(True)
 
     End Sub
+
+
+    ''' <summary>
+    ''' Komponenten von Baugruppen virtuell machen
+    ''' </summary>
+    ''' <param name="doc"> Baugruppendokument als Modeldoc2 </param>
+    ''' <remarks></remarks>
+    Public Sub VirtuiseComponents(ByRef doc As ModelDoc2)
+
+        Dim components As Object 'List(Of Component2)
+        Dim SwAssy As AssemblyDoc
+        'Dim Komponente As ModelDoc2
+
+
+
+        'Prüfen ob das Dokument eine Baugruppe ist
+        If doc.GetType <> swDocumentTypes_e.swDocASSEMBLY Then
+
+            MsgBox("Dokument ist keine Baugruppe!")
+            Throw New AggregateException
+
+        End If
+
+        'Assembly aus Model 
+        SwAssy = doc
+
+
+
+        'alle selektionen löschen
+        doc.ForceRebuild3(True)
+
+
+        'Komponenten der Baugruppe erhalten(True für nur Toplevel)
+        components = SwAssy.GetComponents(True)
+
+
+        'Jede Komponente selektieren welche nicht schon virtuell ist
+        For Each item As Component2 In components
+
+            If item.IsVirtual = False Then
+                If item.MakeVirtual() = False Then
+                    MsgBox("Komponente konnte nicht virtualisiert werden, oder so ähnlich.")
+                End If
+            End If
+        Next
+
+
+        'Neuaufbau
+        doc.ForceRebuild3(True)
+
+    End Sub
+
+
+
 
 
 

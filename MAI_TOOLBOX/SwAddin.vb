@@ -584,7 +584,7 @@ Public Class SwAddin
     End Sub
 
 
-    'Eigenschaften von Fest-Teilen übernehmen
+    'Eigenschaften von Festo-Teilen übernehmen
     Sub FESTOEIG()
 
         Dim doc As ModelDoc2
@@ -649,9 +649,11 @@ Public Class SwAddin
         Dim doc As ModelDoc2
 
         doc = iSwApp.ActiveDoc
-        Toolbox.Schutzzaun(doc, iSwApp)
-        Exit Sub
-        Exporttool.AktDokAnf(Me.iSwApp, ".PDF")
+        Toolbox.VirtuiseComponents(doc)
+
+        'Toolbox.Schutzzaun(doc, iSwApp)
+        'Exit Sub
+        'Exporttool.AktDokAnf(Me.iSwApp, ".PDF")
 
 
     End Sub
