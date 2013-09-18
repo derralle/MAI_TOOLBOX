@@ -31,6 +31,8 @@ Partial Class FRM_IMPORT_EIGENSCH
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.LBL_Info = New System.Windows.Forms.Label()
+        Me.ChB_virtuell = New System.Windows.Forms.CheckBox()
+        Me.ChB_umbenennen = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'Label1
@@ -105,7 +107,7 @@ Partial Class FRM_IMPORT_EIGENSCH
         'LBL_Info
         '
         Me.LBL_Info.AutoSize = True
-        Me.LBL_Info.Location = New System.Drawing.Point(188, 153)
+        Me.LBL_Info.Location = New System.Drawing.Point(11, 192)
         Me.LBL_Info.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LBL_Info.Name = "LBL_Info"
         Me.LBL_Info.Size = New System.Drawing.Size(39, 13)
@@ -113,11 +115,37 @@ Partial Class FRM_IMPORT_EIGENSCH
         Me.LBL_Info.Text = "Label4"
         Me.LBL_Info.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'ChB_virtuell
+        '
+        Me.ChB_virtuell.AutoSize = True
+        Me.ChB_virtuell.Checked = True
+        Me.ChB_virtuell.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ChB_virtuell.Location = New System.Drawing.Point(127, 129)
+        Me.ChB_virtuell.Name = "ChB_virtuell"
+        Me.ChB_virtuell.Size = New System.Drawing.Size(123, 17)
+        Me.ChB_virtuell.TabIndex = 18
+        Me.ChB_virtuell.Text = "Teile virtuell machen"
+        Me.ChB_virtuell.UseVisualStyleBackColor = True
+        '
+        'ChB_umbenennen
+        '
+        Me.ChB_umbenennen.AutoSize = True
+        Me.ChB_umbenennen.Checked = True
+        Me.ChB_umbenennen.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ChB_umbenennen.Location = New System.Drawing.Point(127, 153)
+        Me.ChB_umbenennen.Name = "ChB_umbenennen"
+        Me.ChB_umbenennen.Size = New System.Drawing.Size(159, 17)
+        Me.ChB_umbenennen.TabIndex = 19
+        Me.ChB_umbenennen.Text = "Teile umbenennen (1,2,3 ...)"
+        Me.ChB_umbenennen.UseVisualStyleBackColor = True
+        '
         'FRM_IMPORT_EIGENSCH
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(418, 274)
+        Me.Controls.Add(Me.ChB_umbenennen)
+        Me.Controls.Add(Me.ChB_virtuell)
         Me.Controls.Add(Me.LBL_Info)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
@@ -142,4 +170,6 @@ Partial Class FRM_IMPORT_EIGENSCH
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents Button2 As System.Windows.Forms.Button
     Friend WithEvents LBL_Info As System.Windows.Forms.Label
+    Friend WithEvents ChB_virtuell As System.Windows.Forms.CheckBox
+    Friend WithEvents ChB_umbenennen As System.Windows.Forms.CheckBox
 End Class

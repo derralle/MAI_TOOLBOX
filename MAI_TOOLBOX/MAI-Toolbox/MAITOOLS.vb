@@ -245,73 +245,7 @@ Public Class MAITOOLS
 
     End Sub
 
-    'Baugruppenteile anonymisieren
-    Public Sub AnonymizeComponents(ByVal modeldoc As ModelDoc2)
-
-        Dim components As Object 'List(Of Component2)
-        Dim SwAssy As AssemblyDoc
-        Dim Complist As New List(Of ModelDoc2)
-        Dim ComplistShort As New List(Of ModelDoc2)
-        ' Dim Komponente As ModelDoc2
-        'Dim Fileerrors As Long
-        'Dim Filewarnings As Long
-        Dim newname As String
-        Dim counter As Long = 1
-
-
-
-        'Prüfen ob das Dokument eine Baugruppe ist
-        If modeldoc.GetType <> swDocumentTypes_e.swDocASSEMBLY Then
-
-            MsgBox("Dokument ist keine Baugruppe!")
-            Throw New AggregateException
-
-        End If
-
-        'Assembly aus Model 
-        SwAssy = modeldoc
-
-
-
-        'Komponenten der Baugruppe erhalten(True für nur Toplevel)
-        components = SwAssy.GetComponents(True)
-
-
-        'Komponenten in Liste eintragen
-        For Each item As Component2 In components
-            Complist.Add(item.GetModelDoc2)
-        Next
-
-        'Gleiche Pfade aus Liste Löschen
-        For Each item As ModelDoc2 In Complist
-
-            If ComplistShort.Contains(item) = False Then
-                ComplistShort.Add(item)
-            End If
-        Next
-
-        'Komponenten umbenennen
-        For Each item As ModelDoc2 In ComplistShort
-
-            If item.GetType() = swDocumentTypes_e.swDocPART Then
-
-                newname = counter.ToString
-                UNAME(item, newname)
-                counter = counter + 1
-            End If
-
-
-
-
-        Next
-
-
-        'Neuaufbau
-        modeldoc.ForceRebuild3(True)
-
-
-
-    End Sub
+    
 
 
 #End Region
@@ -560,6 +494,17 @@ Public Class MAITOOLS
                     tmpmdl.CustomInfo2("", "Hersteller") = Form.hersteller
                     tmpmdl.ForceRebuild3(False)
                 Next (i)
+
+                'Teile virtuell machen
+                If Form.virtuell Then
+                    VirtuiseComponents(modeldoc)
+                End If
+
+                'Teile umbenennen
+                If Form.umbenennen Then
+                    AnonymizeComponents(modeldoc)
+                End If
+
 
                 modeldoc.ForceRebuild3(False)
             End If
@@ -1110,7 +1055,73 @@ Public Class MAITOOLS
 
     End Sub
 
+    'Baugruppenteile anonymisieren
+    Public Sub AnonymizeComponents(ByVal modeldoc As ModelDoc2)
 
+        Dim components As Object 'List(Of Component2)
+        Dim SwAssy As AssemblyDoc
+        Dim Complist As New List(Of ModelDoc2)
+        Dim ComplistShort As New List(Of ModelDoc2)
+        ' Dim Komponente As ModelDoc2
+        'Dim Fileerrors As Long
+        'Dim Filewarnings As Long
+        Dim newname As String
+        Dim counter As Long = 1
+
+
+
+        'Prüfen ob das Dokument eine Baugruppe ist
+        If modeldoc.GetType <> swDocumentTypes_e.swDocASSEMBLY Then
+
+            MsgBox("Dokument ist keine Baugruppe!")
+            Throw New AggregateException
+
+        End If
+
+        'Assembly aus Model 
+        SwAssy = modeldoc
+
+
+
+        'Komponenten der Baugruppe erhalten(True für nur Toplevel)
+        components = SwAssy.GetComponents(True)
+
+
+        'Komponenten in Liste eintragen
+        For Each item As Component2 In components
+            Complist.Add(item.GetModelDoc2)
+        Next
+
+        'Gleiche Pfade aus Liste Löschen
+        For Each item As ModelDoc2 In Complist
+
+            If ComplistShort.Contains(item) = False Then
+                ComplistShort.Add(item)
+            End If
+        Next
+
+        'Komponenten umbenennen
+        For Each item As ModelDoc2 In ComplistShort
+
+            If item.GetType() = swDocumentTypes_e.swDocPART Then
+
+                newname = counter.ToString
+                UNAME(item, newname)
+                counter = counter + 1
+            End If
+
+
+
+
+        Next
+
+
+        'Neuaufbau
+        modeldoc.ForceRebuild3(True)
+
+
+
+    End Sub
 
 
 

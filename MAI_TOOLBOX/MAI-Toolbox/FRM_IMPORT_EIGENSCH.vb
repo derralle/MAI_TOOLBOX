@@ -109,6 +109,35 @@
     End Property
 
 
+    ''' <summary>
+    ''' Teile in Baugruppe virtuell machen
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private virtuellValue As Boolean
+    Public Property virtuell() As Boolean
+        Get
+            Return virtuellValue
+        End Get
+        Set(ByVal value As Boolean)
+            virtuellValue = value
+        End Set
+    End Property
+
+    ''' <summary>
+    ''' Teile umbenennen
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private umbenennenValue As Boolean
+    Public Property umbenennen() As Boolean
+        Get
+            Return umbenennenValue
+        End Get
+        Set(ByVal value As Boolean)
+            umbenennenValue = value
+        End Set
+    End Property
+
+
     Public Sub New()
 
         ' Dieser Aufruf ist für den Designer erforderlich.
@@ -116,7 +145,7 @@
 
         ' Fügen Sie Initialisierungen nach dem InitializeComponent()-Aufruf hinzu.
         Me.Cancel = True
-
+        
 
 
     End Sub
@@ -126,6 +155,8 @@
         Me.bezeichung = Me.CB_Bezeichnung.Text
         Me.bestellnummer = Me.CB_Bestellnummer.Text
         Me.hersteller = Me.CB_Hersteller.Text
+        Me.virtuell = ChB_virtuell.Checked
+        Me.umbenennen = ChB_umbenennen.Checked
         Me.Cancel = False
         Me.Close()
     End Sub
@@ -150,5 +181,4 @@
     End Sub
 
 
-    
 End Class
