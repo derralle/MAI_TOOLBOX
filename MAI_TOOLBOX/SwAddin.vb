@@ -646,13 +646,13 @@ Public Class SwAddin
     ''' <remarks></remarks>
     Sub PDF_Puffer()
 
-        Dim doc As ModelDoc2
-
-        doc = iSwApp.ActiveDoc
-        Toolbox.VirtuiseComponents(doc)
+        'Dim doc As ModelDoc2
+        Exit Sub
+        'doc = iSwApp.ActiveDoc
+        'Toolbox.VirtuiseComponents(doc)
 
         'Toolbox.Schutzzaun(doc, iSwApp)
-        'Exit Sub
+
         'Exporttool.AktDokAnf(Me.iSwApp, ".PDF")
 
 
