@@ -294,6 +294,12 @@ Public Class MAITOOLS
                 tmpmdl.ForceRebuild3(False)
             Next (i)
 
+            'Teile virtuell machen
+            VirtuiseComponents(modeldoc)
+
+            'Teile anonymisieren
+            AnonymizeComponents(modeldoc)
+
 
         End If
 
@@ -310,11 +316,9 @@ Public Class MAITOOLS
 
         End If
 
-        'Teile virtuell machen
-        VirtuiseComponents(modeldoc)
 
-        'Teile anonymisieren
-        AnonymizeComponents(modeldoc)
+
+        
 
 
 
