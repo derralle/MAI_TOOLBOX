@@ -919,15 +919,16 @@ Public Class MAITOOLS
 
 
     'Limitiertes Maß
-    Public Sub LIMIT_MATE(ByRef doc As ModelDoc2)
-        Dim swSelMgr As SelectionMgr
-        'Dim MateObj As Mate2
-        Dim SwAssem As AssemblyDoc
+    Public Sub LIMIT_MATE(ByRef doc As IModelDoc2)
+
+        Dim swSelMgr As ISelectionMgr
+        Dim MateObj As IMate2
+        Dim SwAssem As IAssemblyDoc
         Dim SelType1 As swSelectType_e
         Dim SelType2 As swSelectType_e
-        Dim SelObj1 As Face2
-        Dim SelObj2 As Face2
-        Dim Entity1 As Entity
+        Dim SelObj1 As IFace2
+        Dim SelObj2 As IFace2
+        Dim Entity1 As IEntity
         'Dim Entity2 As Entity
 
         ' Dim Pos1 As Object = Nothing
@@ -937,11 +938,15 @@ Public Class MAITOOLS
         Dim distance As Double
 
 
+
+
         Dim DimError As Integer
 
+        'Abfrage ob Dokument eine Baugruppe ist
         If doc.GetType <> swDocumentTypes_e.swDocASSEMBLY Then
             Throw New AggregateException
         End If
+
 
         SwAssem = doc
         swSelMgr = doc.SelectionManager
@@ -949,6 +954,8 @@ Public Class MAITOOLS
         SelType1 = swSelMgr.GetSelectedObjectType3(1, -1)
         SelType2 = swSelMgr.GetSelectedObjectType3(2, -1)
 
+
+        'Prüfen ob die ersten beiden Selektionen planare Flächen sind
         If SelType1 = swSelectType_e.swSelFACES And SelType2 = swSelectType_e.swSelFACES Then
 
             SelObj1 = swSelMgr.GetSelectedObject6(1, -1)
@@ -958,7 +965,7 @@ Public Class MAITOOLS
             'Entity2 = swSelMgr.GetSelectedObject6(2, -1)
 
             'Entity1.GetDistance(Entity2, True, Nothing, Pos1, Pos2, distance)
-
+            'Messen des Abstandes der beiden Flächen
             MeasureObj = doc.Extension.CreateMeasure
             MeasureObj.ArcOption = 1
             MeasureObj.Calculate(Nothing)
@@ -970,15 +977,55 @@ Public Class MAITOOLS
             Debug.Print("Normal: " & MeasureObj.Normal * 1000 & "mm")
 
 
-            MsgBox("Maß ist: " & distance * 1000 & "mm")
+            'MsgBox("Maß ist: " & distance * 1000 & "mm")
+
+
+            'Maßverknüpfung erzeugen
+
+            MateObj = SwAssem.AddMate3(swMateType_e.swMateDISTANCE, swMateAlign_e.swMateAlignCLOSEST, True, distance, distance, distance, 0, 0, 0, 0, 0, False, DimError)
+
+
+            '########################################
+            '#      Konfigurationen erzeugen        #
+            '########################################
+
+            Dim ConfigMgr As IConfigurationManager
+            Dim Config As IConfiguration
+            Dim Parentname As String    'Name der Ausgangskonfiguration
+
+            ConfigMgr = doc.ConfigurationManager
+            Config = ConfigMgr.ActiveConfiguration
+
+            Parentname = Config.Name
+
+            ConfigMgr.AddConfiguration("eingefahren", "Zylinder eingefahren", "alternatativname1", 1, Config.Name, "12345")
+            ConfigMgr.AddConfiguration("ausgefahren", "Zylinder ausgefahren", "alternatativname2", 1, Config.Name, "12345")
+            'doc.IGetConfigurationByName(Parentname)
+            doc.ShowConfiguration2(Parentname)
+            doc.EditRebuild3()
+
+            '############################################
+            '#      Maße an Konfiguationen anpassen     #
+            '############################################
+
+            Dim DimensionObj As IDimension
+
+            DimensionObj = MateObj.DisplayDimension2(0).GetDimension2(0)
+
+
+            DimensionObj.SetSystemValue3(0, swInConfigurationOpts_e.swSpecifyConfiguration, "Standard")
+
+
+            DimensionObj.SetSystemValue3(distance, swSetValueInConfiguration_e.swSetValue_InSpecificConfigurations, "eingefahren")
+
+            DimensionObj.SetSystemValue3(distance + 0.02, swSetValueInConfiguration_e.swSetValue_InSpecificConfigurations, "ausgefahren")
+            
 
 
 
-            SwAssem.AddMate3(swMateType_e.swMateDISTANCE, swMateAlign_e.swMateAlignCLOSEST, True, distance, distance, distance, 0, 0, 0, 0, 0, False, DimError)
+            doc.EditRebuild3()
 
-            doc.ForceRebuild3(True)
 
-            SelObj1.
         End If
 
 
