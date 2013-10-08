@@ -646,9 +646,12 @@ Public Class SwAddin
     ''' <remarks></remarks>
     Sub PDF_Puffer()
 
-        'Dim doc As ModelDoc2
+        Dim doc As ModelDoc2
+        doc = iSwApp.ActiveDoc
+
+        Toolbox.LIMIT_MATE(doc)
         Exit Sub
-        'doc = iSwApp.ActiveDoc
+
         'Toolbox.VirtuiseComponents(doc)
 
         'Toolbox.Schutzzaun(doc, iSwApp)

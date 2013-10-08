@@ -915,22 +915,72 @@ Public Class MAITOOLS
 
 
 #Region "Baugruppenoperationen"
+
+
+
     'Limitiertes Maß
     Public Sub LIMIT_MATE(ByRef doc As ModelDoc2)
         Dim swSelMgr As SelectionMgr
-        Dim mate As Mate2
-        Dim assem As AssemblyDoc
+        'Dim MateObj As Mate2
+        Dim SwAssem As AssemblyDoc
         Dim SelType1 As swSelectType_e
         Dim SelType2 As swSelectType_e
+        Dim SelObj1 As Face2
+        Dim SelObj2 As Face2
+        Dim Entity1 As Entity
+        'Dim Entity2 As Entity
 
+        ' Dim Pos1 As Object = Nothing
+        'Dim Pos2 As Object = Nothing
+
+        Dim MeasureObj As Measure
+        Dim distance As Double
+
+
+        Dim DimError As Integer
 
         If doc.GetType <> swDocumentTypes_e.swDocASSEMBLY Then
             Throw New AggregateException
         End If
 
-        swSelMgr = doc
+        SwAssem = doc
+        swSelMgr = doc.SelectionManager
+
         SelType1 = swSelMgr.GetSelectedObjectType3(1, -1)
         SelType2 = swSelMgr.GetSelectedObjectType3(2, -1)
+
+        If SelType1 = swSelectType_e.swSelFACES And SelType2 = swSelectType_e.swSelFACES Then
+
+            SelObj1 = swSelMgr.GetSelectedObject6(1, -1)
+            SelObj2 = swSelMgr.GetSelectedObject6(2, -1)
+
+            Entity1 = swSelMgr.GetSelectedObject6(1, -1)
+            'Entity2 = swSelMgr.GetSelectedObject6(2, -1)
+
+            'Entity1.GetDistance(Entity2, True, Nothing, Pos1, Pos2, distance)
+
+            MeasureObj = doc.Extension.CreateMeasure
+            MeasureObj.ArcOption = 1
+            MeasureObj.Calculate(Nothing)
+
+            distance = MeasureObj.NormalDistance()
+
+            Debug.Print("Distance: " & MeasureObj.Distance * 1000 & "mm")
+            Debug.Print("NormalDistance: " & MeasureObj.NormalDistance * 1000 & "mm")
+            Debug.Print("Normal: " & MeasureObj.Normal * 1000 & "mm")
+
+
+            MsgBox("Maß ist: " & distance * 1000 & "mm")
+
+
+
+            SwAssem.AddMate3(swMateType_e.swMateDISTANCE, swMateAlign_e.swMateAlignCLOSEST, True, distance, distance, distance, 0, 0, 0, 0, 0, False, DimError)
+
+            doc.ForceRebuild3(True)
+
+            SelObj1.
+        End If
+
 
     End Sub
 
