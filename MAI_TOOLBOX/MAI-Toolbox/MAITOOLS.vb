@@ -918,8 +918,14 @@ Public Class MAITOOLS
 
 
 
-    'Limitiertes Maß
-    Public Sub LIMIT_MATE(ByRef doc As IModelDoc2)
+    ''' <summary>
+    ''' Erzeugen eines konfigurierten Maßes z.B. für Zylinder oder Bewegungen.
+    ''' Wenn zwei Flächen angewählt wurden wird ein Abstandsmaß erzeugt dass
+    ''' mit verschiedenen Werten konfiguriert wird.
+    ''' </summary>
+    ''' <param name="doc"></param>
+    ''' <remarks></remarks>
+    Public Sub LIMIT_MATE(ByVal doc As IModelDoc2)
 
         Dim swSelMgr As ISelectionMgr
         Dim MateObj As IMate2
@@ -931,7 +937,7 @@ Public Class MAITOOLS
         Dim Entity1 As IEntity
         'Dim Entity2 As Entity
 
-        ' Dim Pos1 As Object = Nothing
+        'Dim Pos1 As Object = Nothing
         'Dim Pos2 As Object = Nothing
 
         Dim MeasureObj As Measure
@@ -980,6 +986,24 @@ Public Class MAITOOLS
             'MsgBox("Maß ist: " & distance * 1000 & "mm")
 
 
+           
+
+
+            '########################################
+            '#          Form ausführen              #
+            '########################################
+
+            Dim Form As New FRM_Zylinderkonfig
+
+            Form.abs = distance
+
+            Form.ShowDialog()
+
+            If Form.Abort Then
+                Exit Sub
+            End If
+
+
             'Maßverknüpfung erzeugen
 
             MateObj = SwAssem.AddMate3(swMateType_e.swMateDISTANCE, swMateAlign_e.swMateAlignCLOSEST, True, distance, distance, distance, 0, 0, 0, 0, 0, False, DimError)
@@ -1013,13 +1037,13 @@ Public Class MAITOOLS
             DimensionObj = MateObj.DisplayDimension2(0).GetDimension2(0)
 
 
-            DimensionObj.SetSystemValue3(0, swInConfigurationOpts_e.swSpecifyConfiguration, "Standard")
+            DimensionObj.SetSystemValue3(distance, swSetValueInConfiguration_e.swSetValue_InSpecificConfigurations, Config.Name)
 
 
-            DimensionObj.SetSystemValue3(distance, swSetValueInConfiguration_e.swSetValue_InSpecificConfigurations, "eingefahren")
+            DimensionObj.SetSystemValue3(Form.huebe.Item(0), swSetValueInConfiguration_e.swSetValue_InSpecificConfigurations, "eingefahren")
 
-            DimensionObj.SetSystemValue3(distance + 0.02, swSetValueInConfiguration_e.swSetValue_InSpecificConfigurations, "ausgefahren")
-            
+            DimensionObj.SetSystemValue3(Form.huebe.Item(1), swSetValueInConfiguration_e.swSetValue_InSpecificConfigurations, "ausgefahren")
+
 
 
 

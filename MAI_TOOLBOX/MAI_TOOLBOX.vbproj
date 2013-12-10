@@ -194,6 +194,12 @@
     <Compile Include="MAI-Toolbox\FRM_UNAME.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="MAI-Toolbox\FRM_Zylinderkonfig.Designer.vb">
+      <DependentUpon>FRM_Zylinderkonfig.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MAI-Toolbox\FRM_Zylinderkonfig.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MAI-Toolbox\MAI_Teilenummer.vb" />
     <Compile Include="MAI-Toolbox\MAITOOLS.vb" />
     <Compile Include="PMPHandler.vb">
@@ -219,6 +225,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MAI-Toolbox\FRM_UNAME.resx">
       <DependentUpon>FRM_UNAME.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MAI-Toolbox\FRM_Zylinderkonfig.resx">
+      <DependentUpon>FRM_Zylinderkonfig.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ToolbarLarge.bmp" />
     <EmbeddedResource Include="ToolbarSmall.bmp" />
