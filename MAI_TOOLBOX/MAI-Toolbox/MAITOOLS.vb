@@ -1049,7 +1049,8 @@ Public Class MAITOOLS
 
             doc.EditRebuild3()
 
-
+        Else
+            MsgBox("Fehler: keine parallelen Flächen markiert!")
         End If
 
 

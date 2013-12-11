@@ -49,6 +49,7 @@ Public Class SwAddin
     Public Const mainItemID8 As Integer = 7
     Public Const mainItemID9 As Integer = 8
     Public Const mainItemID10 As Integer = 9
+    Public Const mainItemID11 As Integer = 10
 
     Public Const flyoutGroupID As Integer = 91
 
@@ -187,7 +188,7 @@ Public Class SwAddin
 
         '#Index der Funktionen
         Dim cmdIndex0 As Integer, cmdIndex1 As Integer, cmdIndex2 As Integer, cmdIndex3 As Integer, cmdIndex4 As Integer, cmdIndex5 As Integer, cmdIndex6 As Integer, _
-            cmdIndex7 As Integer, cmdIndex8 As Integer, cmdIndex9 As Integer
+            cmdIndex7 As Integer, cmdIndex8 As Integer, cmdIndex9 As Integer, cmdIndex10 As Integer
 
         Dim Title As String = "MAI-Toolbox"
         Dim ToolTip As String = "Firmenspezifische Anpassungen"
@@ -325,6 +326,16 @@ Public Class SwAddin
                                             "AllesFix", _
                                             "", _
                                             mainItemID10, _
+                                            menuToolbarOption)
+
+        cmdIndex10 = cmdGroup.AddCommandItem2("Hub einstellen", _
+                                            -1, _
+                                            "legt einen Hub mit 2 Konfigurationen an", _
+                                            "legt einen Hub mit 2 Konfigurationen an", _
+                                            12, _
+                                            "HUB", _
+                                            "", _
+                                            mainItemID11, _
                                             menuToolbarOption)
 
         'cmdIndex1 = cmdGroup.AddCommandItem2("Show PMP", -1, "Display sample property manager", "Show PMP", 2, "ShowPMP", "PMPEnable", mainItemID2, menuToolbarOption)
@@ -673,6 +684,12 @@ Public Class SwAddin
         Toolbox.IMPORT_PROP(doc)
     End Sub
 
+    Sub HUB()
+        Dim doc As ModelDoc2
+        doc = iSwApp.ActiveDoc
+
+        Toolbox.LIMIT_MATE(doc)
+    End Sub
 
     'Beispiel
     Sub CreateCube()
