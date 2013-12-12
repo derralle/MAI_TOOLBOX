@@ -298,12 +298,12 @@ Public Class SwAddin
                                              mainItemID7, _
                                              menuToolbarOption)
 
-        cmdIndex7 = cmdGroup.AddCommandItem2("PDF-Versendepuffer", _
+        cmdIndex7 = cmdGroup.AddCommandItem2("Bauteil ändern", _
                                             -1, _
-                                            "Datei als PDF zum Versendepuffer hinzufügen", _
-                                            "Datei als PDF zum Versendepuffer hinzufügen", _
-                                            8, _
-                                            "PDF_Puffer", _
+                                            "Neue Datei mit Index erstellen", _
+                                            "Neue Datei mit Index erstellen", _
+                                            13, _
+                                            "IndexUP", _
                                             "", _
                                             mainItemID8, _
                                             menuToolbarOption)
@@ -655,19 +655,13 @@ Public Class SwAddin
     ''' Datei in PDF umwandeln und in PDF-Puffer schreiben
     ''' </summary>
     ''' <remarks></remarks>
-    Sub PDF_Puffer()
+    Sub IndexUP()
 
         Dim doc As ModelDoc2
         doc = iSwApp.ActiveDoc
 
-        Toolbox.LIMIT_MATE(doc)
-        Exit Sub
+        Toolbox.MAKEINDEX(iSwApp, doc)
 
-        'Toolbox.VirtuiseComponents(doc)
-
-        'Toolbox.Schutzzaun(doc, iSwApp)
-
-        'Exporttool.AktDokAnf(Me.iSwApp, ".PDF")
 
 
     End Sub

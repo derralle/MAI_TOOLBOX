@@ -157,6 +157,9 @@ Public Class MAITOOLS
         'Datei unter neuen Namen speichern 
         SpeichernUnter(modeldoc, newpath)
 
+        'Eingenschaften einlesen
+
+
         'alte Datei löschen
         FileIO.FileSystem.DeleteFile(path)
 
@@ -224,6 +227,7 @@ Public Class MAITOOLS
 
             'Model speichern unter 
             SpeichernUnter(modeldoc, newpath)
+            PROPFROMFILE(modeldoc, True)
 
             'Zeichnung speichern unter
             SpeichernUnter(Zeichnungdoc, folder & dialogname & ".SLDDRW")
@@ -237,6 +241,7 @@ Public Class MAITOOLS
             FileIO.FileSystem.DeleteFile(path)
         Else
             SpeichernUnter(modeldoc, newpath)
+            PROPFROMFILE(modeldoc, True)
             FileIO.FileSystem.DeleteFile(path)
         End If
 
@@ -245,7 +250,90 @@ Public Class MAITOOLS
 
     End Sub
 
-    
+    Public Sub MAKEINDEX(ByRef swapp As SldWorks, ByRef modeldoc As ModelDoc2)
+
+        Dim newpath As String
+        Dim path As String
+        Dim gesamtname As String
+        Dim newname As String = ""
+        Dim ending As String
+        Dim folder As String
+        Dim Zeichnungdoc As ModelDoc2
+        Dim fileerror As Long
+        Dim filewarning As Long
+        Dim name As String
+        Dim TNR_Mai As New MAI_Teilenummer
+
+        'Pfad ermitteln
+        path = modeldoc.GetPathName()
+
+        folder = path.Remove(path.LastIndexOf("\") + 1)
+
+        ending = path.Substring(path.LastIndexOf("."), (path.Length) - path.LastIndexOf("."))
+
+        gesamtname = path.Substring(path.LastIndexOf("\") + 1, path.Length - folder.Length - ending.Length)
+
+        TNR_Mai = gesamtname.Substring(0, gesamtname.IndexOf("-"))
+
+
+        Debug.Print("Bindestrich auf: " & gesamtname.IndexOf("-") + 1)
+        Debug.Print("Länge: " & (gesamtname.Length - gesamtname.IndexOf("-") - 1))
+        Debug.Print("Gesamtlänge: " & gesamtname.Length)
+
+        name = gesamtname.Substring(gesamtname.IndexOf("-") + 1, (gesamtname.Length - gesamtname.IndexOf("-") - 1))
+
+
+        'Prüfen ob Teilenummer gültig ist
+        If TNR_Mai.Gueltig = False Then
+
+            MsgBox("Fehler: Teilenummer ist nicht gültig")
+            Exit Sub
+        End If
+
+        'Index hochzählen
+        TNR_Mai.IndexUp()
+
+        newname = TNR_Mai.CreateTnr & "-" & name
+
+
+
+        newpath = folder & newname & ending
+
+        If FileIO.FileSystem.FileExists(newpath) Then
+            MsgBox("Fehler: Eine Datei mit diesem Namen existiert schon!")
+            Exit Sub
+        End If
+
+
+        'Prüfen ob Datei keine Zeichnung ist und ob eine Zeichung existiert
+        If ending <> ".SLDDRW" And FileIO.FileSystem.FileExists(folder & gesamtname & ".SLDDRW") Then
+            'Zeichnung öffnen
+            Zeichnungdoc = swapp.OpenDoc6(folder & gesamtname & ".SLDDRW", swDocumentTypes_e.swDocDRAWING, swOpenDocOptions_e.swOpenDocOptions_Silent, "", fileerror, filewarning)
+
+            'Model speichern unter 
+            SpeichernUnter(modeldoc, newpath)
+            PROPFROMFILE(modeldoc, True)
+
+            'Zeichnung speichern unter
+            SpeichernUnter(Zeichnungdoc, folder & newname & ".SLDDRW")
+
+            'Zeichnung schließen
+            'Zeichnungdoc.ForceRebuild3(True)
+            swapp.CloseDoc(Zeichnungdoc.GetTitle())
+
+        Else
+            SpeichernUnter(modeldoc, newpath)
+            PROPFROMFILE(modeldoc, True)
+        End If
+
+
+
+
+
+
+    End Sub
+
+
 
 
 #End Region
@@ -667,10 +755,11 @@ Public Class MAITOOLS
 
             If MAITNR.Gueltig Then
                 'Wenn ohne Benutzereingabe ausgeführt
-
-                Pos_datei = Teilenummer_datei.Substring(Teilenummer_datei.LastIndexOf(".") + 1, Teilenummer_datei.Length - Teilenummer_datei.LastIndexOf(".") - 1)
-                Pos_datei = FormatNumber(Pos_datei, 0, 0, 0, 0)
-
+                Try
+                    Pos_datei = Teilenummer_datei.Substring(Teilenummer_datei.LastIndexOf(".") + 1, Teilenummer_datei.Length - Teilenummer_datei.LastIndexOf(".") - 1)
+                    Pos_datei = FormatNumber(Pos_datei, 0, 0, 0, 0)
+                Catch
+                End Try
 
                 CHANGEPROP(doc, Teilenummer_bez, Teilenummer_datei, False)
                 CHANGEPROP(doc, Name_bez, Name_datei, False)

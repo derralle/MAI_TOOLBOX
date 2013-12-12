@@ -219,7 +219,8 @@ Public Class MAI_Teilenummer
     Public Function EXTRACTTNR(ByVal tnrstr As String) As String
         Const minlength As Long = 12
         Const maxlength As Long = 16
-
+        'rekursiver aufruf
+        Dim Teilenummer As New MAI_Teilenummer
         Dim chklength As Long = 0
         Dim tnr As String = ""
         Dim tmpstr As String = ""
@@ -248,8 +249,9 @@ Public Class MAI_Teilenummer
                 'Prüfen ob Teilenummer enthalten
                 'Debug.Print("Prüflänge: " & chklength & "  Prüfstring: " & tnrstr.Substring(i, chklength))
 
-
-                If CheckTnr(tnrstr.Substring(i, chklength)) Then
+                'Rekursiver aufruf
+                Teilenummer = tnrstr.Substring(i, chklength)
+                If Teilenummer.Gueltig Then
                     'Debug.Print("Treffer: " & tnrstr.Substring(i, chklength))
                     Return tnrstr.Substring(i, chklength)
                 End If
@@ -273,95 +275,95 @@ Public Class MAI_Teilenummer
 
 
     'Teilenummern überprüfen
-    Private Function CheckTnr(ByVal tnrstr As String) As Boolean
+    'Private Function CheckTnr(ByVal tnrstr As String) As Boolean
 
-        Dim validchars As String = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        Dim validindex As Boolean = False
-
-
-
-        'Prüfen ob Index zuglassene Zeichen enthält
-        If tnrstr.Length = 16 Then
-            For Indexchar = 0 To validchars.Length - 1
-                If tnrstr(15) = validchars(Indexchar) Then
-                    validindex = True
-                    Exit For
-                End If
-            Next
-        End If
-
-        If tnrstr.Length = 13 Then
-            For Indexchar = 0 To validchars.Length - 1
-                If tnrstr(12) = validchars(Indexchar) Then
-                    validindex = True
-                    Exit For
-                End If
-            Next
-        End If
-
-
-        'Index entfernen
-        If Len(tnrstr) = 13 And validindex Then
-            tnrstr = tnrstr.Remove(12)
-        End If
-
-        'index entfernen
-        If Len(tnrstr) = 16 And validindex Then
-            tnrstr = tnrstr.Remove(15)
-        End If
-
-
-        'Stellen prüfen
-        If Len(tnrstr) <> 15 And Len(tnrstr) <> 12 Then
-            Return False
-        End If
-
-
-        'Stellen 1-6 numerisch
-        If IsNumeric(Mid(tnrstr, 6)) = False Then
-            Return False
-        End If
-
-
-        'Stelle 7 ein Punkt
-        If Mid(tnrstr, 7, 1) <> "." Then
-            Return False
-        End If
-
-
-        'Stelle 8-9 nummerisch
-        If IsNumeric(Mid(tnrstr, 8, 2)) = False Then
-            Return False
-        End If
-
-
-        'Stelle 10 ein Punkt
-        If Mid(tnrstr, 10, 1) <> "." Then
-            Return False
-        End If
-
-
-        'Stelle 11-12 nummerisch
-        If IsNumeric(Mid(tnrstr, 11, 2)) = False Then
-            Return False
-        End If
-
-
-        'Stelle 10 ein Punkt und String 15 Zeichen lang
-        If (Len(tnrstr) = 15) And (Mid(tnrstr, 13, 1) = ".") = False Then
-            Return False
-        End If
-
-        'Stelle 14-15 Numerisch und String 15 Zeichen lang
-        If (Len(tnrstr) = 15) And IsNumeric(Mid(tnrstr, 14, 2)) = False Then
-            Return False
-        End If
-
-        Return True
+    '    Dim validchars As String = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    '    Dim validindex As Boolean = False
 
 
 
-    End Function
+    '    'Prüfen ob Index zuglassene Zeichen enthält
+    '    If tnrstr.Length = 16 Then
+    '        For Indexchar = 0 To validchars.Length - 1
+    '            If tnrstr(15) = validchars(Indexchar) Then
+    '                validindex = True
+    '                Exit For
+    '            End If
+    '        Next
+    '    End If
+
+    '    If tnrstr.Length = 13 Then
+    '        For Indexchar = 0 To validchars.Length - 1
+    '            If tnrstr(12) = validchars(Indexchar) Then
+    '                validindex = True
+    '                Exit For
+    '            End If
+    '        Next
+    '    End If
+
+
+    '    'Index entfernen
+    '    If Len(tnrstr) = 13 And validindex Then
+    '        tnrstr = tnrstr.Remove(12)
+    '    End If
+
+    '    'index entfernen
+    '    If Len(tnrstr) = 16 And validindex Then
+    '        tnrstr = tnrstr.Remove(15)
+    '    End If
+
+
+    '    'Stellen prüfen
+    '    If Len(tnrstr) <> 15 And Len(tnrstr) <> 12 Then
+    '        Return False
+    '    End If
+
+
+    '    'Stellen 1-6 numerisch
+    '    If IsNumeric(Mid(tnrstr, 6)) = False Then
+    '        Return False
+    '    End If
+
+
+    '    'Stelle 7 ein Punkt
+    '    If Mid(tnrstr, 7, 1) <> "." Then
+    '        Return False
+    '    End If
+
+
+    '    'Stelle 8-9 nummerisch
+    '    If IsNumeric(Mid(tnrstr, 8, 2)) = False Then
+    '        Return False
+    '    End If
+
+
+    '    'Stelle 10 ein Punkt
+    '    If Mid(tnrstr, 10, 1) <> "." Then
+    '        Return False
+    '    End If
+
+
+    '    'Stelle 11-12 nummerisch
+    '    If IsNumeric(Mid(tnrstr, 11, 2)) = False Then
+    '        Return False
+    '    End If
+
+
+    '    'Stelle 10 ein Punkt und String 15 Zeichen lang
+    '    If (Len(tnrstr) = 15) And (Mid(tnrstr, 13, 1) = ".") = False Then
+    '        Return False
+    '    End If
+
+    '    'Stelle 14-15 Numerisch und String 15 Zeichen lang
+    '    If (Len(tnrstr) = 15) And IsNumeric(Mid(tnrstr, 14, 2)) = False Then
+    '        Return False
+    '    End If
+
+    '    Return True
+
+
+
+    'End Function
 
 
     ''' <summary>
@@ -397,6 +399,30 @@ Public Class MAI_Teilenummer
 
     End Function
 
+    Public Sub IndexUp()
+        Dim validchars As String = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        Dim counter As Long = 0
+
+
+        'Wenn kein Index vorhanden ist mit dem ersten anfangen
+        If Me.Index = "" Or Nothing Then
+            Me.Index = validchars(0)
+            Exit Sub
+        End If
+
+        'Index hochzählen
+        While (counter < validchars.Length - 1)
+            If Me.Index.ToUpper = validchars(counter) Then
+                Me.Index = validchars(counter + 1)
+                Exit While
+            End If
+
+            counter = counter + 1
+
+        End While
+
+    End Sub
+
     ''' <summary>
     ''' Fragt Tiefe der Baugruppe ab
     ''' </summary>
@@ -405,6 +431,8 @@ Public Class MAI_Teilenummer
     Public Function BGTiefe() As Long
         Return Me.BaugruppenNr.Count
     End Function
+
+
 
 
     ''' <summary>
@@ -518,7 +546,7 @@ Public Class MAI_Teilenummer
                 switch = False
             End If
         Next
-       
+
 
 
 
