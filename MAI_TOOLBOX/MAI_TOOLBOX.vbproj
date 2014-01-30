@@ -134,9 +134,11 @@
     <Reference Include="System.Data">
       <Name>System.Data</Name>
     </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
     </Reference>
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
@@ -157,6 +159,15 @@
     <Compile Include="EventHandling.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="MAI-Toolbox\Baugruppenmeister\Baugruppenmeister.vb" />
+    <Compile Include="MAI-Toolbox\Baugruppenmeister\BG_Dataset.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BG_Dataset.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="MAI-Toolbox\Baugruppenmeister\BG_Dataset.vb">
+      <DependentUpon>BG_Dataset.xsd</DependentUpon>
+    </Compile>
     <Compile Include="MAI-Toolbox\BG_OCU_NAME.designer.vb">
       <DependentUpon>BG_OCU_NAME.vb</DependentUpon>
     </Compile>
@@ -164,10 +175,10 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MAI-Toolbox\exporttools.vb" />
-    <Compile Include="MAI-Toolbox\FRM_Baugruppenmeister.Designer.vb">
+    <Compile Include="MAI-Toolbox\Baugruppenmeister\FRM_Baugruppenmeister.Designer.vb">
       <DependentUpon>FRM_Baugruppenmeister.vb</DependentUpon>
     </Compile>
-    <Compile Include="MAI-Toolbox\FRM_Baugruppenmeister.vb">
+    <Compile Include="MAI-Toolbox\Baugruppenmeister\FRM_Baugruppenmeister.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MAI-Toolbox\Frm_Eigensch.Designer.vb">
@@ -211,6 +222,9 @@
     <Compile Include="UserPMPage.vb">
       <SubType>Code</SubType>
     </Compile>
+    <EmbeddedResource Include="MAI-Toolbox\Baugruppenmeister\FRM_Baugruppenmeister.resx">
+      <DependentUpon>FRM_Baugruppenmeister.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MAI-Toolbox\BG_OCU_NAME.resx">
       <DependentUpon>BG_OCU_NAME.vb</DependentUpon>
     </EmbeddedResource>
@@ -267,6 +281,17 @@
     </None>
     <None Include="Install\unregister.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="MAI-Toolbox\Baugruppenmeister\BG_Dataset.xsc">
+      <DependentUpon>BG_Dataset.xsd</DependentUpon>
+    </None>
+    <None Include="MAI-Toolbox\Baugruppenmeister\BG_Dataset.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>BG_Dataset.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="MAI-Toolbox\Baugruppenmeister\BG_Dataset.xss">
+      <DependentUpon>BG_Dataset.xsd</DependentUpon>
     </None>
     <None Include="MAI_TOOLBOX_KEY.snk" />
   </ItemGroup>
