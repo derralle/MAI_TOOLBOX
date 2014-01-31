@@ -838,7 +838,7 @@ Public Class MAITOOLS
 
     End Function
 
-    'Vorhandene Eigenschaften auslesen
+    'Vorhandene Eigenschaften auslesen Modeldoc
     Function GetProp(ByRef modeldoc As ModelDoc2, ByVal propname As String) As String
         Dim SwModelDocExt As ModelDocExtension = modeldoc.Extension
         Dim SwPropMgr As CustomPropertyManager = SwModelDocExt.CustomPropertyManager("")
@@ -850,12 +850,20 @@ Public Class MAITOOLS
         Else
             Return ""
         End If
-
-
-
-
-
     End Function
+
+    Function GetProp(ByRef SwPropMgr As CustomPropertyManager, ByVal propname As String) As String
+        Dim returnval As String = ""
+        Dim returnvalresolved As String = ""
+
+        If SwPropMgr.Get4(propname, False, returnval, returnvalresolved) Then
+            Return returnvalresolved
+        Else
+            Return ""
+        End If
+    End Function
+
+
 
     'Teilenummern überprüfen
     Public Function CHKTNR(ByVal tnrstr As String) As Boolean

@@ -23,19 +23,19 @@ Partial Class FRM_Baugruppenmeister
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.BTN_Refresh = New System.Windows.Forms.Button()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.Stueckzahl = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.BTN_Changed = New System.Windows.Forms.Button()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Stueckzahl = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.IstHilfsBG = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.NameDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TeilenummerDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.HerstellerDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IstFertigungsteilDataGridViewCheckBoxColumn = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.IstKaufteilDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.IstHilfsteilDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewCheckBoxColumn()
-        Me.ZeichnerDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.KonstrukteurDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.BestellnummerDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Bemerkung1DataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -51,14 +51,14 @@ Partial Class FRM_Baugruppenmeister
         CType(Me.BG_Dataset, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'Button1
+        'BTN_Refresh
         '
-        Me.Button1.Location = New System.Drawing.Point(6, 41)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 2
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.BTN_Refresh.Location = New System.Drawing.Point(6, 19)
+        Me.BTN_Refresh.Name = "BTN_Refresh"
+        Me.BTN_Refresh.Size = New System.Drawing.Size(75, 44)
+        Me.BTN_Refresh.TabIndex = 2
+        Me.BTN_Refresh.Text = "Refresh"
+        Me.BTN_Refresh.UseVisualStyleBackColor = True
         '
         'DataGridView1
         '
@@ -67,53 +67,60 @@ Partial Class FRM_Baugruppenmeister
         Me.DataGridView1.AllowUserToOrderColumns = True
         Me.DataGridView1.AutoGenerateColumns = False
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Stueckzahl, Me.NameDataGridViewTextBoxColumn, Me.TeilenummerDataGridViewTextBoxColumn, Me.HerstellerDataGridViewTextBoxColumn, Me.IstFertigungsteilDataGridViewCheckBoxColumn, Me.IstKaufteilDataGridViewTextBoxColumn, Me.IstHilfsteilDataGridViewTextBoxColumn, Me.ZeichnerDataGridViewTextBoxColumn, Me.KonstrukteurDataGridViewTextBoxColumn, Me.BestellnummerDataGridViewTextBoxColumn, Me.Bemerkung1DataGridViewTextBoxColumn, Me.Bemerkung2DataGridViewTextBoxColumn, Me.Bemerkung3DataGridViewTextBoxColumn, Me.NotizDataGridViewTextBoxColumn})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Stueckzahl, Me.NameDataGridViewTextBoxColumn, Me.TeilenummerDataGridViewTextBoxColumn, Me.HerstellerDataGridViewTextBoxColumn, Me.IstFertigungsteilDataGridViewCheckBoxColumn, Me.IstKaufteilDataGridViewTextBoxColumn, Me.IstHilfsteilDataGridViewTextBoxColumn, Me.IstHilfsBG, Me.KonstrukteurDataGridViewTextBoxColumn, Me.BestellnummerDataGridViewTextBoxColumn, Me.Bemerkung1DataGridViewTextBoxColumn, Me.Bemerkung2DataGridViewTextBoxColumn, Me.Bemerkung3DataGridViewTextBoxColumn, Me.NotizDataGridViewTextBoxColumn})
         Me.DataGridView1.DataSource = Me.BaugruppeBindingSource
         Me.DataGridView1.Dock = System.Windows.Forms.DockStyle.Top
         Me.DataGridView1.Location = New System.Drawing.Point(0, 0)
         Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.Size = New System.Drawing.Size(1186, 468)
+        Me.DataGridView1.Size = New System.Drawing.Size(1218, 384)
         Me.DataGridView1.TabIndex = 0
         '
-        'Stueckzahl
+        'BTN_Changed
         '
-        Me.Stueckzahl.DataPropertyName = "Stueckzahl"
-        Me.Stueckzahl.HeaderText = "Stückzahl"
-        Me.Stueckzahl.Name = "Stueckzahl"
-        '
-        'Button2
-        '
-        Me.Button2.Location = New System.Drawing.Point(87, 41)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(75, 23)
-        Me.Button2.TabIndex = 3
-        Me.Button2.Text = "Button2"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.BTN_Changed.Location = New System.Drawing.Point(87, 19)
+        Me.BTN_Changed.Name = "BTN_Changed"
+        Me.BTN_Changed.Size = New System.Drawing.Size(75, 44)
+        Me.BTN_Changed.TabIndex = 3
+        Me.BTN_Changed.Text = "Änderungen übernehmen"
+        Me.BTN_Changed.UseVisualStyleBackColor = True
         '
         'Panel1
         '
         Me.Panel1.AutoSize = True
         Me.Panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel1.Controls.Add(Me.DataGridView1)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1186, 557)
+        Me.Panel1.Size = New System.Drawing.Size(1218, 384)
         Me.Panel1.TabIndex = 4
         '
         'GroupBox1
         '
         Me.GroupBox1.AutoSize = True
         Me.GroupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.GroupBox1.Controls.Add(Me.Button2)
-        Me.GroupBox1.Controls.Add(Me.Button1)
+        Me.GroupBox1.Controls.Add(Me.BTN_Changed)
+        Me.GroupBox1.Controls.Add(Me.BTN_Refresh)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 474)
+        Me.GroupBox1.Location = New System.Drawing.Point(0, 386)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1186, 83)
+        Me.GroupBox1.Size = New System.Drawing.Size(1218, 82)
         Me.GroupBox1.TabIndex = 5
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "GroupBox1"
+        '
+        'Stueckzahl
+        '
+        Me.Stueckzahl.DataPropertyName = "Stueckzahl"
+        Me.Stueckzahl.HeaderText = "Stückzahl"
+        Me.Stueckzahl.Name = "Stueckzahl"
+        Me.Stueckzahl.ReadOnly = True
+        '
+        'IstHilfsBG
+        '
+        Me.IstHilfsBG.DataPropertyName = "IstHilfsBG"
+        Me.IstHilfsBG.HeaderText = "IstHilfsBG"
+        Me.IstHilfsBG.Name = "IstHilfsBG"
         '
         'NameDataGridViewTextBoxColumn
         '
@@ -160,12 +167,6 @@ Partial Class FRM_Baugruppenmeister
         Me.IstHilfsteilDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.IstHilfsteilDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
         Me.IstHilfsteilDataGridViewTextBoxColumn.Width = 76
-        '
-        'ZeichnerDataGridViewTextBoxColumn
-        '
-        Me.ZeichnerDataGridViewTextBoxColumn.DataPropertyName = "Zeichner"
-        Me.ZeichnerDataGridViewTextBoxColumn.HeaderText = "Zeichner"
-        Me.ZeichnerDataGridViewTextBoxColumn.Name = "ZeichnerDataGridViewTextBoxColumn"
         '
         'KonstrukteurDataGridViewTextBoxColumn
         '
@@ -217,7 +218,7 @@ Partial Class FRM_Baugruppenmeister
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1186, 557)
+        Me.ClientSize = New System.Drawing.Size(1218, 468)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Panel1)
         Me.Name = "FRM_Baugruppenmeister"
@@ -233,8 +234,11 @@ Partial Class FRM_Baugruppenmeister
     End Sub
     Friend WithEvents BaugruppeBindingSource As System.Windows.Forms.BindingSource
     Friend WithEvents BG_Dataset As MAI_TOOLBOX.BG_Dataset
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents BTN_Refresh As System.Windows.Forms.Button
     Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
+    Friend WithEvents BTN_Changed As System.Windows.Forms.Button
+    Friend WithEvents Panel1 As System.Windows.Forms.Panel
+    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents Stueckzahl As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents NameDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents TeilenummerDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -242,14 +246,11 @@ Partial Class FRM_Baugruppenmeister
     Friend WithEvents IstFertigungsteilDataGridViewCheckBoxColumn As System.Windows.Forms.DataGridViewCheckBoxColumn
     Friend WithEvents IstKaufteilDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewCheckBoxColumn
     Friend WithEvents IstHilfsteilDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewCheckBoxColumn
-    Friend WithEvents ZeichnerDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents IstHilfsBG As System.Windows.Forms.DataGridViewCheckBoxColumn
     Friend WithEvents KonstrukteurDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents BestellnummerDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Bemerkung1DataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Bemerkung2DataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Bemerkung3DataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents NotizDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents Button2 As System.Windows.Forms.Button
-    Friend WithEvents Panel1 As System.Windows.Forms.Panel
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
 End Class

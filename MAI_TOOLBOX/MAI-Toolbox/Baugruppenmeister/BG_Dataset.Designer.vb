@@ -552,12 +552,6 @@ Partial Public Class BG_Dataset
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function FindByDateiname(ByVal Dateiname As String) As BaugruppeRow
-            Return CType(Me.Rows.Find(New Object() {Dateiname}), BaugruppeRow)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Overrides Function Clone() As Global.System.Data.DataTable
             Dim cln As BaugruppeDataTable = CType(MyBase.Clone, BaugruppeDataTable)
             cln.InitVars()
@@ -629,9 +623,17 @@ Partial Public Class BG_Dataset
             MyBase.Columns.Add(Me.columnIstHilfsteil)
             Me.columnStueckzahl = New Global.System.Data.DataColumn("Stueckzahl", GetType(Long), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnStueckzahl)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("BaugruppeKey1", New Global.System.Data.DataColumn() {Me.columnDateiname}, True))
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("BaugruppeKey1", New Global.System.Data.DataColumn() {Me.columnDateiname}, False))
+            Me.columnIstHilfsBG.AllowDBNull = False
+            Me.columnIstHilfsBG.DefaultValue = CType(False, Boolean)
+            Me.columnIstKaufteil.AllowDBNull = False
+            Me.columnIstKaufteil.DefaultValue = CType(False, Boolean)
             Me.columnDateiname.AllowDBNull = False
             Me.columnDateiname.Unique = True
+            Me.columnIstFertigungsteil.AllowDBNull = False
+            Me.columnIstFertigungsteil.DefaultValue = CType(False, Boolean)
+            Me.columnIstHilfsteil.AllowDBNull = False
+            Me.columnIstHilfsteil.DefaultValue = CType(False, Boolean)
         End Sub
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -825,11 +827,7 @@ Partial Public Class BG_Dataset
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property IstHilfsBG() As Boolean
             Get
-                Try
-                    Return CType(Me(Me.tableBaugruppe.IstHilfsBGColumn), Boolean)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("Der Wert für Spalte IstHilfsBG in Tabelle Baugruppe ist DBNull.", e)
-                End Try
+                Return CType(Me(Me.tableBaugruppe.IstHilfsBGColumn), Boolean)
             End Get
             Set(value As Boolean)
                 Me(Me.tableBaugruppe.IstHilfsBGColumn) = value
@@ -840,11 +838,7 @@ Partial Public Class BG_Dataset
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property IstKaufteil() As Boolean
             Get
-                Try
-                    Return CType(Me(Me.tableBaugruppe.IstKaufteilColumn), Boolean)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("Der Wert für Spalte IstKaufteil in Tabelle Baugruppe ist DBNull.", e)
-                End Try
+                Return CType(Me(Me.tableBaugruppe.IstKaufteilColumn), Boolean)
             End Get
             Set(value As Boolean)
                 Me(Me.tableBaugruppe.IstKaufteilColumn) = value
@@ -986,11 +980,7 @@ Partial Public Class BG_Dataset
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property IstFertigungsteil() As Boolean
             Get
-                Try
-                    Return CType(Me(Me.tableBaugruppe.IstFertigungsteilColumn), Boolean)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("Der Wert für Spalte IstFertigungsteil in Tabelle Baugruppe ist DBNull.", e)
-                End Try
+                Return CType(Me(Me.tableBaugruppe.IstFertigungsteilColumn), Boolean)
             End Get
             Set(value As Boolean)
                 Me(Me.tableBaugruppe.IstFertigungsteilColumn) = value
@@ -1001,11 +991,7 @@ Partial Public Class BG_Dataset
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property IstHilfsteil() As Boolean
             Get
-                Try
-                    Return CType(Me(Me.tableBaugruppe.IstHilfsteilColumn), Boolean)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("Der Wert für Spalte IstHilfsteil in Tabelle Baugruppe ist DBNull.", e)
-                End Try
+                Return CType(Me(Me.tableBaugruppe.IstHilfsteilColumn), Boolean)
             End Get
             Set(value As Boolean)
                 Me(Me.tableBaugruppe.IstHilfsteilColumn) = value
@@ -1061,30 +1047,6 @@ Partial Public Class BG_Dataset
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetPfadNull()
             Me(Me.tableBaugruppe.PfadColumn) = Global.System.Convert.DBNull
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function IsIstHilfsBGNull() As Boolean
-            Return Me.IsNull(Me.tableBaugruppe.IstHilfsBGColumn)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub SetIstHilfsBGNull()
-            Me(Me.tableBaugruppe.IstHilfsBGColumn) = Global.System.Convert.DBNull
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function IsIstKaufteilNull() As Boolean
-            Return Me.IsNull(Me.tableBaugruppe.IstKaufteilColumn)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub SetIstKaufteilNull()
-            Me(Me.tableBaugruppe.IstKaufteilColumn) = Global.System.Convert.DBNull
         End Sub
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -1181,30 +1143,6 @@ Partial Public Class BG_Dataset
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetKonstrukteurNull()
             Me(Me.tableBaugruppe.KonstrukteurColumn) = Global.System.Convert.DBNull
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function IsIstFertigungsteilNull() As Boolean
-            Return Me.IsNull(Me.tableBaugruppe.IstFertigungsteilColumn)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub SetIstFertigungsteilNull()
-            Me(Me.tableBaugruppe.IstFertigungsteilColumn) = Global.System.Convert.DBNull
-        End Sub
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Function IsIstHilfsteilNull() As Boolean
-            Return Me.IsNull(Me.tableBaugruppe.IstHilfsteilColumn)
-        End Function
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Sub SetIstHilfsteilNull()
-            Me(Me.tableBaugruppe.IstHilfsteilColumn) = Global.System.Convert.DBNull
         End Sub
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _

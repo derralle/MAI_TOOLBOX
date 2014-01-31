@@ -18,8 +18,8 @@
               <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
               <xs:element name="Teilenummer" msprop:Generator_ColumnVarNameInTable="columnTeilenummer" msprop:Generator_ColumnPropNameInRow="Teilenummer" msprop:Generator_ColumnPropNameInTable="TeilenummerColumn" msprop:Generator_UserColumnName="Teilenummer" type="xs:string" minOccurs="0" />
               <xs:element name="Pfad" msprop:Generator_ColumnVarNameInTable="columnPfad" msprop:Generator_ColumnPropNameInRow="Pfad" msprop:Generator_ColumnPropNameInTable="PfadColumn" msprop:Generator_UserColumnName="Pfad" type="xs:string" minOccurs="0" />
-              <xs:element name="IstHilfsBG" msprop:Generator_ColumnVarNameInTable="columnIstHilfsBG" msprop:Generator_ColumnPropNameInRow="IstHilfsBG" msprop:Generator_ColumnPropNameInTable="IstHilfsBGColumn" msprop:Generator_UserColumnName="IstHilfsBG" type="xs:boolean" minOccurs="0" />
-              <xs:element name="IstKaufteil" msprop:Generator_ColumnVarNameInTable="columnIstKaufteil" msprop:Generator_ColumnPropNameInRow="IstKaufteil" msprop:Generator_ColumnPropNameInTable="IstKaufteilColumn" msprop:Generator_UserColumnName="IstKaufteil" type="xs:boolean" minOccurs="0" />
+              <xs:element name="IstHilfsBG" msprop:Generator_ColumnVarNameInTable="columnIstHilfsBG" msprop:Generator_ColumnPropNameInRow="IstHilfsBG" msprop:Generator_ColumnPropNameInTable="IstHilfsBGColumn" msprop:Generator_UserColumnName="IstHilfsBG" type="xs:boolean" default="false" />
+              <xs:element name="IstKaufteil" msprop:Generator_ColumnVarNameInTable="columnIstKaufteil" msprop:Generator_ColumnPropNameInRow="IstKaufteil" msprop:Generator_ColumnPropNameInTable="IstKaufteilColumn" msprop:Generator_UserColumnName="IstKaufteil" type="xs:boolean" default="false" />
               <xs:element name="Hersteller" msprop:Generator_ColumnVarNameInTable="columnHersteller" msprop:Generator_ColumnPropNameInRow="Hersteller" msprop:Generator_ColumnPropNameInTable="HerstellerColumn" msprop:Generator_UserColumnName="Hersteller" type="xs:string" minOccurs="0" />
               <xs:element name="Bestellnummer" msprop:Generator_ColumnVarNameInTable="columnBestellnummer" msprop:Generator_ColumnPropNameInRow="Bestellnummer" msprop:Generator_ColumnPropNameInTable="BestellnummerColumn" msprop:Generator_UserColumnName="Bestellnummer" type="xs:string" minOccurs="0" />
               <xs:element name="Bemerkung1" msprop:Generator_ColumnVarNameInTable="columnBemerkung1" msprop:Generator_ColumnPropNameInRow="Bemerkung1" msprop:Generator_ColumnPropNameInTable="Bemerkung1Column" msprop:Generator_UserColumnName="Bemerkung1" type="xs:string" minOccurs="0" />
@@ -29,15 +29,15 @@
               <xs:element name="Zeichner" msprop:Generator_ColumnVarNameInTable="columnZeichner" msprop:Generator_ColumnPropNameInRow="Zeichner" msprop:Generator_ColumnPropNameInTable="ZeichnerColumn" msprop:Generator_UserColumnName="Zeichner" type="xs:string" minOccurs="0" />
               <xs:element name="Konstrukteur" msprop:Generator_ColumnVarNameInTable="columnKonstrukteur" msprop:Generator_ColumnPropNameInRow="Konstrukteur" msprop:Generator_ColumnPropNameInTable="KonstrukteurColumn" msprop:Generator_UserColumnName="Konstrukteur" type="xs:string" minOccurs="0" />
               <xs:element name="Dateiname" msprop:Generator_ColumnVarNameInTable="columnDateiname" msprop:Generator_ColumnPropNameInRow="Dateiname" msprop:Generator_ColumnPropNameInTable="DateinameColumn" msprop:Generator_UserColumnName="Dateiname" type="xs:string" />
-              <xs:element name="IstFertigungsteil" msprop:Generator_ColumnVarNameInTable="columnIstFertigungsteil" msprop:Generator_ColumnPropNameInRow="IstFertigungsteil" msprop:Generator_ColumnPropNameInTable="IstFertigungsteilColumn" msprop:Generator_UserColumnName="IstFertigungsteil" type="xs:boolean" minOccurs="0" />
-              <xs:element name="IstHilfsteil" msprop:Generator_ColumnVarNameInTable="columnIstHilfsteil" msprop:Generator_ColumnPropNameInRow="IstHilfsteil" msprop:Generator_ColumnPropNameInTable="IstHilfsteilColumn" msprop:Generator_UserColumnName="IstHilfsteil" type="xs:boolean" minOccurs="0" />
+              <xs:element name="IstFertigungsteil" msprop:Generator_ColumnVarNameInTable="columnIstFertigungsteil" msprop:Generator_ColumnPropNameInRow="IstFertigungsteil" msprop:Generator_ColumnPropNameInTable="IstFertigungsteilColumn" msprop:Generator_UserColumnName="IstFertigungsteil" type="xs:boolean" default="false" />
+              <xs:element name="IstHilfsteil" msprop:Generator_ColumnVarNameInTable="columnIstHilfsteil" msprop:Generator_ColumnPropNameInRow="IstHilfsteil" msprop:Generator_ColumnPropNameInTable="IstHilfsteilColumn" msprop:Generator_UserColumnName="IstHilfsteil" type="xs:boolean" default="false" />
               <xs:element name="Stueckzahl" msprop:Generator_ColumnVarNameInTable="columnStueckzahl" msprop:Generator_ColumnPropNameInRow="Stueckzahl" msprop:Generator_ColumnPropNameInTable="StueckzahlColumn" msprop:Generator_UserColumnName="Stueckzahl" type="xs:long" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:choice>
     </xs:complexType>
-    <xs:unique name="BaugruppeKey1" msdata:PrimaryKey="true">
+    <xs:unique name="BaugruppeKey1">
       <xs:selector xpath=".//mstns:Baugruppe" />
       <xs:field xpath="mstns:Dateiname" />
     </xs:unique>

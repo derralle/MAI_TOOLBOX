@@ -627,10 +627,15 @@ Public Class SwAddin
     'Kontrukteur für Baugruppe ändern
     Sub CHANGE_DESIGNER()
 
-        Dim doc As ModelDoc2
+        Dim BGM As New Baugruppenmeister(iSwApp)
 
-        doc = iSwApp.ActiveDoc
-        toolbox.CHANGE_DESIGNER(doc)
+
+
+
+        'Dim doc As ModelDoc2
+
+        'doc = iSwApp.ActiveDoc
+        'toolbox.CHANGE_DESIGNER(doc)
     End Sub
 
     'Eigenschaften aus Filenamen übernehmen
