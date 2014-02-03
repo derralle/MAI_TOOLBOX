@@ -839,26 +839,28 @@ Public Class MAITOOLS
     End Function
 
     'Vorhandene Eigenschaften auslesen Modeldoc
-    Function GetProp(ByRef modeldoc As ModelDoc2, ByVal propname As String) As String
+    Function GetProp(ByRef modeldoc As ModelDoc2, ByVal propname As String, Optional config As String = "") As String
         Dim SwModelDocExt As ModelDocExtension = modeldoc.Extension
-        Dim SwPropMgr As CustomPropertyManager = SwModelDocExt.CustomPropertyManager("")
-        Dim returnval As String = ""
-        Dim returnvalresolved As String = ""
-
-        If SwPropMgr.Get4(propname, False, returnval, returnvalresolved) Then
-            Return returnval
-        Else
-            Return ""
-        End If
-    End Function
-
-    Function GetProp(ByRef SwPropMgr As CustomPropertyManager, ByVal propname As String) As String
+        Dim SwPropMgr As CustomPropertyManager = SwModelDocExt.CustomPropertyManager(config)
         Dim returnval As String = ""
         Dim returnvalresolved As String = ""
 
         If SwPropMgr.Get4(propname, False, returnval, returnvalresolved) Then
             Return returnvalresolved
         Else
+            Return ""
+        End If
+    End Function
+
+    Function GetProp(ByRef SwPropMgr As CustomPropertyManager, ByVal propname As String, Optional ByRef retval_out As Boolean = False) As String
+        Dim returnval As String = ""
+        Dim returnvalresolved As String = ""
+
+        If SwPropMgr.Get4(propname, False, returnval, returnvalresolved) Then
+            retval_out = True
+            Return returnvalresolved
+        Else
+            retval_out = False
             Return ""
         End If
     End Function

@@ -12,7 +12,7 @@
   <xs:element name="BG_Dataset" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="BG_Dataset" msprop:Generator_UserDSName="BG_Dataset">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Baugruppe" msprop:Generator_TableClassName="BaugruppeDataTable" msprop:Generator_TableVarName="tableBaugruppe" msprop:Generator_TablePropName="Baugruppe" msprop:Generator_RowDeletingName="BaugruppeRowDeleting" msprop:Generator_RowChangingName="BaugruppeRowChanging" msprop:Generator_RowEvHandlerName="BaugruppeRowChangeEventHandler" msprop:Generator_RowDeletedName="BaugruppeRowDeleted" msprop:Generator_UserTableName="Baugruppe" msprop:Generator_RowChangedName="BaugruppeRowChanged" msprop:Generator_RowEvArgName="BaugruppeRowChangeEvent" msprop:Generator_RowClassName="BaugruppeRow">
+        <xs:element name="Baugruppe" msprop:Generator_TableClassName="BaugruppeDataTable" msprop:Generator_TableVarName="tableBaugruppe" msprop:Generator_RowChangedName="BaugruppeRowChanged" msprop:Generator_TablePropName="Baugruppe" msprop:Generator_RowDeletingName="BaugruppeRowDeleting" msprop:Generator_RowChangingName="BaugruppeRowChanging" msprop:Generator_RowEvHandlerName="BaugruppeRowChangeEventHandler" msprop:Generator_RowDeletedName="BaugruppeRowDeleted" msprop:Generator_RowClassName="BaugruppeRow" msprop:Generator_UserTableName="Baugruppe" msprop:Generator_RowEvArgName="BaugruppeRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
@@ -32,6 +32,7 @@
               <xs:element name="IstFertigungsteil" msprop:Generator_ColumnVarNameInTable="columnIstFertigungsteil" msprop:Generator_ColumnPropNameInRow="IstFertigungsteil" msprop:Generator_ColumnPropNameInTable="IstFertigungsteilColumn" msprop:Generator_UserColumnName="IstFertigungsteil" type="xs:boolean" default="false" />
               <xs:element name="IstHilfsteil" msprop:Generator_ColumnVarNameInTable="columnIstHilfsteil" msprop:Generator_ColumnPropNameInRow="IstHilfsteil" msprop:Generator_ColumnPropNameInTable="IstHilfsteilColumn" msprop:Generator_UserColumnName="IstHilfsteil" type="xs:boolean" default="false" />
               <xs:element name="Stueckzahl" msprop:Generator_ColumnVarNameInTable="columnStueckzahl" msprop:Generator_ColumnPropNameInRow="Stueckzahl" msprop:Generator_ColumnPropNameInTable="StueckzahlColumn" msprop:Generator_UserColumnName="Stueckzahl" type="xs:long" minOccurs="0" />
+              <xs:element name="Konfiguration" msprop:Generator_ColumnVarNameInTable="columnKonfiguration" msprop:Generator_ColumnPropNameInRow="Konfiguration" msprop:Generator_ColumnPropNameInTable="KonfigurationColumn" msprop:Generator_UserColumnName="Konfiguration" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

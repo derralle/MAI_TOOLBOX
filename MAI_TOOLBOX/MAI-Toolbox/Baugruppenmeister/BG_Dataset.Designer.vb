@@ -317,6 +317,8 @@ Partial Public Class BG_Dataset
         
         Private columnStueckzahl As Global.System.Data.DataColumn
 
+        Private columnKonfiguration As Global.System.Data.DataColumn
+
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub New()
@@ -489,6 +491,14 @@ Partial Public Class BG_Dataset
         End Property
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public ReadOnly Property KonfigurationColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnKonfiguration
+            End Get
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"), _
          Global.System.ComponentModel.Browsable(False)> _
         Public ReadOnly Property Count() As Integer
@@ -542,9 +552,10 @@ Partial Public Class BG_Dataset
                     ByVal Dateiname As String, _
                     ByVal IstFertigungsteil As Boolean, _
                     ByVal IstHilfsteil As Boolean, _
-                    ByVal Stueckzahl As Long) As BaugruppeRow
+                    ByVal Stueckzahl As Long, _
+                    ByVal Konfiguration As String) As BaugruppeRow
             Dim rowBaugruppeRow As BaugruppeRow = CType(Me.NewRow, BaugruppeRow)
-            Dim columnValuesArray() As Object = New Object() {Name, Teilenummer, Pfad, IstHilfsBG, IstKaufteil, Hersteller, Bestellnummer, Bemerkung1, Bemerkung2, Bemerkung3, Notiz, Zeichner, Konstrukteur, Dateiname, IstFertigungsteil, IstHilfsteil, Stueckzahl}
+            Dim columnValuesArray() As Object = New Object() {Name, Teilenummer, Pfad, IstHilfsBG, IstKaufteil, Hersteller, Bestellnummer, Bemerkung1, Bemerkung2, Bemerkung3, Notiz, Zeichner, Konstrukteur, Dateiname, IstFertigungsteil, IstHilfsteil, Stueckzahl, Konfiguration}
             rowBaugruppeRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowBaugruppeRow)
             Return rowBaugruppeRow
@@ -584,6 +595,7 @@ Partial Public Class BG_Dataset
             Me.columnIstFertigungsteil = MyBase.Columns("IstFertigungsteil")
             Me.columnIstHilfsteil = MyBase.Columns("IstHilfsteil")
             Me.columnStueckzahl = MyBase.Columns("Stueckzahl")
+            Me.columnKonfiguration = MyBase.Columns("Konfiguration")
         End Sub
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
@@ -623,6 +635,8 @@ Partial Public Class BG_Dataset
             MyBase.Columns.Add(Me.columnIstHilfsteil)
             Me.columnStueckzahl = New Global.System.Data.DataColumn("Stueckzahl", GetType(Long), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnStueckzahl)
+            Me.columnKonfiguration = New Global.System.Data.DataColumn("Konfiguration", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnKonfiguration)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("BaugruppeKey1", New Global.System.Data.DataColumn() {Me.columnDateiname}, False))
             Me.columnIstHilfsBG.AllowDBNull = False
             Me.columnIstHilfsBG.DefaultValue = CType(False, Boolean)
@@ -1015,6 +1029,21 @@ Partial Public Class BG_Dataset
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property Konfiguration() As String
+            Get
+                Try
+                    Return CType(Me(Me.tableBaugruppe.KonfigurationColumn), String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("Der Wert für Spalte Konfiguration in Tabelle Baugruppe ist DBNull.", e)
+                End Try
+            End Get
+            Set(value As String)
+                Me(Me.tableBaugruppe.KonfigurationColumn) = value
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Function IsNameNull() As Boolean
             Return Me.IsNull(Me.tableBaugruppe.NameColumn)
         End Function
@@ -1155,6 +1184,18 @@ Partial Public Class BG_Dataset
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Sub SetStueckzahlNull()
             Me(Me.tableBaugruppe.StueckzahlColumn) = Global.System.Convert.DBNull
+        End Sub
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Function IsKonfigurationNull() As Boolean
+            Return Me.IsNull(Me.tableBaugruppe.KonfigurationColumn)
+        End Function
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Sub SetKonfigurationNull()
+            Me(Me.tableBaugruppe.KonfigurationColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     

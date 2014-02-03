@@ -106,12 +106,15 @@ Public Class Baugruppenmeister
 
                 Dim row As BG_Dataset.BaugruppeRow
                 Dim selectrow() As BG_Dataset.BaugruppeRow
+                Dim config As String
 
                 row = Dataset.Baugruppe.NewBaugruppeRow
 
                 tempmodel = components(i).GetModelDoc2
 
-                row = Fillrow(tempmodel, row)
+                config = components(i).ReferencedConfiguration
+
+                row = Fillrow(tempmodel, row, config)
 
                 selectrow = Dataset.Baugruppe.Select("Dateiname = '" & row.Dateiname & "'")
 
@@ -127,15 +130,18 @@ Public Class Baugruppenmeister
     End Sub
 
 
-    Private Function Fillrow(modeldoc As ModelDoc2, row As BG_Dataset.BaugruppeRow) As BG_Dataset.BaugruppeRow
+    Private Function Fillrow(modeldoc As ModelDoc2, row As BG_Dataset.BaugruppeRow, Optional config As String = "") As BG_Dataset.BaugruppeRow
 
         Dim toolbox As New MAITOOLS(Me.swApp)
         Dim SwModelDocExt As ModelDocExtension = modeldoc.Extension
-        Dim SwPropMgr As CustomPropertyManager = SwModelDocExt.CustomPropertyManager("")
+        Dim SwPropMgr As CustomPropertyManager = SwModelDocExt.CustomPropertyManager(config)
         Dim returnval As String = ""
         Dim returnvalresolved As String = ""
 
 
+
+        'Konfiguration
+        row.Konfiguration = config
 
         'Dateiname
         Dim Dateiname As String
@@ -171,6 +177,9 @@ Public Class Baugruppenmeister
 
         'Zeichner
         row.Zeichner = toolbox.GetProp(SwPropMgr, "zeichner")
+
+        'Notiz
+        row.Notiz = toolbox.GetProp(SwPropMgr, "notiz")
 
         'IstFertigungsteil
         If toolbox.GetProp(SwPropMgr, "istfertigungsteil") = "Yes" Then
