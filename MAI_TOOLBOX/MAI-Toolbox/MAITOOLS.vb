@@ -852,15 +852,13 @@ Public Class MAITOOLS
         End If
     End Function
 
-    Function GetProp(ByRef SwPropMgr As CustomPropertyManager, ByVal propname As String, Optional ByRef retval_out As Boolean = False) As String
+    Function GetProp(ByRef SwPropMgr As CustomPropertyManager, ByVal propname As String) As String
         Dim returnval As String = ""
         Dim returnvalresolved As String = ""
 
         If SwPropMgr.Get4(propname, False, returnval, returnvalresolved) Then
-            retval_out = True
             Return returnvalresolved
         Else
-            retval_out = False
             Return ""
         End If
     End Function

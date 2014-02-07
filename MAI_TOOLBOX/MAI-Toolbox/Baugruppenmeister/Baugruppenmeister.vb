@@ -116,11 +116,15 @@ Public Class Baugruppenmeister
 
                 row = Fillrow(tempmodel, row, config)
 
-                selectrow = Dataset.Baugruppe.Select("Dateiname = '" & row.Dateiname & "'")
+                'Zeilen die die gleich Konfiguration und den gleichen Dateinamen haben in selectrow laden
+                selectrow = Dataset.Baugruppe.Select("Dateiname = '" & row.Dateiname & "' and Konfiguration = '" & row.Konfiguration & "'")
 
+
+                'Wenn selectrow leer dann neue Zeile anlegen
                 If selectrow.Length = 0 Then
                     Dataset.Baugruppe.AddBaugruppeRow(row)
                 Else
+                    'sonst Stückzahl erhöhen
                     selectrow(0).Stueckzahl = selectrow(0).Stueckzahl + 1
                 End If
                 Dataset.AcceptChanges()
@@ -134,7 +138,8 @@ Public Class Baugruppenmeister
 
         Dim toolbox As New MAITOOLS(Me.swApp)
         Dim SwModelDocExt As ModelDocExtension = modeldoc.Extension
-        Dim SwPropMgr As CustomPropertyManager = SwModelDocExt.CustomPropertyManager(config)
+        Dim SwPropMgr As CustomPropertyManager = SwModelDocExt.CustomPropertyManager("")
+        Dim SwPropMgrConfig As CustomPropertyManager = SwModelDocExt.CustomPropertyManager(config)
         Dim returnval As String = ""
         Dim returnvalresolved As String = ""
 
@@ -154,32 +159,35 @@ Public Class Baugruppenmeister
         'Stückzahl auf eins setzen
         row.Stueckzahl = 1
 
-        'Name
-        row.Name = toolbox.GetProp(SwPropMgr, "name")
+        'Konfigurationsabhängige Lesen
+        Dim PropBez() As String = {"name", "bemerkung1", "bemerkung2", "bemerkung3", "hersteller", "best.nr", "notiz", "tnr", "konstrukteur", "zeichner"}
+        Dim TabBez() As String = {"Name", "Bemerkung1", "Bemerkung2", "Bemerkung3", "Hersteller", "Bestellnummer", "Notiz", "Teilenummer", "Konstrukteur", "Zeichner"}
+        Dim IsInConfig As Boolean
+        Dim AllPropBez() As String = SwPropMgr.GetNames
+        Dim AllPropBezConfig() As String = SwPropMgrConfig.GetNames
 
-        'Teilenummer
-        row.Teilenummer = toolbox.GetProp(SwPropMgr, "tnr")
 
-        'Konstrukteur
-        row.Konstrukteur = toolbox.GetProp(SwPropMgr, "konstrukteur")
 
-        'Bemerkung1
-        row.Bemerkung1 = toolbox.GetProp(SwPropMgr, "bemerkung1")
 
-        'Bemerkung2
-        row.Bemerkung2 = toolbox.GetProp(SwPropMgr, "bemerkung2")
+        For i As Long = 0 To PropBez.Length - 1 Step 1
 
-        'Hersteller
-        row.Hersteller = toolbox.GetProp(SwPropMgr, "hersteller")
+            If IsNothing(AllPropBezConfig) = False Then
+                For Each item In AllPropBezConfig
+                    If PropBez(i).ToLower = item.ToLower Then
+                        IsInConfig = True
+                        Exit For
+                    End If
+                Next
 
-        'Bestellnummer
-        row.Bestellnummer = toolbox.GetProp(SwPropMgr, "best.nr")
+            End If
 
-        'Zeichner
-        row.Zeichner = toolbox.GetProp(SwPropMgr, "zeichner")
+            If IsInConfig Then
+                row.Item(TabBez(i)) = toolbox.GetProp(SwPropMgrConfig, PropBez(i))
+            Else
+                row.Item(TabBez(i)) = toolbox.GetProp(SwPropMgr, PropBez(i))
+            End If
 
-        'Notiz
-        row.Notiz = toolbox.GetProp(SwPropMgr, "notiz")
+        Next
 
         'IstFertigungsteil
         If toolbox.GetProp(SwPropMgr, "istfertigungsteil") = "Yes" Then

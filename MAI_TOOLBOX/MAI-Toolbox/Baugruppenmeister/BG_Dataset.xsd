@@ -12,7 +12,7 @@
   <xs:element name="BG_Dataset" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="BG_Dataset" msprop:Generator_UserDSName="BG_Dataset">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Baugruppe" msprop:Generator_TableClassName="BaugruppeDataTable" msprop:Generator_TableVarName="tableBaugruppe" msprop:Generator_RowChangedName="BaugruppeRowChanged" msprop:Generator_TablePropName="Baugruppe" msprop:Generator_RowDeletingName="BaugruppeRowDeleting" msprop:Generator_RowChangingName="BaugruppeRowChanging" msprop:Generator_RowEvHandlerName="BaugruppeRowChangeEventHandler" msprop:Generator_RowDeletedName="BaugruppeRowDeleted" msprop:Generator_RowClassName="BaugruppeRow" msprop:Generator_UserTableName="Baugruppe" msprop:Generator_RowEvArgName="BaugruppeRowChangeEvent">
+        <xs:element name="Baugruppe" msprop:Generator_TableClassName="BaugruppeDataTable" msprop:Generator_TableVarName="tableBaugruppe" msprop:Generator_TablePropName="Baugruppe" msprop:Generator_RowDeletingName="BaugruppeRowDeleting" msprop:Generator_RowChangingName="BaugruppeRowChanging" msprop:Generator_RowEvHandlerName="BaugruppeRowChangeEventHandler" msprop:Generator_RowDeletedName="BaugruppeRowDeleted" msprop:Generator_UserTableName="Baugruppe" msprop:Generator_RowChangedName="BaugruppeRowChanged" msprop:Generator_RowEvArgName="BaugruppeRowChangeEvent" msprop:Generator_RowClassName="BaugruppeRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" minOccurs="0" />
@@ -38,9 +38,5 @@
         </xs:element>
       </xs:choice>
     </xs:complexType>
-    <xs:unique name="BaugruppeKey1">
-      <xs:selector xpath=".//mstns:Baugruppe" />
-      <xs:field xpath="mstns:Dateiname" />
-    </xs:unique>
   </xs:element>
 </xs:schema>

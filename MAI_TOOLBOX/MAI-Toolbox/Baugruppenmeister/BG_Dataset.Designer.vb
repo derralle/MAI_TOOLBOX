@@ -637,13 +637,11 @@ Partial Public Class BG_Dataset
             MyBase.Columns.Add(Me.columnStueckzahl)
             Me.columnKonfiguration = New Global.System.Data.DataColumn("Konfiguration", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnKonfiguration)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("BaugruppeKey1", New Global.System.Data.DataColumn() {Me.columnDateiname}, False))
             Me.columnIstHilfsBG.AllowDBNull = False
             Me.columnIstHilfsBG.DefaultValue = CType(False, Boolean)
             Me.columnIstKaufteil.AllowDBNull = False
             Me.columnIstKaufteil.DefaultValue = CType(False, Boolean)
             Me.columnDateiname.AllowDBNull = False
-            Me.columnDateiname.Unique = True
             Me.columnIstFertigungsteil.AllowDBNull = False
             Me.columnIstFertigungsteil.DefaultValue = CType(False, Boolean)
             Me.columnIstHilfsteil.AllowDBNull = False
