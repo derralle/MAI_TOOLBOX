@@ -27,10 +27,13 @@ Public Class Baugruppenmeister
         End Set
     End Property
 
-
-
     Dim WithEvents Form As New FRM_Baugruppenmeister
     Dim Dataset As New BG_Dataset
+
+    Dim PropBez() As String = {"name", "bemerkung1", "bemerkung2", "bemerkung3", "hersteller", "best.nr", "notiz", "tnr", "konstrukteur", "zeichner"}
+    Dim TabBez() As String = {"Name", "Bemerkung1", "Bemerkung2", "Bemerkung3", "Hersteller", "Bestellnummer", "Notiz", "Teilenummer", "Konstrukteur", "Zeichner"}
+    Dim BoolPropBez() As String = {"IstFertigungsteil", "IstKaufteil", "IstHilfsBG", "IstHilfsteil"}
+    Dim BoolTabBez() As String = {"IstFertigungsteil", "IstKaufteil", "IstHilfsBG", "IstHilfsteil"}
 
     Public Sub New(ByRef iswapp As SldWorks)
 
@@ -159,10 +162,10 @@ Public Class Baugruppenmeister
         'Stückzahl auf eins setzen
         row.Stueckzahl = 1
 
-        'Konfigurationsabhängige Lesen
-        Dim PropBez() As String = {"name", "bemerkung1", "bemerkung2", "bemerkung3", "hersteller", "best.nr", "notiz", "tnr", "konstrukteur", "zeichner"}
-        Dim TabBez() As String = {"Name", "Bemerkung1", "Bemerkung2", "Bemerkung3", "Hersteller", "Bestellnummer", "Notiz", "Teilenummer", "Konstrukteur", "Zeichner"}
-        Dim IsInConfig As Boolean
+        'Konfigurationsabhängiges Lesen
+
+
+        Dim IsInConfig As Boolean = False
         Dim AllPropBez() As String = SwPropMgr.GetNames
         Dim AllPropBezConfig() As String = SwPropMgrConfig.GetNames
 
@@ -186,30 +189,39 @@ Public Class Baugruppenmeister
             Else
                 row.Item(TabBez(i)) = toolbox.GetProp(SwPropMgr, PropBez(i))
             End If
-
+            IsInConfig = False
         Next
 
-        'IstFertigungsteil
-        If toolbox.GetProp(SwPropMgr, "istfertigungsteil") = "Yes" Then
-            row.IstFertigungsteil = True
-        End If
-
-        'IstKaufteil
-        If toolbox.GetProp(SwPropMgr, "IstKaufteil") = "Yes" Then
-            row.IstKaufteil = True
-        End If
 
 
-        'IstHilfsBG
-        If toolbox.GetProp(SwPropMgr, "IstHilfsBG") = "Yes" Then
-            row.IstHilfsBG = True
-        End If
+        'Boolsche Properties
+        
 
 
-        'istHilfsteil
-        If toolbox.GetProp(SwPropMgr, "IstHilfsteil") = "Yes" Then
-            row.IstHilfsteil = True
-        End If
+        For i As Long = 0 To BoolPropBez.Length - 1 Step 1
+
+            If IsNothing(AllPropBezConfig) = False Then
+                For Each item In AllPropBezConfig
+                    If BoolPropBez(i).ToLower = item.ToLower Then
+                        IsInConfig = True
+                        Exit For
+                    End If
+                Next
+
+            End If
+
+            If IsInConfig Then
+                If toolbox.GetProp(SwPropMgrConfig, BoolPropBez(i)) = "Yes" Then
+                    row.Item(BoolTabBez(i)) = True
+                End If
+            Else
+                If toolbox.GetProp(SwPropMgr, BoolPropBez(i)) = "Yes" Then
+                    row.Item(BoolTabBez(i)) = True
+                End If
+            End If
+            IsInConfig = False
+
+        Next
 
 
 
@@ -217,6 +229,7 @@ Public Class Baugruppenmeister
 
 
     End Function
+
 
 
     Private Sub writerow(row As BG_Dataset.BaugruppeRow)
