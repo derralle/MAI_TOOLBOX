@@ -82,8 +82,14 @@ Public Class Baugruppenmeister
 
         Next
 
+        refresh_table()
 
     End Sub
+
+
+
+
+
 
     Private Sub FillTable()
         Dim tools As New MAITOOLS(Me.swApp)
@@ -231,7 +237,11 @@ Public Class Baugruppenmeister
     End Function
 
 
-
+    ''' <summary>
+    ''' Änderungen einer Zeile umsetzen
+    ''' </summary>
+    ''' <param name="row"></param>
+    ''' <remarks></remarks>
     Private Sub writerow(row As BG_Dataset.BaugruppeRow)
 
         Dim Errors As Integer
@@ -292,10 +302,8 @@ Public Class Baugruppenmeister
         Next
 
         '
+        '   String Eigenschaften schreiben
         '
-        '
-       
-
 
         For i As Long = 0 To PropBez.Length - 1 Step 1
 
@@ -317,10 +325,26 @@ Public Class Baugruppenmeister
             IsInConfig = False
         Next
 
+        'Dateinamen ändern
+
+        Dim Name As String = ""
+
+        Name = row.Dateiname.Substring(0, row.Dateiname.LastIndexOf("."))
+
+
+        If Name.ToLower <> (row.Teilenummer.ToLower & "-" & row.Name.ToLower) Then
+
+            tools.UNAME(modeldoc, row.Teilenummer & "-" & row.Name)
+
+        End If
 
 
         modeldoc.Rebuild(swRebuildOptions_e.swUpdateDirtyOnly)
     End Sub
+
+
+
+
 
 
 End Class
