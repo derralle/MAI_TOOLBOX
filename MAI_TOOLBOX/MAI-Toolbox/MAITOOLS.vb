@@ -835,8 +835,46 @@ Public Class MAITOOLS
         End If
 
         Return False
-
     End Function
+
+
+    ''' <summary>
+    ''' Ändert eine Eigenschaft
+    ''' </summary>
+    ''' <param name="SwPropMgr">als CustomPropertyManager</param>
+    ''' <param name="propname">Name des Eigenschaftsfeldes</param>
+    ''' <param name="propvalue">Inhalt des Eigenschaftsfeldes</param>
+    ''' <param name="force">Eigenschaft anlegen wenn nicht vorhanden</param>
+    ''' <returns>True wenn alles I.O.</returns>
+    ''' <remarks></remarks>
+    Function CHANGEPROP(ByRef SwPropMgr As CustomPropertyManager, ByVal propname As String, ByVal propvalue As String, ByVal force As Boolean) As Boolean
+        Dim Prop_bez() As Object
+
+        Prop_bez = SwPropMgr.GetNames
+
+        For i = 0 To SwPropMgr.Count - 1
+
+            If Prop_bez(i).ToString.ToUpper = propname.ToUpper Then
+                propname = Prop_bez(i).ToString
+                SwPropMgr.Set(propname, propvalue)
+                Return True
+                Exit Function
+            End If
+
+        Next
+
+        'Eigenschaft anlegen wenn nicht vorhanden
+        If force Then
+            SwPropMgr.Add2(propname, swCustomInfoType_e.swCustomInfoText, propvalue)
+            Return True
+        End If
+
+        Return False
+    End Function
+
+
+
+
 
     'Vorhandene Eigenschaften auslesen Modeldoc
     Function GetProp(ByRef modeldoc As ModelDoc2, ByVal propname As String, Optional config As String = "") As String
@@ -852,6 +890,13 @@ Public Class MAITOOLS
         End If
     End Function
 
+    ''' <summary>
+    ''' Vorhandene Eigenschaften auslesen
+    ''' </summary>
+    ''' <param name="SwPropMgr">als CustomPropertyManager</param>
+    ''' <param name="propname">'Name der Eigenschaft</param>
+    ''' <returns>Eigenschaft als String</returns>
+    ''' <remarks></remarks>
     Function GetProp(ByRef SwPropMgr As CustomPropertyManager, ByVal propname As String) As String
         Dim returnval As String = ""
         Dim returnvalresolved As String = ""

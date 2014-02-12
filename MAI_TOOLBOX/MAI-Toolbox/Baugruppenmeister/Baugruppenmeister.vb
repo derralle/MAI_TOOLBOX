@@ -255,52 +255,68 @@ Public Class Baugruppenmeister
 
         Dim SwModelDocExt As ModelDocExtension = modeldoc.Extension
         Dim SwPropMgr As CustomPropertyManager = SwModelDocExt.CustomPropertyManager("")
+        Dim SWPropMgrConfig As CustomPropertyManager = SwModelDocExt.CustomPropertyManager(row.Konfiguration)
         Dim tools As New MAITOOLS(Me.swApp)
 
 
 
-        'IstFertigungsteil
-        If row.IstFertigungsteil Then
-            tools.CHANGEPROP(modeldoc, "IstFertigungsteil", "Yes", True)
-        Else
-            tools.CHANGEPROP(modeldoc, "IstFertigungsteil", "No", True)
-        End If
+        Dim AllPropBez() As String = SwPropMgr.GetNames
+        Dim AllPropBezConfig() As String = SWPropMgrConfig.GetNames
+        Dim IsInConfig As Boolean = False
 
-        'IstKaufteil
-        If row.IstKaufteil Then
-            tools.CHANGEPROP(modeldoc, "IstKaufteil", "Yes", True)
-        Else
-            tools.CHANGEPROP(modeldoc, "IstKaufteil", "No", True)
-        End If
+        'Boolsche Properties
 
-        'IstHilfsBG
-        If row.IstHilfsBG Then
-            tools.CHANGEPROP(modeldoc, "IstHilfsBG", "Yes", True)
-        Else
-            tools.CHANGEPROP(modeldoc, "IstHilfsBG", "No", True)
-        End If
+        For i As Long = 0 To BoolPropBez.Length - 1 Step 1
 
-        'istHilfsteil
-        If row.IstHilfsteil Then
-            tools.CHANGEPROP(modeldoc, "IstHilfsteil", "Yes", True)
-        Else
-            tools.CHANGEPROP(modeldoc, "IstHilfsteil", "No", True)
-        End If
+            If IsNothing(AllPropBezConfig) = False Then
+                For Each item In AllPropBezConfig
+                    If BoolPropBez(i).ToLower = item.ToLower Then
+                        IsInConfig = True
+                        Exit For
+                    End If
+                Next
 
-        'Bestellnummer
-        tools.CHANGEPROP(modeldoc, "Best.Nr", row.Bestellnummer, True)
+            End If
 
-        'Bemerkung1
-        tools.CHANGEPROP(modeldoc, "Bemerkung1", row.Bemerkung1, True)
+            If IsInConfig Then
+                If row.Item(BoolTabBez(i)) Then
+                    tools.CHANGEPROP(SWPropMgrConfig, BoolPropBez(i), "Yes", True)
+                End If
+            Else
+                If row.Item(BoolTabBez(i)) = True Then
+                    tools.CHANGEPROP(SwPropMgr, BoolPropBez(i), "Yes", True)
+                End If
+            End If
+            IsInConfig = False
 
-        'Bemerkung2
-        tools.CHANGEPROP(modeldoc, "Bemerkung2", row.Bemerkung2, True)
+        Next
 
-        'Hersteller
-        tools.CHANGEPROP(modeldoc, "Hersteller", row.Hersteller, True)
+        '
+        '
+        '
+       
 
-        'Konstrukteur
-        tools.CHANGEPROP(modeldoc, "Konstrukteur", row.Konstrukteur, True)
+
+        For i As Long = 0 To PropBez.Length - 1 Step 1
+
+            If IsNothing(AllPropBezConfig) = False Then
+                For Each item In AllPropBezConfig
+                    If PropBez(i).ToLower = item.ToLower Then
+                        IsInConfig = True
+                        Exit For
+                    End If
+                Next
+
+            End If
+
+            If IsInConfig Then
+                tools.CHANGEPROP(SWPropMgrConfig, PropBez(i), row.Item(TabBez(i)), True)
+            Else
+                tools.CHANGEPROP(SwPropMgr, PropBez(i), row.Item(TabBez(i)), True)
+            End If
+            IsInConfig = False
+        Next
+
 
 
         modeldoc.Rebuild(swRebuildOptions_e.swUpdateDirtyOnly)
