@@ -27,6 +27,16 @@ Public Class Baugruppenmeister
         End Set
     End Property
 
+    Private HGBeinbezValue As Boolean
+    readonly Public Property HGBeinbez() As Boolean
+        Get
+            Return Form.CB_HBG_einbeziehen.Checked
+        End Get
+    End Property
+
+
+
+
     Dim WithEvents Form As New FRM_Baugruppenmeister
     Dim Dataset As New BG_Dataset
 
@@ -52,6 +62,7 @@ Public Class Baugruppenmeister
 
             Form.Show()
 
+            Form.getchanges = True
 
         End If
 
@@ -61,8 +72,10 @@ Public Class Baugruppenmeister
 
     Private Sub refresh_table() Handles Form.RefreshBGTable
 
+        Form.getchanges = False
         Dataset.Baugruppe.Clear()
         FillTable()
+        Form.getchanges = True
 
     End Sub
 
@@ -86,7 +99,17 @@ Public Class Baugruppenmeister
 
     End Sub
 
+    Private Sub Datei_oeffnen(path As String) Handles Form.Datei_Oeffnen
 
+        Dim openerrors As Integer
+        Dim openwarnings As Integer
+        Dim activateerrors As Integer
+
+        swApp.OpenDoc6(path, swDocumentTypes_e.swDocPART, swOpenDocOptions_e.swOpenDocOptions_LoadModel, "", openerrors, openwarnings)
+        swApp.IActivateDoc3(path, False, activateerrors)
+
+
+    End Sub
 
 
 
@@ -201,7 +224,7 @@ Public Class Baugruppenmeister
 
 
         'Boolsche Properties
-        
+
 
 
         For i As Long = 0 To BoolPropBez.Length - 1 Step 1
@@ -242,6 +265,7 @@ Public Class Baugruppenmeister
     ''' </summary>
     ''' <param name="row"></param>
     ''' <remarks></remarks>
+    ''' 
     Private Sub writerow(row As BG_Dataset.BaugruppeRow)
 
         Dim Errors As Integer
@@ -325,19 +349,27 @@ Public Class Baugruppenmeister
             IsInConfig = False
         Next
 
+        '
         'Dateinamen ändern
+        '
+        Dim MaiTnr As New MAI_Teilenummer
 
         Dim Name As String = ""
 
         Name = row.Dateiname.Substring(0, row.Dateiname.LastIndexOf("."))
 
 
-        If Name.ToLower <> (row.Teilenummer.ToLower & "-" & row.Name.ToLower) Then
+        MaiTnr = row.Teilenummer
 
-            tools.UNAME(modeldoc, row.Teilenummer & "-" & row.Name)
+        'Nur Namensänderungen bei Fertigunsteilen
+        If MaiTnr.Gueltig Then
 
+            If Name.ToLower <> (row.Teilenummer.ToLower & "-" & row.Name.ToLower) Then
+
+                tools.UNAME(modeldoc, row.Teilenummer & "-" & row.Name)
+
+            End If
         End If
-
 
         modeldoc.Rebuild(swRebuildOptions_e.swUpdateDirtyOnly)
     End Sub
