@@ -26,27 +26,27 @@ Partial Class FRM_Baugruppenmeister
         Me.BTN_Refresh = New System.Windows.Forms.Button()
         Me.BTN_Changed = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.CB_HBG_einbeziehen = New System.Windows.Forms.CheckBox()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.BaugruppeBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.BG_Dataset = New MAI_TOOLBOX.BG_Dataset()
+        Me.DGV_CTMS1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.TSMI_oeffnen = New System.Windows.Forms.ToolStripMenuItem()
         Me.Stueckzahl = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.NameDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TeilenummerDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.NameDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BestellnummerDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.HerstellerDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.IstFertigungsteilDataGridViewCheckBoxColumn = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.IstKaufteilDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.IstHilfsteilDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.IstHilfsBG = New System.Windows.Forms.DataGridViewCheckBoxColumn()
         Me.KonstrukteurDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.BestellnummerDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Bemerkung1DataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Bemerkung2DataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Bemerkung3DataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.NotizDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Konfiguration = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.BaugruppeBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.BG_Dataset = New MAI_TOOLBOX.BG_Dataset()
-        Me.DGV_CTMS1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.TSMI_oeffnen = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CB_HBG_einbeziehen = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BaugruppeBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -88,6 +88,16 @@ Partial Class FRM_Baugruppenmeister
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "GroupBox1"
         '
+        'CB_HBG_einbeziehen
+        '
+        Me.CB_HBG_einbeziehen.AutoSize = True
+        Me.CB_HBG_einbeziehen.Location = New System.Drawing.Point(196, 19)
+        Me.CB_HBG_einbeziehen.Name = "CB_HBG_einbeziehen"
+        Me.CB_HBG_einbeziehen.Size = New System.Drawing.Size(163, 17)
+        Me.CB_HBG_einbeziehen.TabIndex = 4
+        Me.CB_HBG_einbeziehen.Text = "Hilfsbaugruppen einbeziehen"
+        Me.CB_HBG_einbeziehen.UseVisualStyleBackColor = True
+        '
         'DataGridView1
         '
         Me.DataGridView1.AllowUserToAddRows = False
@@ -99,13 +109,35 @@ Partial Class FRM_Baugruppenmeister
         Me.DataGridView1.AutoGenerateColumns = False
         Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Stueckzahl, Me.NameDataGridViewTextBoxColumn, Me.TeilenummerDataGridViewTextBoxColumn, Me.HerstellerDataGridViewTextBoxColumn, Me.IstFertigungsteilDataGridViewCheckBoxColumn, Me.IstKaufteilDataGridViewTextBoxColumn, Me.IstHilfsteilDataGridViewTextBoxColumn, Me.IstHilfsBG, Me.KonstrukteurDataGridViewTextBoxColumn, Me.BestellnummerDataGridViewTextBoxColumn, Me.Bemerkung1DataGridViewTextBoxColumn, Me.Bemerkung2DataGridViewTextBoxColumn, Me.Bemerkung3DataGridViewTextBoxColumn, Me.NotizDataGridViewTextBoxColumn, Me.Konfiguration})
+        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Stueckzahl, Me.TeilenummerDataGridViewTextBoxColumn, Me.NameDataGridViewTextBoxColumn, Me.BestellnummerDataGridViewTextBoxColumn, Me.HerstellerDataGridViewTextBoxColumn, Me.IstFertigungsteilDataGridViewCheckBoxColumn, Me.IstKaufteilDataGridViewTextBoxColumn, Me.IstHilfsteilDataGridViewTextBoxColumn, Me.IstHilfsBG, Me.KonstrukteurDataGridViewTextBoxColumn, Me.Bemerkung1DataGridViewTextBoxColumn, Me.Bemerkung2DataGridViewTextBoxColumn, Me.Bemerkung3DataGridViewTextBoxColumn, Me.NotizDataGridViewTextBoxColumn, Me.Konfiguration})
         Me.DataGridView1.DataSource = Me.BaugruppeBindingSource
         Me.DataGridView1.Location = New System.Drawing.Point(10, 11)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowTemplate.ContextMenuStrip = Me.DGV_CTMS1
         Me.DataGridView1.Size = New System.Drawing.Size(1212, 440)
         Me.DataGridView1.TabIndex = 0
+        '
+        'BaugruppeBindingSource
+        '
+        Me.BaugruppeBindingSource.DataMember = "Baugruppe"
+        Me.BaugruppeBindingSource.DataSource = Me.BG_Dataset
+        '
+        'BG_Dataset
+        '
+        Me.BG_Dataset.DataSetName = "BG_Dataset"
+        Me.BG_Dataset.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'DGV_CTMS1
+        '
+        Me.DGV_CTMS1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_oeffnen})
+        Me.DGV_CTMS1.Name = "DGV_CTMS1"
+        Me.DGV_CTMS1.Size = New System.Drawing.Size(132, 26)
+        '
+        'TSMI_oeffnen
+        '
+        Me.TSMI_oeffnen.Name = "TSMI_oeffnen"
+        Me.TSMI_oeffnen.Size = New System.Drawing.Size(131, 22)
+        Me.TSMI_oeffnen.Text = "Teil öffnen"
         '
         'Stueckzahl
         '
@@ -115,6 +147,13 @@ Partial Class FRM_Baugruppenmeister
         Me.Stueckzahl.ReadOnly = True
         Me.Stueckzahl.Width = 79
         '
+        'TeilenummerDataGridViewTextBoxColumn
+        '
+        Me.TeilenummerDataGridViewTextBoxColumn.DataPropertyName = "Teilenummer"
+        Me.TeilenummerDataGridViewTextBoxColumn.HeaderText = "Teilenummer"
+        Me.TeilenummerDataGridViewTextBoxColumn.Name = "TeilenummerDataGridViewTextBoxColumn"
+        Me.TeilenummerDataGridViewTextBoxColumn.Width = 92
+        '
         'NameDataGridViewTextBoxColumn
         '
         Me.NameDataGridViewTextBoxColumn.DataPropertyName = "Name"
@@ -122,12 +161,11 @@ Partial Class FRM_Baugruppenmeister
         Me.NameDataGridViewTextBoxColumn.Name = "NameDataGridViewTextBoxColumn"
         Me.NameDataGridViewTextBoxColumn.Width = 60
         '
-        'TeilenummerDataGridViewTextBoxColumn
+        'BestellnummerDataGridViewTextBoxColumn
         '
-        Me.TeilenummerDataGridViewTextBoxColumn.DataPropertyName = "Teilenummer"
-        Me.TeilenummerDataGridViewTextBoxColumn.HeaderText = "Teilenummer"
-        Me.TeilenummerDataGridViewTextBoxColumn.Name = "TeilenummerDataGridViewTextBoxColumn"
-        Me.TeilenummerDataGridViewTextBoxColumn.Width = 92
+        Me.BestellnummerDataGridViewTextBoxColumn.DataPropertyName = "Bestellnummer"
+        Me.BestellnummerDataGridViewTextBoxColumn.HeaderText = "Bestellnummer"
+        Me.BestellnummerDataGridViewTextBoxColumn.Name = "BestellnummerDataGridViewTextBoxColumn"
         '
         'HerstellerDataGridViewTextBoxColumn
         '
@@ -140,36 +178,36 @@ Partial Class FRM_Baugruppenmeister
         '
         Me.IstFertigungsteilDataGridViewCheckBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
         Me.IstFertigungsteilDataGridViewCheckBoxColumn.DataPropertyName = "IstFertigungsteil"
-        Me.IstFertigungsteilDataGridViewCheckBoxColumn.HeaderText = "IstFertigungsteil"
+        Me.IstFertigungsteilDataGridViewCheckBoxColumn.HeaderText = "FT"
         Me.IstFertigungsteilDataGridViewCheckBoxColumn.Name = "IstFertigungsteilDataGridViewCheckBoxColumn"
-        Me.IstFertigungsteilDataGridViewCheckBoxColumn.Width = 86
+        Me.IstFertigungsteilDataGridViewCheckBoxColumn.Width = 26
         '
         'IstKaufteilDataGridViewTextBoxColumn
         '
         Me.IstKaufteilDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
         Me.IstKaufteilDataGridViewTextBoxColumn.DataPropertyName = "IstKaufteil"
-        Me.IstKaufteilDataGridViewTextBoxColumn.HeaderText = "IstKaufteil"
+        Me.IstKaufteilDataGridViewTextBoxColumn.HeaderText = "KT"
         Me.IstKaufteilDataGridViewTextBoxColumn.Name = "IstKaufteilDataGridViewTextBoxColumn"
         Me.IstKaufteilDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.IstKaufteilDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.IstKaufteilDataGridViewTextBoxColumn.Width = 78
+        Me.IstKaufteilDataGridViewTextBoxColumn.Width = 46
         '
         'IstHilfsteilDataGridViewTextBoxColumn
         '
         Me.IstHilfsteilDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells
         Me.IstHilfsteilDataGridViewTextBoxColumn.DataPropertyName = "IstHilfsteil"
-        Me.IstHilfsteilDataGridViewTextBoxColumn.HeaderText = "IstHilfsteil"
+        Me.IstHilfsteilDataGridViewTextBoxColumn.HeaderText = "HT"
         Me.IstHilfsteilDataGridViewTextBoxColumn.Name = "IstHilfsteilDataGridViewTextBoxColumn"
         Me.IstHilfsteilDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.IstHilfsteilDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.IstHilfsteilDataGridViewTextBoxColumn.Width = 76
+        Me.IstHilfsteilDataGridViewTextBoxColumn.Width = 47
         '
         'IstHilfsBG
         '
         Me.IstHilfsBG.DataPropertyName = "IstHilfsBG"
-        Me.IstHilfsBG.HeaderText = "IstHilfsBG"
+        Me.IstHilfsBG.HeaderText = "HBG"
         Me.IstHilfsBG.Name = "IstHilfsBG"
-        Me.IstHilfsBG.Width = 59
+        Me.IstHilfsBG.Width = 36
         '
         'KonstrukteurDataGridViewTextBoxColumn
         '
@@ -177,12 +215,6 @@ Partial Class FRM_Baugruppenmeister
         Me.KonstrukteurDataGridViewTextBoxColumn.HeaderText = "Konstrukteur"
         Me.KonstrukteurDataGridViewTextBoxColumn.Name = "KonstrukteurDataGridViewTextBoxColumn"
         Me.KonstrukteurDataGridViewTextBoxColumn.Width = 92
-        '
-        'BestellnummerDataGridViewTextBoxColumn
-        '
-        Me.BestellnummerDataGridViewTextBoxColumn.DataPropertyName = "Bestellnummer"
-        Me.BestellnummerDataGridViewTextBoxColumn.HeaderText = "Bestellnummer"
-        Me.BestellnummerDataGridViewTextBoxColumn.Name = "BestellnummerDataGridViewTextBoxColumn"
         '
         'Bemerkung1DataGridViewTextBoxColumn
         '
@@ -219,38 +251,6 @@ Partial Class FRM_Baugruppenmeister
         Me.Konfiguration.Name = "Konfiguration"
         Me.Konfiguration.Width = 94
         '
-        'BaugruppeBindingSource
-        '
-        Me.BaugruppeBindingSource.DataMember = "Baugruppe"
-        Me.BaugruppeBindingSource.DataSource = Me.BG_Dataset
-        '
-        'BG_Dataset
-        '
-        Me.BG_Dataset.DataSetName = "BG_Dataset"
-        Me.BG_Dataset.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'DGV_CTMS1
-        '
-        Me.DGV_CTMS1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_oeffnen})
-        Me.DGV_CTMS1.Name = "DGV_CTMS1"
-        Me.DGV_CTMS1.Size = New System.Drawing.Size(132, 26)
-        '
-        'TSMI_oeffnen
-        '
-        Me.TSMI_oeffnen.Name = "TSMI_oeffnen"
-        Me.TSMI_oeffnen.Size = New System.Drawing.Size(131, 22)
-        Me.TSMI_oeffnen.Text = "Teil öffnen"
-        '
-        'CB_HBG_einbeziehen
-        '
-        Me.CB_HBG_einbeziehen.AutoSize = True
-        Me.CB_HBG_einbeziehen.Location = New System.Drawing.Point(196, 19)
-        Me.CB_HBG_einbeziehen.Name = "CB_HBG_einbeziehen"
-        Me.CB_HBG_einbeziehen.Size = New System.Drawing.Size(163, 17)
-        Me.CB_HBG_einbeziehen.TabIndex = 4
-        Me.CB_HBG_einbeziehen.Text = "Hilfsbaugruppen einbeziehen"
-        Me.CB_HBG_einbeziehen.UseVisualStyleBackColor = True
-        '
         'FRM_Baugruppenmeister
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -276,22 +276,22 @@ Partial Class FRM_Baugruppenmeister
     Friend WithEvents BTN_Changed As System.Windows.Forms.Button
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents DataGridView1 As System.Windows.Forms.DataGridView
+    Friend WithEvents DGV_CTMS1 As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents TSMI_oeffnen As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents CB_HBG_einbeziehen As System.Windows.Forms.CheckBox
     Friend WithEvents Stueckzahl As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents NameDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents TeilenummerDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents NameDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents BestellnummerDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents HerstellerDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents IstFertigungsteilDataGridViewCheckBoxColumn As System.Windows.Forms.DataGridViewCheckBoxColumn
     Friend WithEvents IstKaufteilDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewCheckBoxColumn
     Friend WithEvents IstHilfsteilDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewCheckBoxColumn
     Friend WithEvents IstHilfsBG As System.Windows.Forms.DataGridViewCheckBoxColumn
     Friend WithEvents KonstrukteurDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents BestellnummerDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Bemerkung1DataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Bemerkung2DataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Bemerkung3DataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents NotizDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Konfiguration As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DGV_CTMS1 As System.Windows.Forms.ContextMenuStrip
-    Friend WithEvents TSMI_oeffnen As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents CB_HBG_einbeziehen As System.Windows.Forms.CheckBox
 End Class
