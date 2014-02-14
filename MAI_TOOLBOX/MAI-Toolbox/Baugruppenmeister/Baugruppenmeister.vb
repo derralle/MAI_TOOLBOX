@@ -23,7 +23,9 @@ Public Class Baugruppenmeister
             Return _modeldoc
         End Get
         Set(ByVal value As ModelDoc2)
+
             _modeldoc = value
+
         End Set
     End Property
 
@@ -44,6 +46,15 @@ Public Class Baugruppenmeister
     Dim TabBez() As String = {"Name", "Bemerkung1", "Bemerkung2", "Bemerkung3", "Hersteller", "Bestellnummer", "Notiz", "Teilenummer", "Konstrukteur", "Zeichner"}
     Dim BoolPropBez() As String = {"IstFertigungsteil", "IstKaufteil", "IstHilfsBG", "IstHilfsteil"}
     Dim BoolTabBez() As String = {"IstFertigungsteil", "IstKaufteil", "IstHilfsBG", "IstHilfsteil"}
+
+
+
+
+    Structure ModelAndConfig
+        Public modeldoc As ModelDoc2
+        Public Config As String
+    End Structure
+
 
     Public Sub New(ByRef iswapp As SldWorks)
 
@@ -118,50 +129,41 @@ Public Class Baugruppenmeister
         Dim tools As New MAITOOLS(Me.swApp)
         ' Dim table As BG_Dataset.BaugruppeDataTable
 
-        Dim Assembly As AssemblyDoc
-        Dim components() As Object
-        Dim compcount As Long
-        Dim tempmodel As ModelDoc2
+
+        Dim MODCONF() As ModelAndConfig
 
 
-        Assembly = Me.modeldoc
+        MODCONF = ErzCompListe(modeldoc, Me.HGBeinbez)
 
-        ' True = Toplevel
-        compcount = Assembly.GetComponentCount(True)
-        components = Assembly.GetComponents(True)
+
+       
 
         'Schleife ein Durchlauf für jede Komponente
-        For i = 0 To compcount - 1
+        For Each item As ModelAndConfig In MODCONF
+
             'Komponente
 
-            If components(i).GetSuppression <> SolidWorks.Interop.swconst.swComponentSuppressionState_e.swComponentSuppressed Then
+            Dim row As BG_Dataset.BaugruppeRow
+            Dim selectrow() As BG_Dataset.BaugruppeRow
+            '
+            row = Dataset.Baugruppe.NewBaugruppeRow
 
-                Dim row As BG_Dataset.BaugruppeRow
-                Dim selectrow() As BG_Dataset.BaugruppeRow
-                Dim config As String
+            row = Fillrow(item.modeldoc, row, item.Config)
 
-                row = Dataset.Baugruppe.NewBaugruppeRow
-
-                tempmodel = components(i).GetModelDoc2
-
-                config = components(i).ReferencedConfiguration
-
-                row = Fillrow(tempmodel, row, config)
-
-                'Zeilen die die gleich Konfiguration und den gleichen Dateinamen haben in selectrow laden
-                selectrow = Dataset.Baugruppe.Select("Dateiname = '" & row.Dateiname & "' and Konfiguration = '" & row.Konfiguration & "'")
+            'Zeilen die die gleich Konfiguration und den gleichen Dateinamen haben in selectrow laden
+            selectrow = Dataset.Baugruppe.Select("Dateiname = '" & row.Dateiname & "' and Konfiguration = '" & row.Konfiguration & "'")
 
 
-                'Wenn selectrow leer dann neue Zeile anlegen
-                If selectrow.Length = 0 Then
-                    Dataset.Baugruppe.AddBaugruppeRow(row)
-                Else
-                    'sonst Stückzahl erhöhen
-                    selectrow(0).Stueckzahl = selectrow(0).Stueckzahl + 1
-                End If
-                Dataset.AcceptChanges()
+            'Wenn selectrow leer dann neue Zeile anlegen
+            If selectrow.Length = 0 Then
+                Dataset.Baugruppe.AddBaugruppeRow(row)
+            Else
+                'sonst Stückzahl erhöhen
+                selectrow(0).Stueckzahl = selectrow(0).Stueckzahl + 1
             End If
-        Next (i)
+                Dataset.AcceptChanges()
+
+        Next
 
     End Sub
 
@@ -273,6 +275,8 @@ Public Class Baugruppenmeister
         Dim Endung As String = row.Pfad.Substring(row.Pfad.LastIndexOf("."))
         Dim modeldoc As ModelDoc2 = Nothing
 
+
+
         If Endung.ToUpper = ".SLDPRT" Then
             modeldoc = Me.swApp.OpenDoc6(row.Pfad, swDocumentTypes_e.swDocPART, swOpenDocOptions_e.swOpenDocOptions_Silent, "", Errors, Warnings)
         End If
@@ -281,6 +285,10 @@ Public Class Baugruppenmeister
             modeldoc = Me.swApp.OpenDoc6(row.Pfad, swDocumentTypes_e.swDocASSEMBLY, swOpenDocOptions_e.swOpenDocOptions_Silent, "", Errors, Warnings)
         End If
 
+        'Prüfen ob Model schreibgeschützt ist
+        If modeldoc.IsOpenedReadOnly Then
+            Exit Sub
+        End If
 
         If Errors <> 0 Or IsNothing(modeldoc) Then
             MsgBox("Fehler beim Laden von:" & row.Pfad)
@@ -374,6 +382,77 @@ Public Class Baugruppenmeister
         modeldoc.Rebuild(swRebuildOptions_e.swUpdateDirtyOnly)
     End Sub
 
+    ''' <summary>
+    ''' Erzeuge Komponentenliste von Unterbaugruppen
+    ''' </summary>
+    ''' <param name="modeldoc"></param>
+    ''' <returns>Array von Component2</returns>
+    ''' <remarks></remarks>
+    Private Function ErzCompListe(modeldoc As ModelDoc2, ByVal IncludeHGBParts As Boolean) As ModelAndConfig()
+
+        Dim SwAssy As AssemblyDoc
+        Dim CompList() As Object
+        Dim CompCount As Long
+        Dim MODCONF(0) As ModelAndConfig
+        Dim length As Long = 0
+
+        'Prüfen ob 
+        If modeldoc.GetType = swDocumentTypes_e.swDocASSEMBLY Then
+            SwAssy = modeldoc
+
+        Else
+            Return Nothing
+        End If
+
+        CompList = SwAssy.GetComponents(True)
+        CompCount = SwAssy.GetComponentCount(True)
+
+
+        For i = 0 To CompCount - 1 Step 1
+            'Each component As Object In CompList
+
+            If CompList(i).GetSuppression <> SolidWorks.Interop.swconst.swComponentSuppressionState_e.swComponentSuppressed Then
+
+
+                Dim tmpmdl As ModelDoc2 = CompList(i).GetModelDoc2
+                Dim SwModelDocExt As ModelDocExtension = tmpmdl.Extension
+                Dim SwPropMgr As CustomPropertyManager = SwModelDocExt.CustomPropertyManager("")
+                Dim tools As New MAITOOLS(Me.swApp)
+
+
+
+                If tmpmdl.GetType = swDocumentTypes_e.swDocASSEMBLY _
+                    And tools.GetProp(SwPropMgr, "IstHilfsBG") = "Yes" _
+                    And IncludeHGBParts _
+                    Then
+
+                    Debug.Print("HGB: " & tmpmdl.GetTitle & "  gefunden")
+                    Dim NewMODCONF() As ModelAndConfig = ErzCompListe(tmpmdl, IncludeHGBParts)
+                    Dim StartIndex As Integer = MODCONF.Length
+
+
+                    'Array verlängern
+                    ReDim Preserve MODCONF(MODCONF.Length + NewMODCONF.Length - 1)
+
+                    'Arrays ineinander kopieren
+                    Array.Copy(NewMODCONF, 0, MODCONF, StartIndex, NewMODCONF.Length)
+                    length = MODCONF.Length
+                Else
+
+
+
+                    length = length + 1
+
+                    ReDim Preserve MODCONF(length - 1)
+                    MODCONF(length - 1).modeldoc = CompList(i).GetModelDoc2
+                    MODCONF(length - 1).Config = CompList(i).ReferencedConfiguration
+
+                End If
+            End If
+
+        Next
+        Return MODCONF
+    End Function
 
 
 
