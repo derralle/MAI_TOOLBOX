@@ -93,4 +93,17 @@ Public Class FRM_Baugruppenmeister
         End If
 
     End Sub
+
+    Private Sub CB_HBG_einbeziehen_CheckedChanged(sender As Object, e As EventArgs) Handles CB_HBG_einbeziehen.CheckedChanged
+        RaiseEvent RefreshBGTable()
+    End Sub
+
+    Public Sub New()
+
+        ' Dieser Aufruf ist für den Designer erforderlich.
+        InitializeComponent()
+
+        ' Fügen Sie Initialisierungen nach dem InitializeComponent()-Aufruf hinzu.
+        Me.DoubleBuffered = True
+    End Sub
 End Class

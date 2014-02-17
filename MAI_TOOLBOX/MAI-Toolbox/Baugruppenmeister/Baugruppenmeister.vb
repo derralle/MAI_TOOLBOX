@@ -71,7 +71,8 @@ Public Class Baugruppenmeister
 
             FillTable()
 
-            Form.Show()
+            Form.ShowDialog()
+
 
             Form.getchanges = True
 
