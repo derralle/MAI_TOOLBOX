@@ -70,11 +70,11 @@ Public Class Baugruppenmeister
             Form.DataGridView1.DataSource = Dataset.Tables(0)
 
             FillTable()
-
+            Form.getchanges = True
             Form.ShowDialog()
 
 
-            Form.getchanges = True
+
 
         End If
 
