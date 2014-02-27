@@ -168,6 +168,11 @@
     <Compile Include="MAI-Toolbox\Baugruppenmeister\BG_Dataset.vb">
       <DependentUpon>BG_Dataset.xsd</DependentUpon>
     </Compile>
+    <Compile Include="MAI-Toolbox\Baugruppenmeister\Artikel.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Artikel.xsd</DependentUpon>
+    </Compile>
     <Compile Include="MAI-Toolbox\BG_OCU_NAME.designer.vb">
       <DependentUpon>BG_OCU_NAME.vb</DependentUpon>
     </Compile>
@@ -213,6 +218,11 @@
     </Compile>
     <Compile Include="MAI-Toolbox\MAI_Teilenummer.vb" />
     <Compile Include="MAI-Toolbox\MAITOOLS.vb" />
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="PMPHandler.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -250,9 +260,7 @@
     <EmbeddedResource Include="MainIconLarge.bmp" />
     <EmbeddedResource Include="MainIconSmall.bmp" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="My Project\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
@@ -276,6 +284,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Install\register.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -293,7 +302,23 @@
     <None Include="MAI-Toolbox\Baugruppenmeister\BG_Dataset.xss">
       <DependentUpon>BG_Dataset.xsd</DependentUpon>
     </None>
+    <None Include="MAI-Toolbox\Baugruppenmeister\Artikel.xsc">
+      <DependentUpon>Artikel.xsd</DependentUpon>
+    </None>
+    <None Include="MAI-Toolbox\Baugruppenmeister\Artikel.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Artikel.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="MAI-Toolbox\Baugruppenmeister\Artikel.xss">
+      <DependentUpon>Artikel.xsd</DependentUpon>
+    </None>
     <None Include="MAI_TOOLBOX_KEY.snk" />
+    <None Include="My Project\Settings.settings">
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Install\DataMatrix.net.dll" />
