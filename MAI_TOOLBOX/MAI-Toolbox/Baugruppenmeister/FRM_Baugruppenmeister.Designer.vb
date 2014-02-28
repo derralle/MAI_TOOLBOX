@@ -199,7 +199,7 @@ Partial Class FRM_Baugruppenmeister
         Me.IstKaufteilDataGridViewTextBoxColumn.Name = "IstKaufteilDataGridViewTextBoxColumn"
         Me.IstKaufteilDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.IstKaufteilDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.IstKaufteilDataGridViewTextBoxColumn.Width = 46
+        Me.IstKaufteilDataGridViewTextBoxColumn.Width = 26
         '
         'IstHilfsteilDataGridViewTextBoxColumn
         '
@@ -209,7 +209,7 @@ Partial Class FRM_Baugruppenmeister
         Me.IstHilfsteilDataGridViewTextBoxColumn.Name = "IstHilfsteilDataGridViewTextBoxColumn"
         Me.IstHilfsteilDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
         Me.IstHilfsteilDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
-        Me.IstHilfsteilDataGridViewTextBoxColumn.Width = 47
+        Me.IstHilfsteilDataGridViewTextBoxColumn.Width = 26
         '
         'IstHilfsBG
         '
@@ -217,7 +217,7 @@ Partial Class FRM_Baugruppenmeister
         Me.IstHilfsBG.DataPropertyName = "IstHilfsBG"
         Me.IstHilfsBG.HeaderText = "HBG"
         Me.IstHilfsBG.Name = "IstHilfsBG"
-        Me.IstHilfsBG.Width = 36
+        Me.IstHilfsBG.Width = 32
         '
         'KonstrukteurDataGridViewTextBoxColumn
         '

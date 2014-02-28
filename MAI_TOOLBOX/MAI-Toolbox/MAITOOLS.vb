@@ -799,7 +799,9 @@ Public Class MAITOOLS
                 CHANGEPROP(doc, Teilenummer_bez, form.teilenummer, False)
                 CHANGEPROP(doc, Name_bez, form.propname, False)
                 CHANGEPROP(doc, Pos_bez, Pos_datei, True)
-                doc.ForceRebuild3(True)
+
+                doc.Rebuild(swRebuildOptions_e.swUpdateDirtyOnly)
+                'doc.ForceRebuild3(True)
 
             End If
         End If

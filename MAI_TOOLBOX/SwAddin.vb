@@ -248,12 +248,12 @@ Public Class SwAddin
                                              mainItemID2, _
                                              menuToolbarOption)
 
-        cmdIndex2 = cmdGroup.AddCommandItem2("Konstrukteur in BG ändern", _
+        cmdIndex2 = cmdGroup.AddCommandItem2("Baugruppenmeister", _
                                              -1, _
-                                             "Konstrukteur für ganze Baugruppe ändern", _
-                                             "Konstrukteur für ganze Baugruppe ändern", _
-                                             2, _
-                                             "CHANGE_DESIGNER", _
+                                             "Baugruppeneigenschaften in einer Tabelle bearbeiten", _
+                                             "Baugruppeneigenschaften in einer Tabelle bearbeiten", _
+                                             14, _
+                                             "BG_Meister", _
                                              "", _
                                              mainItemID3, _
                                              menuToolbarOption)
@@ -624,18 +624,11 @@ Public Class SwAddin
 
     End Sub
 
-    'Kontrukteur für Baugruppe ändern
-    Sub CHANGE_DESIGNER()
+    'Baugruppenmeister
+    Sub BG_Meister()
 
         Dim BGM As New Baugruppenmeister(iSwApp)
 
-
-
-
-        'Dim doc As ModelDoc2
-
-        'doc = iSwApp.ActiveDoc
-        'toolbox.CHANGE_DESIGNER(doc)
     End Sub
 
     'Eigenschaften aus Filenamen übernehmen
