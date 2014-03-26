@@ -142,28 +142,33 @@ Public Class Baugruppenmeister
         'Schleife ein Durchlauf für jede Komponente
         For Each item As ModelAndConfig In MODCONF
 
-            'Komponente
-
-            Dim row As BG_Dataset.BaugruppeRow
-            Dim selectrow() As BG_Dataset.BaugruppeRow
-            '
-            row = Dataset.Baugruppe.NewBaugruppeRow
-
-            row = Fillrow(item.modeldoc, row, item.Config)
-
-            'Zeilen die die gleich Konfiguration und den gleichen Dateinamen haben in selectrow laden
-            selectrow = Dataset.Baugruppe.Select("Dateiname = '" & row.Dateiname & "' and Konfiguration = '" & row.Konfiguration & "'")
+            'Problem: wenn die Baugruppe nur aus Unterbaugruppen besteht ist das erste Item "Nothing"
+            'Fehler in der Funktion "ErzCompListe
+            If IsNothing(item.modeldoc) = False Then
 
 
-            'Wenn selectrow leer dann neue Zeile anlegen
-            If selectrow.Length = 0 Then
-                Dataset.Baugruppe.AddBaugruppeRow(row)
-            Else
-                'sonst Stückzahl erhöhen
-                selectrow(0).Stueckzahl = selectrow(0).Stueckzahl + 1
-            End If
+                'Komponente
+
+                Dim row As BG_Dataset.BaugruppeRow
+                Dim selectrow() As BG_Dataset.BaugruppeRow
+                '
+                row = Dataset.Baugruppe.NewBaugruppeRow
+
+                row = Fillrow(item.modeldoc, row, item.Config)
+
+                'Zeilen die die gleich Konfiguration und den gleichen Dateinamen haben in selectrow laden
+                selectrow = Dataset.Baugruppe.Select("Dateiname = '" & row.Dateiname & "' and Konfiguration = '" & row.Konfiguration & "'")
+
+
+                'Wenn selectrow leer dann neue Zeile anlegen
+                If selectrow.Length = 0 Then
+                    Dataset.Baugruppe.AddBaugruppeRow(row)
+                Else
+                    'sonst Stückzahl erhöhen
+                    selectrow(0).Stueckzahl = selectrow(0).Stueckzahl + 1
+                End If
                 Dataset.AcceptChanges()
-
+            End If
         Next
 
     End Sub
@@ -324,10 +329,14 @@ Public Class Baugruppenmeister
             If IsInConfig Then
                 If row.Item(BoolTabBez(i)) Then
                     tools.CHANGEPROP(SWPropMgrConfig, BoolPropBez(i), "Yes", True)
+                Else
+                    tools.CHANGEPROP(SWPropMgrConfig, BoolPropBez(i), "No", True)
                 End If
             Else
                 If row.Item(BoolTabBez(i)) = True Then
                     tools.CHANGEPROP(SwPropMgr, BoolPropBez(i), "Yes", True)
+                Else
+                    tools.CHANGEPROP(SwPropMgr, BoolPropBez(i), "No", True)
                 End If
             End If
             IsInConfig = False
@@ -367,17 +376,21 @@ Public Class Baugruppenmeister
 
         Name = row.Dateiname.Substring(0, row.Dateiname.LastIndexOf("."))
 
-
         MaiTnr = row.Teilenummer
 
-        'Nur Namensänderungen bei Fertigunsteilen
+        'Nur Namensänderungen bei Fertigungsteilen
         If MaiTnr.Gueltig Then
 
             If Name.ToLower <> (row.Teilenummer.ToLower & "-" & row.Name.ToLower) Then
 
                 tools.UNAME(modeldoc, row.Teilenummer & "-" & row.Name)
-
             End If
+        Else 'wenn sich nur die Namensspalte ändert
+            If row.Dateiname <> modeldoc.GetPathName.Substring(modeldoc.GetPathName.LastIndexOf("\") + 1) Then
+                Debug.Print(row.Dateiname.Substring(0, row.Dateiname.LastIndexOf(".")))
+                tools.UNAME(modeldoc, row.Dateiname.Substring(0, row.Dateiname.LastIndexOf(".")))
+            End If
+
         End If
 
         modeldoc.Rebuild(swRebuildOptions_e.swUpdateDirtyOnly)

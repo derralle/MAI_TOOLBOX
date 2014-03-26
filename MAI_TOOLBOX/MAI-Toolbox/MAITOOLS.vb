@@ -98,7 +98,7 @@ Public Class MAITOOLS
     End Sub
 
     'Komponente umbenennen ohne Dialog
-    Public Sub UNAME(ByRef modeldoc As ModelDoc2, ByVal newname As String)
+    Public Sub UNAME(ByRef modeldoc As ModelDoc2, ByVal newname As String, Optional ByVal mit_Zeichnung As Boolean = True)
 
 
 
@@ -110,6 +110,9 @@ Public Class MAITOOLS
         Dim folder As String
         Dim VPart As String = Nothing 'Teil nach "^" in virtuellen Teilen
         Dim VFlag As Boolean = False
+        Dim Zeichnungdoc As ModelDoc2
+        Dim fileerror As Long
+        Dim filewarning As Long
 
         'Pfad ermitteln
         path = modeldoc.GetPathName()
@@ -120,7 +123,7 @@ Public Class MAITOOLS
 
         name = path.Substring(path.LastIndexOf("\") + 1, path.Length - folder.Length - ending.Length)
 
-        If name.Contains("^") Then
+        If name.Contains("^") And Not newname.Contains("^") Then
             VPart = name.Substring(name.IndexOf("^"))
             name = name.Remove(name.IndexOf("^"))
             VFlag = True
@@ -154,15 +157,30 @@ Public Class MAITOOLS
             Exit Sub
         End If
 
-        'Datei unter neuen Namen speichern 
-        SpeichernUnter(modeldoc, newpath)
+        'Prüfen ob Datei keine Zeichnung ist und ob eine Zeichung existiert
+        If ending <> ".SLDDRW" And mit_Zeichnung And FileIO.FileSystem.FileExists(folder & name & ".SLDDRW") Then
+            'Zeichnung öffnen
+            Zeichnungdoc = swApp.OpenDoc6(folder & name & ".SLDDRW", swDocumentTypes_e.swDocDRAWING, swOpenDocOptions_e.swOpenDocOptions_Silent, "", fileerror, filewarning)
 
-        'Eingenschaften einlesen
+            'Model speichern unter 
+            SpeichernUnter(modeldoc, newpath)
+            PROPFROMFILE(modeldoc, True)
 
+            'Zeichnung speichern unter
+            SpeichernUnter(Zeichnungdoc, folder & newname & ".SLDDRW")
 
-        'alte Datei löschen
-        FileIO.FileSystem.DeleteFile(path)
+            'Zeichnung schließen
+            'Zeichnungdoc.ForceRebuild3(True)
+            swApp.CloseDoc(Zeichnungdoc.GetTitle())
 
+            'Dateien löschen
+            FileIO.FileSystem.DeleteFile(folder & name & ".SLDDRW")
+            FileIO.FileSystem.DeleteFile(path)
+        Else
+            SpeichernUnter(modeldoc, newpath)
+            PROPFROMFILE(modeldoc, True)
+            FileIO.FileSystem.DeleteFile(path)
+        End If
 
 
     End Sub
@@ -379,7 +397,7 @@ Public Class MAITOOLS
                 tmpmdl.CustomInfo2("", "Best.Nr") = bestellnummer
                 tmpmdl.CustomInfo2("", "Name") = beschreibung
                 tmpmdl.CustomInfo2("", "Hersteller") = hersteller
-                tmpmdl.ForceRebuild3(False)
+                tmpmdl.EditRebuild3()
             Next (i)
 
             'Teile virtuell machen
@@ -418,7 +436,7 @@ Public Class MAITOOLS
                    "Bestellnummer: " & vbTab & bestellnummer)
 
         'Neuaufbau
-        modeldoc.ForceRebuild3(True)
+        modeldoc.EditRebuild3()
 
 
     End Sub
@@ -800,8 +818,9 @@ Public Class MAITOOLS
                 CHANGEPROP(doc, Name_bez, form.propname, False)
                 CHANGEPROP(doc, Pos_bez, Pos_datei, True)
 
-                doc.Rebuild(swRebuildOptions_e.swUpdateDirtyOnly)
+                'doc.Rebuild(swRebuildOptions_e.swForceRebuildAll)
                 'doc.ForceRebuild3(True)
+                doc.EditRebuild3()
 
             End If
         End If
@@ -1049,7 +1068,7 @@ Public Class MAITOOLS
         Next (i)
 
 
-        doc.ForceRebuild3(False)
+        doc.EditRebuild3()
         MsgBox("wieder jup")
         Return True
 
