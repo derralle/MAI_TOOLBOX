@@ -607,6 +607,10 @@ Public Class SwAddin
     'Eigenschaften von Schunk-Teilen übernehmen
     Sub SCHUNKEIG()
 
+        Dim roboTo As New RobotTools(iSwApp)
+
+        Exit Sub
+
         Dim doc As ModelDoc2
 
         doc = iSwApp.ActiveDoc

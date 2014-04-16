@@ -226,6 +226,13 @@
     <Compile Include="PMPHandler.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Robottools\Form_Traegheit.Designer.vb">
+      <DependentUpon>Form_Traegheit.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Robottools\Form_Traegheit.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Robottools\RobotTools.vb" />
     <Compile Include="SwAddin.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -252,6 +259,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MAI-Toolbox\FRM_Zylinderkonfig.resx">
       <DependentUpon>FRM_Zylinderkonfig.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Robottools\Form_Traegheit.resx">
+      <DependentUpon>Form_Traegheit.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ToolbarLarge.bmp" />
     <EmbeddedResource Include="ToolbarSmall.bmp" />
