@@ -23,49 +23,59 @@ Partial Class Form_Traegheit
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Label_Select = New System.Windows.Forms.Label()
-        Me.Button_Start = New System.Windows.Forms.Button()
+        Me.Button_Uebertragen = New System.Windows.Forms.Button()
         Me.TextBox_Ergebniss = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'Label_Select
         '
         Me.Label_Select.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.Label_Select.Location = New System.Drawing.Point(12, 12)
+        Me.Label_Select.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label_Select.Location = New System.Drawing.Point(10, 9)
+        Me.Label_Select.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label_Select.Name = "Label_Select"
-        Me.Label_Select.Size = New System.Drawing.Size(284, 41)
+        Me.Label_Select.Size = New System.Drawing.Size(379, 50)
         Me.Label_Select.TabIndex = 0
         Me.Label_Select.Text = "Label_Select"
+        Me.Label_Select.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Button_Start
+        'Button_Uebertragen
         '
-        Me.Button_Start.Location = New System.Drawing.Point(12, 365)
-        Me.Button_Start.Name = "Button_Start"
-        Me.Button_Start.Size = New System.Drawing.Size(283, 41)
-        Me.Button_Start.TabIndex = 1
-        Me.Button_Start.Text = "Start"
-        Me.Button_Start.UseMnemonic = False
-        Me.Button_Start.UseVisualStyleBackColor = True
+        Me.Button_Uebertragen.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button_Uebertragen.Location = New System.Drawing.Point(10, 437)
+        Me.Button_Uebertragen.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Button_Uebertragen.Name = "Button_Uebertragen"
+        Me.Button_Uebertragen.Size = New System.Drawing.Size(379, 50)
+        Me.Button_Uebertragen.TabIndex = 1
+        Me.Button_Uebertragen.Text = "Auf Zeichnung Übertragen"
+        Me.Button_Uebertragen.UseMnemonic = False
+        Me.Button_Uebertragen.UseVisualStyleBackColor = True
         '
         'TextBox_Ergebniss
         '
         Me.TextBox_Ergebniss.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer))
-        Me.TextBox_Ergebniss.Enabled = False
         Me.TextBox_Ergebniss.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox_Ergebniss.Location = New System.Drawing.Point(13, 56)
+        Me.TextBox_Ergebniss.Location = New System.Drawing.Point(10, 63)
+        Me.TextBox_Ergebniss.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.TextBox_Ergebniss.Multiline = True
         Me.TextBox_Ergebniss.Name = "TextBox_Ergebniss"
-        Me.TextBox_Ergebniss.Size = New System.Drawing.Size(281, 299)
+        Me.TextBox_Ergebniss.ReadOnly = True
+        Me.TextBox_Ergebniss.Size = New System.Drawing.Size(379, 367)
         Me.TextBox_Ergebniss.TabIndex = 2
         '
         'Form_Traegheit
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(310, 418)
+        Me.ClientSize = New System.Drawing.Size(402, 499)
         Me.Controls.Add(Me.TextBox_Ergebniss)
-        Me.Controls.Add(Me.Button_Start)
+        Me.Controls.Add(Me.Button_Uebertragen)
         Me.Controls.Add(Me.Label_Select)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.MaximizeBox = False
         Me.Name = "Form_Traegheit"
+        Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.Text = "Form_Traegheit"
         Me.TopMost = True
         Me.ResumeLayout(False)
@@ -73,6 +83,6 @@ Partial Class Form_Traegheit
 
     End Sub
     Friend WithEvents Label_Select As System.Windows.Forms.Label
-    Friend WithEvents Button_Start As System.Windows.Forms.Button
+    Friend WithEvents Button_Uebertragen As System.Windows.Forms.Button
     Friend WithEvents TextBox_Ergebniss As System.Windows.Forms.TextBox
 End Class

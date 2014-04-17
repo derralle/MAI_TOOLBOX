@@ -52,17 +52,29 @@ Public Class RobotTools
         End Set
     End Property
 
-    Private _Koordinatensytem As CoordinateSystemFeatureData
+    Private _Koordinatensystem As CoordinateSystemFeatureData
     Public Property Koordinatensystem() As CoordinateSystemFeatureData
         Get
-            Return _Koordinatensytem
+            Return _Koordinatensystem
         End Get
         Set(ByVal value As CoordinateSystemFeatureData)
-            _Koordinatensytem = value
+            _Koordinatensystem = value
         End Set
     End Property
 
 
+    'Text der später zur Anzeige und für die Zeichnung erzeugt wird
+    Private _Ausgabetext As String
+    Private Property Ausgabetext As String
+        Get
+            Return _Ausgabetext
+        End Get
+        Set(value As String)
+            _Ausgabetext = value
+        End Set
+    End Property
+
+    'Form initialisieren
     Dim WithEvents TraegheitsForm As New Form_Traegheit
 
 
@@ -70,26 +82,52 @@ Public Class RobotTools
 
 #Region "Events"
 
+
+    'mit SWX Events verbinden
     Sub AttachSWEvents()
         Try
             AddHandler _AssemblyDoc.NewSelectionNotify, AddressOf Selection_Change
         Catch e As Exception
             Console.WriteLine(e.Message)
         End Try
+
     End Sub
 
+    'von SWX Events trennen
+    Sub DettachSWEvents()
+        Try
+            RemoveHandler _AssemblyDoc.NewSelectionNotify, AddressOf Selection_Change
+        Catch e As Exception
+            Console.WriteLine(e.Message)
+        End Try
+
+    End Sub
+
+
+    'Wird Ausgerufen wenn etwas in SWX selektiert wird
     Private Function Selection_Change() As Integer Handles _AssemblyDoc.NewSelectionNotify
-       
+        'Feature-Objekt 
         Dim OFeature As Feature
 
+        'Koordinatenselektierung ausfiltern
         If SelMgr.GetSelectedObjectType3(1, -1) = swSelectType_e.swSelCOORDSYS Then
 
+            'Ausgabetext rücksetzen (sonst wird er immer länger)
+            Ausgabetext = ""
+
+            'Feature des selektierten Objektes erfassen
             OFeature = SelMgr.GetSelectedObject6(1, -1)
 
+            'Koordinatensystem aus Feature erzeugen
             Koordinatensystem = OFeature.GetDefinition
 
+            'Name des Koordinatensystems auf Form anzeigen
             TraegheitsForm.Label_Select.Text = OFeature.Name
 
+            'Hintergrundfarbe des Select_Labels ändern
+            TraegheitsForm.Label_Select.BackColor = Drawing.Color.LightGreen
+
+            'Trägheitsmomente auslesen
             Traegheit()
 
         End If
@@ -114,7 +152,8 @@ Public Class RobotTools
             Me.SelMgr = Me.ModelDoc.ISelectionManager
             TraegheitsForm.Show()
             AttachSWEvents()
-
+            TraegheitsForm.Label_Select.Text = "Koordinatensystem auswählen"
+            TraegheitsForm.Button_Uebertragen.Enabled = False
 
         Else
             MsgBox("Dokument ist keine Baugruppe!")
@@ -125,12 +164,9 @@ Public Class RobotTools
     End Sub
 
 
-
-
-
     Private Sub Traegheit()
 
-        Dim Ausgabetext As String = ""
+        'Dim Ausgabetext As String = ""
 
         Dim ModeldocExt As ModelDocExtension = ModelDoc.Extension
         Dim MassProp As IMassProperty = ModeldocExt.CreateMassProperty
@@ -157,22 +193,78 @@ Public Class RobotTools
 
         Ausgabetext = Ausgabetext & "Masse: " & MassProp.Mass.ToString("0.##") & "kg" & vbNewLine & vbNewLine & _
             "Schwerpunkt: " & vbNewLine & _
-            " Lx= " & SchwerpunktKoordinaten(0) & "mm" & vbNewLine & _
-            " Ly= " & SchwerpunktKoordinaten(1) & "mm" & vbNewLine & _
-            " Lz= " & SchwerpunktKoordinaten(2) & "mm" & vbNewLine & _
+            " Lx= " & Format(SchwerpunktKoordinaten(0), "0.##") & "mm" & vbNewLine & _
+            " Ly= " & Format(SchwerpunktKoordinaten(1), "0.##") & "mm" & vbNewLine & _
+            " Lz= " & Format(SchwerpunktKoordinaten(2), "0.##") & "mm" & vbNewLine & _
             vbNewLine & vbNewLine & _
             "Trägheitsmomente bezogen auf Massemittelpunkt" & vbNewLine & _
-            " Ix= " & MTM(0) & "kgm²" & vbNewLine & _
-            " Iy= " & MTM(4) & "kgm²" & vbNewLine & _
-            " Iz= " & MTM(8) & "kgm²"
+            " Ix= " & Format(MTM(0), "0.##") & "kgm²" & vbNewLine & _
+            " Iy= " & Format(MTM(4), "0.##") & "kgm²" & vbNewLine & _
+            " Iz= " & Format(MTM(8), "0.##") & "kgm²" & vbNewLine & _
+            vbNewLine & vbNewLine & _
+            "erzeugt am: " & DateAndTime.Now
 
 
         TraegheitsForm.TextBox_Ergebniss.Text = Ausgabetext
 
-
+        If Zeichnung_da(ModelDoc.GetPathName) Then
+            TraegheitsForm.Button_Uebertragen.Enabled = True
+        End If
 
     End Sub
 
 
+    Private Function Zeichnung_da(modelpath As String) As Boolean
+
+        If FileIO.FileSystem.FileExists(Zeichnungspfad(modelpath)) Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+
+    Private Function Zeichnungspfad(modelpath As String) As String
+
+        Dim Dateiname As String = FileIO.FileSystem.GetName(modelpath)
+        Dim Verzeichnis As String = FileIO.FileSystem.GetParentPath(modelpath)
+        Dim Endung As String = ".SLDDRW"
+        Dim Zeichnungspfadstr As String
+
+        Zeichnungspfadstr = Verzeichnis & "\" & Dateiname.Substring(0, Dateiname.LastIndexOf(".")) & Endung
+
+        If FileIO.FileSystem.FileExists(Zeichnungspfadstr) Then
+            Return Zeichnungspfadstr
+        Else
+            Return Nothing
+        End If
+    End Function
+
+
+    Private Sub Zeichnungseintrag() Handles TraegheitsForm.Uebertragen
+        Dim DrwModelDoc As ModelDoc2
+        Dim DrawingDoc As DrawingDoc
+        Dim filewarnings As Integer
+        Dim fileerrors As Integer
+        Dim ZeichnungspfadStr As String = Zeichnungspfad(ModelDoc.GetPathName)
+        Dim TextObj As INote
+
+        DrwModelDoc = SwApp.OpenDoc6(ZeichnungspfadStr, _
+                                     swDocumentTypes_e.swDocDRAWING, _
+                                     swOpenDocOptions_e.swOpenDocOptions_LoadModel, _
+                                     "", fileerrors, filewarnings)
+
+        DrwModelDoc = SwApp.ActivateDoc3(FileIO.FileSystem.GetName(ZeichnungspfadStr), _
+                                         True, _
+                                         swRebuildOnActivation_e.swDontRebuildActiveDoc, _
+                                         fileerrors)
+
+        DrawingDoc = DrwModelDoc
+
+        TextObj = DrawingDoc.CreateText2(Me.Ausgabetext, 0.03, 0.1, 0.0, 0.003, 0.0)
+        TextObj.Visible = True
+        TraegheitsForm.Close()
+        Me.Finalize()
+    End Sub
 
 End Class

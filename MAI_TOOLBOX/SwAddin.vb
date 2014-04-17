@@ -611,10 +611,10 @@ Public Class SwAddin
 
         Exit Sub
 
-        Dim doc As ModelDoc2
+        'Dim doc As ModelDoc2
 
-        doc = iSwApp.ActiveDoc
-        Toolbox.SCHUNK_PROP(doc)
+        'doc = iSwApp.ActiveDoc
+        'Toolbox.SCHUNK_PROP(doc)
     End Sub
 
 
