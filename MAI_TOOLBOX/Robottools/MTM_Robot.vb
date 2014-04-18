@@ -4,7 +4,7 @@ Imports System.Collections.Generic
 
 
 
-Public Class RobotTools
+Public Class MTM_Robot
 
 #Region "Eigenschaften"
 
@@ -35,7 +35,7 @@ Public Class RobotTools
     Private _Modeldoc As IModelDoc2
     Public Property ModelDoc As IModelDoc2
         Get
-            Return _ModelDoc
+            Return _Modeldoc
         End Get
         Set(ByVal value As IModelDoc2)
             _Modeldoc = value

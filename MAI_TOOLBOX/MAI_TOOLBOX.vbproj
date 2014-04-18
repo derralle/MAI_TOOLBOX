@@ -232,7 +232,7 @@
     <Compile Include="Robottools\Form_Traegheit.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Robottools\RobotTools.vb" />
+    <Compile Include="Robottools\MTM_Robot.vb" />
     <Compile Include="SwAddin.vb">
       <SubType>Code</SubType>
     </Compile>

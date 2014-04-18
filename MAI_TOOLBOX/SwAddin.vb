@@ -50,6 +50,7 @@ Public Class SwAddin
     Public Const mainItemID9 As Integer = 8
     Public Const mainItemID10 As Integer = 9
     Public Const mainItemID11 As Integer = 10
+    Public Const mainItemID12 As Integer = 11
 
     Public Const flyoutGroupID As Integer = 91
 
@@ -188,7 +189,8 @@ Public Class SwAddin
 
         '#Index der Funktionen
         Dim cmdIndex0 As Integer, cmdIndex1 As Integer, cmdIndex2 As Integer, cmdIndex3 As Integer, cmdIndex4 As Integer, cmdIndex5 As Integer, cmdIndex6 As Integer, _
-            cmdIndex7 As Integer, cmdIndex8 As Integer, cmdIndex9 As Integer, cmdIndex10 As Integer
+            cmdIndex7 As Integer, cmdIndex8 As Integer, cmdIndex9 As Integer, cmdIndex10 As Integer, cmdIndex11 As Integer
+
 
         Dim Title As String = "MAI-Toolbox"
         Dim ToolTip As String = "Firmenspezifische Anpassungen"
@@ -337,6 +339,17 @@ Public Class SwAddin
                                             "", _
                                             mainItemID11, _
                                             menuToolbarOption)
+
+        cmdIndex11 = cmdGroup.AddCommandItem2("MTM-Roboter", _
+                                            -1, _
+                                            "Zeigt das Massenträgheitsmoment mit den wichtigen Werten für Kuka-Load an", _
+                                            "Zeigt das Massenträgheitsmoment mit den wichtigen Werten für Kuka-Load an", _
+                                            11, _
+                                            "MTM_Robot", _
+                                            "", _
+                                            mainItemID12, _
+                                            menuToolbarOption)
+
 
         'cmdIndex1 = cmdGroup.AddCommandItem2("Show PMP", -1, "Display sample property manager", "Show PMP", 2, "ShowPMP", "PMPEnable", mainItemID2, menuToolbarOption)
 
@@ -607,16 +620,17 @@ Public Class SwAddin
     'Eigenschaften von Schunk-Teilen übernehmen
     Sub SCHUNKEIG()
 
-        Dim roboTo As New RobotTools(iSwApp)
+        Dim doc As ModelDoc2
 
-        Exit Sub
-
-        'Dim doc As ModelDoc2
-
-        'doc = iSwApp.ActiveDoc
-        'Toolbox.SCHUNK_PROP(doc)
+        doc = iSwApp.ActiveDoc
+        Toolbox.SCHUNK_PROP(doc)
     End Sub
 
+    Sub MTM_Robot()
+        Dim roboTo As New MTM_Robot(iSwApp)
+
+
+    End Sub
 
     'Alles Fixieren
     Sub AllesFix()
@@ -641,7 +655,7 @@ Public Class SwAddin
         Dim doc As ModelDoc2
 
         doc = iSwApp.ActiveDoc
-        toolbox.PROPFROMFILE(doc)
+        Toolbox.PROPFROMFILE(doc)
     End Sub
 
     'Eigenschaften aus Filenamen für ganze Baugruppe
@@ -650,7 +664,7 @@ Public Class SwAddin
         Dim doc As ModelDoc2
 
         doc = iSwApp.ActiveDoc
-        toolbox.PROPFROMFILE_BG(doc)
+        Toolbox.PROPFROMFILE_BG(doc)
     End Sub
 
     ''' <summary>
