@@ -226,6 +226,12 @@
     <Compile Include="PMPHandler.vb">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Robottools\Form_RobotSim.Designer.vb">
+      <DependentUpon>Form_RobotSim.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Robottools\Form_RobotSim.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Robottools\Form_Traegheit.Designer.vb">
       <DependentUpon>Form_Traegheit.vb</DependentUpon>
     </Compile>
@@ -233,6 +239,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Robottools\MTM_Robot.vb" />
+    <Compile Include="Robottools\RobotSim.vb" />
     <Compile Include="SwAddin.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -259,6 +266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MAI-Toolbox\FRM_Zylinderkonfig.resx">
       <DependentUpon>FRM_Zylinderkonfig.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Robottools\Form_RobotSim.resx">
+      <DependentUpon>Form_RobotSim.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Robottools\Form_Traegheit.resx">
       <DependentUpon>Form_Traegheit.vb</DependentUpon>
