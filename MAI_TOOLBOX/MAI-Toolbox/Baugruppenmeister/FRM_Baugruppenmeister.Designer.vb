@@ -29,10 +29,6 @@ Partial Class FRM_Baugruppenmeister
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.CB_HBG_einbeziehen = New System.Windows.Forms.CheckBox()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
-        Me.BaugruppeBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.BG_Dataset = New MAI_TOOLBOX.BG_Dataset()
-        Me.DGV_CTMS1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.TSMI_oeffnen = New System.Windows.Forms.ToolStripMenuItem()
         Me.Stueckzahl = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.TeilenummerDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.NameDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -49,11 +45,24 @@ Partial Class FRM_Baugruppenmeister
         Me.NotizDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Dateiname = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Konfiguration = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.BaugruppeBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.BG_Dataset = New MAI_TOOLBOX.BG_Dataset()
+        Me.DGV_CTMS1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.TSMI_oeffnen = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Button2 = New System.Windows.Forms.Button()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BaugruppeBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BG_Dataset, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.DGV_CTMS1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'BTN_Refresh
@@ -83,9 +92,9 @@ Partial Class FRM_Baugruppenmeister
         Me.GroupBox1.Controls.Add(Me.BTN_Refresh)
         Me.GroupBox1.Cursor = System.Windows.Forms.Cursors.Default
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 457)
+        Me.GroupBox1.Location = New System.Drawing.Point(0, 437)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(1232, 82)
+        Me.GroupBox1.Size = New System.Drawing.Size(1190, 82)
         Me.GroupBox1.TabIndex = 5
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "GroupBox1"
@@ -120,33 +129,11 @@ Partial Class FRM_Baugruppenmeister
         DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle1
-        Me.DataGridView1.Location = New System.Drawing.Point(10, 11)
+        Me.DataGridView1.Location = New System.Drawing.Point(10, 73)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowTemplate.ContextMenuStrip = Me.DGV_CTMS1
-        Me.DataGridView1.Size = New System.Drawing.Size(1212, 440)
+        Me.DataGridView1.Size = New System.Drawing.Size(1170, 358)
         Me.DataGridView1.TabIndex = 0
-        '
-        'BaugruppeBindingSource
-        '
-        Me.BaugruppeBindingSource.DataMember = "Baugruppe"
-        Me.BaugruppeBindingSource.DataSource = Me.BG_Dataset
-        '
-        'BG_Dataset
-        '
-        Me.BG_Dataset.DataSetName = "BG_Dataset"
-        Me.BG_Dataset.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
-        '
-        'DGV_CTMS1
-        '
-        Me.DGV_CTMS1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_oeffnen})
-        Me.DGV_CTMS1.Name = "DGV_CTMS1"
-        Me.DGV_CTMS1.Size = New System.Drawing.Size(132, 26)
-        '
-        'TSMI_oeffnen
-        '
-        Me.TSMI_oeffnen.Name = "TSMI_oeffnen"
-        Me.TSMI_oeffnen.Size = New System.Drawing.Size(131, 22)
-        Me.TSMI_oeffnen.Text = "Teil öffnen"
         '
         'Stueckzahl
         '
@@ -268,11 +255,120 @@ Partial Class FRM_Baugruppenmeister
         Me.Konfiguration.Name = "Konfiguration"
         Me.Konfiguration.Width = 94
         '
+        'BaugruppeBindingSource
+        '
+        Me.BaugruppeBindingSource.DataMember = "Baugruppe"
+        Me.BaugruppeBindingSource.DataSource = Me.BG_Dataset
+        '
+        'BG_Dataset
+        '
+        Me.BG_Dataset.DataSetName = "BG_Dataset"
+        Me.BG_Dataset.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'DGV_CTMS1
+        '
+        Me.DGV_CTMS1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_oeffnen})
+        Me.DGV_CTMS1.Name = "DGV_CTMS1"
+        Me.DGV_CTMS1.Size = New System.Drawing.Size(132, 26)
+        '
+        'TSMI_oeffnen
+        '
+        Me.TSMI_oeffnen.Name = "TSMI_oeffnen"
+        Me.TSMI_oeffnen.Size = New System.Drawing.Size(131, 22)
+        Me.TSMI_oeffnen.Text = "Teil öffnen"
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox2.Controls.Add(Me.Button2)
+        Me.GroupBox2.Controls.Add(Me.Button1)
+        Me.GroupBox2.Controls.Add(Me.Label3)
+        Me.GroupBox2.Controls.Add(Me.Label2)
+        Me.GroupBox2.Controls.Add(Me.TextBox2)
+        Me.GroupBox2.Controls.Add(Me.Label1)
+        Me.GroupBox2.Controls.Add(Me.TextBox1)
+        Me.GroupBox2.Location = New System.Drawing.Point(0, 1)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(1185, 66)
+        Me.GroupBox2.TabIndex = 6
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Baugruppe"
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(172, 11)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 49)
+        Me.Button1.TabIndex = 5
+        Me.Button1.Text = "für alle Teile ändern"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Location = New System.Drawing.Point(138, 40)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(28, 16)
+        Me.Label3.TabIndex = 4
+        Me.Label3.Text = ".00"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.Label2.Location = New System.Drawing.Point(71, 23)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(59, 13)
+        Me.Label2.TabIndex = 3
+        Me.Label2.Text = "Baugruppe"
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox2.Location = New System.Drawing.Point(71, 37)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(70, 22)
+        Me.TextBox2.TabIndex = 2
+        Me.TextBox2.Text = "00.00.00"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.Label1.Location = New System.Drawing.Point(8, 23)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(57, 13)
+        Me.Label1.TabIndex = 1
+        Me.Label1.Text = "Projekt Nr."
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox1.Location = New System.Drawing.Point(8, 37)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(57, 22)
+        Me.TextBox1.TabIndex = 0
+        Me.TextBox1.Text = "012345"
+        '
+        'Button2
+        '
+        Me.Button2.Anchor = System.Windows.Forms.AnchorStyles.Right
+        Me.Button2.Location = New System.Drawing.Point(1064, 11)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(111, 48)
+        Me.Button2.TabIndex = 6
+        Me.Button2.Text = "alle Fertigungsteile in BG-Verzeichnis verschieben"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
         'FRM_Baugruppenmeister
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1232, 539)
+        Me.ClientSize = New System.Drawing.Size(1190, 519)
+        Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Name = "FRM_Baugruppenmeister"
@@ -283,6 +379,8 @@ Partial Class FRM_Baugruppenmeister
         CType(Me.BaugruppeBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BG_Dataset, System.ComponentModel.ISupportInitialize).EndInit()
         Me.DGV_CTMS1.ResumeLayout(False)
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -312,4 +410,12 @@ Partial Class FRM_Baugruppenmeister
     Friend WithEvents NotizDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Dateiname As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Konfiguration As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
+    Friend WithEvents Button2 As System.Windows.Forms.Button
 End Class

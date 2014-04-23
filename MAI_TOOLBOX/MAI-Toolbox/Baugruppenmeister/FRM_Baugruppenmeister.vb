@@ -106,4 +106,7 @@ Public Class FRM_Baugruppenmeister
         ' Fügen Sie Initialisierungen nach dem InitializeComponent()-Aufruf hinzu.
         Me.DoubleBuffered = True
     End Sub
+
+    
+
 End Class
