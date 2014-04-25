@@ -189,7 +189,7 @@ Public Class SwAddin
 
         '#Index der Funktionen
         Dim cmdIndex0 As Integer, cmdIndex1 As Integer, cmdIndex2 As Integer, cmdIndex3 As Integer, cmdIndex4 As Integer, cmdIndex5 As Integer, cmdIndex6 As Integer, _
-            cmdIndex7 As Integer, cmdIndex8 As Integer, cmdIndex9 As Integer, cmdIndex10 As Integer, cmdIndex11 As Integer
+            cmdIndex7 As Integer, cmdIndex8 As Integer, cmdIndex9 As Integer, cmdIndex10 As Integer, cmdIndex11 As Integer, cmdIndex12 As Integer
 
 
         Dim Title As String = "MAI-Toolbox"
