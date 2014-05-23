@@ -36,6 +36,15 @@ Public Class Baugruppenmeister
         End Get
     End Property
 
+    Private _BgNr As MAI_Teilenummer
+    Public Property BGNr() As MAI_Teilenummer
+        Get
+            Return _BgNr
+        End Get
+        Set(ByVal value As MAI_Teilenummer)
+            _BgNr = value
+        End Set
+    End Property
 
 
 
@@ -60,6 +69,11 @@ Public Class Baugruppenmeister
 
         _swApp = iswapp
 
+        Dim toolbox As New MAITOOLS(Me.swApp)
+
+        Me.BGNr = toolbox.GetProp(Me.modeldoc, "TNR")
+
+
 
         Me.modeldoc = swApp.ActiveDoc
 
@@ -69,7 +83,8 @@ Public Class Baugruppenmeister
 
             Form.DataGridView1.DataSource = Dataset.Tables(0)
 
-            FillTable()
+            'FillTable()
+            refresh_table()
             Form.getchanges = True
             Form.ShowDialog()
 
@@ -84,8 +99,14 @@ Public Class Baugruppenmeister
 
     Private Sub refresh_table() Handles Form.RefreshBGTable
 
+
+
         Form.getchanges = False
         Dataset.Baugruppe.Clear()
+        Form.TextBox_Baugruppennummer.Text = Me.BGNr.CreateTnr
+
+
+
         FillTable()
         Form.getchanges = True
 
@@ -123,7 +144,24 @@ Public Class Baugruppenmeister
 
     End Sub
 
+    'Baugruppennummer für alle Fertigungsteile ändern
+    Private Sub BGNr_aendern(BgNr_neu As MAI_Teilenummer) Handles Form.BGNr_changed
 
+
+
+        For Each Row As BG_Dataset.BaugruppeRow In Dataset.Baugruppe
+            Dim TNR As MAI_Teilenummer = Row.Teilenummer
+
+            If TNR.CompleteBGNr = Me.BGNr.CompleteBGNr And Me.BGNr.ProjektNr = TNR.ProjektNr Then
+
+                Row.Teilenummer = BgNr_neu.ProjektNr & "." & BgNr_neu.CompleteBGNr & TNR.TeileNr
+
+
+            End If
+
+        Next
+
+    End Sub
 
 
     Private Sub FillTable()
@@ -137,7 +175,7 @@ Public Class Baugruppenmeister
         MODCONF = ErzCompListe(modeldoc, Me.HGBeinbez)
 
 
-       
+
 
         'Schleife ein Durchlauf für jede Komponente
         For Each item As ModelAndConfig In MODCONF

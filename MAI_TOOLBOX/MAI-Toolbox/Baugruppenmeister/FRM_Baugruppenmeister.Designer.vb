@@ -23,7 +23,7 @@ Partial Class FRM_Baugruppenmeister
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.BTN_Refresh = New System.Windows.Forms.Button()
         Me.BTN_Changed = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -50,13 +50,10 @@ Partial Class FRM_Baugruppenmeister
         Me.DGV_CTMS1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.TSMI_oeffnen = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Button2 = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.TextBox_Baugruppennummer = New System.Windows.Forms.TextBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BaugruppeBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -121,14 +118,14 @@ Partial Class FRM_Baugruppenmeister
         Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Stueckzahl, Me.TeilenummerDataGridViewTextBoxColumn, Me.NameDataGridViewTextBoxColumn, Me.BestellnummerDataGridViewTextBoxColumn, Me.HerstellerDataGridViewTextBoxColumn, Me.IstFertigungsteilDataGridViewCheckBoxColumn, Me.IstKaufteilDataGridViewTextBoxColumn, Me.IstHilfsteilDataGridViewTextBoxColumn, Me.IstHilfsBG, Me.KonstrukteurDataGridViewTextBoxColumn, Me.Bemerkung1DataGridViewTextBoxColumn, Me.Bemerkung2DataGridViewTextBoxColumn, Me.Bemerkung3DataGridViewTextBoxColumn, Me.NotizDataGridViewTextBoxColumn, Me.Dateiname, Me.Konfiguration})
         Me.DataGridView1.DataSource = Me.BaugruppeBindingSource
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle2
         Me.DataGridView1.Location = New System.Drawing.Point(10, 73)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowTemplate.ContextMenuStrip = Me.DGV_CTMS1
@@ -283,75 +280,14 @@ Partial Class FRM_Baugruppenmeister
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.Controls.Add(Me.Button2)
         Me.GroupBox2.Controls.Add(Me.Button1)
-        Me.GroupBox2.Controls.Add(Me.Label3)
         Me.GroupBox2.Controls.Add(Me.Label2)
-        Me.GroupBox2.Controls.Add(Me.TextBox2)
-        Me.GroupBox2.Controls.Add(Me.Label1)
-        Me.GroupBox2.Controls.Add(Me.TextBox1)
+        Me.GroupBox2.Controls.Add(Me.TextBox_Baugruppennummer)
         Me.GroupBox2.Location = New System.Drawing.Point(0, 1)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(1185, 66)
         Me.GroupBox2.TabIndex = 6
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Baugruppe"
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(172, 11)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 49)
-        Me.Button1.TabIndex = 5
-        Me.Button1.Text = "für alle Teile ändern"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(138, 40)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(28, 16)
-        Me.Label3.TabIndex = 4
-        Me.Label3.Text = ".00"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.Label2.Location = New System.Drawing.Point(71, 23)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(59, 13)
-        Me.Label2.TabIndex = 3
-        Me.Label2.Text = "Baugruppe"
-        '
-        'TextBox2
-        '
-        Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox2.Location = New System.Drawing.Point(71, 37)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(70, 22)
-        Me.TextBox2.TabIndex = 2
-        Me.TextBox2.Text = "00.00.00"
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.Label1.Location = New System.Drawing.Point(8, 23)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(57, 13)
-        Me.Label1.TabIndex = 1
-        Me.Label1.Text = "Projekt Nr."
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox1.Location = New System.Drawing.Point(8, 37)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(57, 22)
-        Me.TextBox1.TabIndex = 0
-        Me.TextBox1.Text = "012345"
         '
         'Button2
         '
@@ -362,6 +298,34 @@ Partial Class FRM_Baugruppenmeister
         Me.Button2.TabIndex = 6
         Me.Button2.Text = "alle Fertigungsteile in BG-Verzeichnis verschieben"
         Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(240, 11)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 49)
+        Me.Button1.TabIndex = 5
+        Me.Button1.Text = "für alle Teile ändern"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.Label2.Location = New System.Drawing.Point(6, 21)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(119, 13)
+        Me.Label2.TabIndex = 3
+        Me.Label2.Text = "Nummer der Baugruppe"
+        '
+        'TextBox_Baugruppennummer
+        '
+        Me.TextBox_Baugruppennummer.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox_Baugruppennummer.Location = New System.Drawing.Point(6, 37)
+        Me.TextBox_Baugruppennummer.Name = "TextBox_Baugruppennummer"
+        Me.TextBox_Baugruppennummer.Size = New System.Drawing.Size(228, 22)
+        Me.TextBox_Baugruppennummer.TabIndex = 2
+        Me.TextBox_Baugruppennummer.Text = "00.00.00"
         '
         'FRM_Baugruppenmeister
         '
@@ -411,11 +375,8 @@ Partial Class FRM_Baugruppenmeister
     Friend WithEvents Dateiname As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents Konfiguration As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
     Friend WithEvents Button1 As System.Windows.Forms.Button
-    Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox_Baugruppennummer As System.Windows.Forms.TextBox
     Friend WithEvents Button2 As System.Windows.Forms.Button
 End Class

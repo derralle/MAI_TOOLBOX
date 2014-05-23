@@ -49,6 +49,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
@@ -69,6 +70,7 @@
     <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
     <DebugType>full</DebugType>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
@@ -88,6 +90,7 @@
     <WarningLevel>1</WarningLevel>
     <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
     <DebugType>none</DebugType>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
@@ -105,6 +108,7 @@
     <RegisterForComInterop>true</RegisterForComInterop>
     <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DataMatrix.net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -218,6 +222,11 @@
     </Compile>
     <Compile Include="MAI-Toolbox\MAI_Teilenummer.vb" />
     <Compile Include="MAI-Toolbox\MAITOOLS.vb" />
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="My Project\Settings.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -260,6 +269,11 @@
     <EmbeddedResource Include="MAI-Toolbox\FRM_Zylinderkonfig.resx">
       <DependentUpon>FRM_Zylinderkonfig.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Robottools\Form_Traegheit.resx">
       <DependentUpon>Form_Traegheit.vb</DependentUpon>
     </EmbeddedResource>
@@ -270,7 +284,6 @@
     <EmbeddedResource Include="MainIconLarge.bmp" />
     <EmbeddedResource Include="MainIconSmall.bmp" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
@@ -332,6 +345,25 @@
   <ItemGroup>
     <Content Include="Install\DataMatrix.net.dll" />
     <Content Include="Install\SolidWorksTools.dll" />
+    <Content Include="swx_redist\PDMWorks.Interop.pdmworks.dll" />
+    <Content Include="swx_redist\redist.txt" />
+    <Content Include="swx_redist\SolidWorks.Interop.cosworks.dll" />
+    <Content Include="swx_redist\SolidWorks.Interop.dsgnchk.dll" />
+    <Content Include="swx_redist\SolidWorks.Interop.fworks.dll" />
+    <Content Include="swx_redist\SolidWorks.Interop.gtswutilities.dll" />
+    <Content Include="swx_redist\SolidWorks.Interop.sldcostingapi.dll" />
+    <Content Include="swx_redist\SolidWorks.Interop.sldtoolboxconfigureaddin.dll" />
+    <Content Include="swx_redist\SolidWorks.Interop.sldworks.dll" />
+    <Content Include="swx_redist\SolidWorks.Interop.sustainability.dll" />
+    <Content Include="swx_redist\SolidWorks.Interop.sw3dprinter.dll" />
+    <Content Include="swx_redist\SolidWorks.Interop.swbrowser.dll" />
+    <Content Include="swx_redist\SolidWorks.Interop.swcommands.dll" />
+    <Content Include="swx_redist\SolidWorks.Interop.swconst.dll" />
+    <Content Include="swx_redist\SolidWorks.Interop.swdimxpert.dll" />
+    <Content Include="swx_redist\SolidWorks.Interop.swdocumentmgr.dll" />
+    <Content Include="swx_redist\SolidWorks.Interop.swmotionstudy.dll" />
+    <Content Include="swx_redist\SolidWorks.Interop.swpublished.dll" />
+    <Content Include="swx_redist\SolidWorks.Interop.SWRoutingLib.dll" />
     <Content Include="Verlauf.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />

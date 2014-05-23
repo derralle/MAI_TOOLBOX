@@ -262,17 +262,22 @@ Public Class MAI_Teilenummer
             chklength = chklength - 1
         End While
 
-
-
-
-
-
         Return ""
-
-
 
     End Function
 
+
+    Public Function CompleteBGNr() As String
+        Dim BgNrStr As String = ""
+
+        For Each item In Me.BaugruppenNr
+            BgNrStr = BgNrStr & item & "."
+
+        Next
+
+        Return BgNrStr
+
+    End Function
 
     'Teilenummern überprüfen
     'Private Function CheckTnr(ByVal tnrstr As String) As Boolean

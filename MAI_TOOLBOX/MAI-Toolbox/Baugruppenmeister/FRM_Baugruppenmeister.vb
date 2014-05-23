@@ -6,6 +6,7 @@ Public Class FRM_Baugruppenmeister
     Event RefreshBGTable()
     Event Table_changed()
     Event Datei_Oeffnen(ByVal Path As String)
+    Event BGNr_changed(ByVal BGNr As MAI_Teilenummer)
 
     Private DGVlocation As Windows.Forms.DataGridViewCellEventArgs
 
@@ -98,6 +99,17 @@ Public Class FRM_Baugruppenmeister
         RaiseEvent RefreshBGTable()
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim BgNr As MAI_Teilenummer = TextBox_Baugruppennummer.Text
+        If BgNr.Gueltig Then
+            RaiseEvent BGNr_changed(BgNr)
+        End If
+
+    End Sub
+
+
+
+
     Public Sub New()
 
         ' Dieser Aufruf ist für den Designer erforderlich.
@@ -109,4 +121,6 @@ Public Class FRM_Baugruppenmeister
 
     
 
+   
+    
 End Class
