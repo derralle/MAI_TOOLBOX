@@ -71,11 +71,13 @@ Public Class Baugruppenmeister
 
         Dim toolbox As New MAITOOLS(Me.swApp)
 
+        Me.modeldoc = swApp.ActiveDoc
+
         Me.BGNr = toolbox.GetProp(Me.modeldoc, "TNR")
 
 
 
-        Me.modeldoc = swApp.ActiveDoc
+
 
 
         If Me.modeldoc.GetType = swDocumentTypes_e.swDocASSEMBLY Then
