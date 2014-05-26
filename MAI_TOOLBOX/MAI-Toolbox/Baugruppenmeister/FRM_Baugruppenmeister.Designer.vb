@@ -23,7 +23,7 @@ Partial Class FRM_Baugruppenmeister
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.BTN_Refresh = New System.Windows.Forms.Button()
         Me.BTN_Changed = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -54,6 +54,7 @@ Partial Class FRM_Baugruppenmeister
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TextBox_Baugruppennummer = New System.Windows.Forms.TextBox()
+        Me.TSMI_mehrere = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BaugruppeBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -118,14 +119,14 @@ Partial Class FRM_Baugruppenmeister
         Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Stueckzahl, Me.TeilenummerDataGridViewTextBoxColumn, Me.NameDataGridViewTextBoxColumn, Me.BestellnummerDataGridViewTextBoxColumn, Me.HerstellerDataGridViewTextBoxColumn, Me.IstFertigungsteilDataGridViewCheckBoxColumn, Me.IstKaufteilDataGridViewTextBoxColumn, Me.IstHilfsteilDataGridViewTextBoxColumn, Me.IstHilfsBG, Me.KonstrukteurDataGridViewTextBoxColumn, Me.Bemerkung1DataGridViewTextBoxColumn, Me.Bemerkung2DataGridViewTextBoxColumn, Me.Bemerkung3DataGridViewTextBoxColumn, Me.NotizDataGridViewTextBoxColumn, Me.Dateiname, Me.Konfiguration})
         Me.DataGridView1.DataSource = Me.BaugruppeBindingSource
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.DataGridView1.DefaultCellStyle = DataGridViewCellStyle1
         Me.DataGridView1.Location = New System.Drawing.Point(10, 73)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowTemplate.ContextMenuStrip = Me.DGV_CTMS1
@@ -264,14 +265,14 @@ Partial Class FRM_Baugruppenmeister
         '
         'DGV_CTMS1
         '
-        Me.DGV_CTMS1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_oeffnen})
+        Me.DGV_CTMS1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_oeffnen, Me.TSMI_mehrere})
         Me.DGV_CTMS1.Name = "DGV_CTMS1"
-        Me.DGV_CTMS1.Size = New System.Drawing.Size(132, 26)
+        Me.DGV_CTMS1.Size = New System.Drawing.Size(168, 70)
         '
         'TSMI_oeffnen
         '
         Me.TSMI_oeffnen.Name = "TSMI_oeffnen"
-        Me.TSMI_oeffnen.Size = New System.Drawing.Size(131, 22)
+        Me.TSMI_oeffnen.Size = New System.Drawing.Size(167, 22)
         Me.TSMI_oeffnen.Text = "Teil öffnen"
         '
         'GroupBox2
@@ -327,6 +328,12 @@ Partial Class FRM_Baugruppenmeister
         Me.TextBox_Baugruppennummer.TabIndex = 2
         Me.TextBox_Baugruppennummer.Text = "00.00.00"
         '
+        'TSMI_mehrere
+        '
+        Me.TSMI_mehrere.Name = "TSMI_mehrere"
+        Me.TSMI_mehrere.Size = New System.Drawing.Size(167, 22)
+        Me.TSMI_mehrere.Text = "mehrere ändern..."
+        '
         'FRM_Baugruppenmeister
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -379,4 +386,5 @@ Partial Class FRM_Baugruppenmeister
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents TextBox_Baugruppennummer As System.Windows.Forms.TextBox
     Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents TSMI_mehrere As System.Windows.Forms.ToolStripMenuItem
 End Class

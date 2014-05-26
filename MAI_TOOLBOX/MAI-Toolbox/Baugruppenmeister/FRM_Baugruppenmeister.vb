@@ -68,9 +68,19 @@ Public Class FRM_Baugruppenmeister
             dgvrow = row.DataBoundItem.row
 
             sender.text = "öffnen von >" & dgvrow.Dateiname & "<"
-
-
         End If
+
+    End Sub
+
+    Private Sub TSMI_mehrere_Paint(sender As Object, e As Windows.Forms.PaintEventArgs) Handles TSMI_mehrere.Paint
+
+        If DataGridView1.SelectedCells.Count <= 1 Then
+            TSMI_mehrere.Enabled = False
+        Else
+            TSMI_mehrere.Enabled = True
+        End If
+
+
     End Sub
 
 
@@ -89,8 +99,6 @@ Public Class FRM_Baugruppenmeister
             For Each rowcell As DataGridViewCell In row.Cells
                 rowcell.Style.BackColor = Drawing.Color.LightYellow
             Next
-
-
         End If
 
     End Sub
@@ -117,10 +125,12 @@ Public Class FRM_Baugruppenmeister
 
         ' Fügen Sie Initialisierungen nach dem InitializeComponent()-Aufruf hinzu.
         Me.DoubleBuffered = True
+
+        TSMI_mehrere.Enabled = False
     End Sub
 
-    
 
-   
-    
+
+
+
 End Class

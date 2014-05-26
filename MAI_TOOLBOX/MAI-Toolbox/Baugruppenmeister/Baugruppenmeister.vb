@@ -67,6 +67,7 @@ Public Class Baugruppenmeister
 
     Public Sub New(ByRef iswapp As SldWorks)
 
+
         _swApp = iswapp
 
         Dim toolbox As New MAITOOLS(Me.swApp)
@@ -74,10 +75,6 @@ Public Class Baugruppenmeister
         Me.modeldoc = swApp.ActiveDoc
 
         Me.BGNr = toolbox.GetProp(Me.modeldoc, "TNR")
-
-
-
-
 
 
         If Me.modeldoc.GetType = swDocumentTypes_e.swDocASSEMBLY Then
