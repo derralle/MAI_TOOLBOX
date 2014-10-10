@@ -177,6 +177,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Artikel.xsd</DependentUpon>
     </Compile>
+    <Compile Include="MAI-Toolbox\Baugruppenmeister\mehrere_Felder_ändern.Designer.vb">
+      <DependentUpon>mehrere_Felder_ändern.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MAI-Toolbox\Baugruppenmeister\mehrere_Felder_ändern.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MAI-Toolbox\BG_OCU_NAME.designer.vb">
       <DependentUpon>BG_OCU_NAME.vb</DependentUpon>
     </Compile>
@@ -250,6 +256,9 @@
     </Compile>
     <EmbeddedResource Include="MAI-Toolbox\Baugruppenmeister\FRM_Baugruppenmeister.resx">
       <DependentUpon>FRM_Baugruppenmeister.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MAI-Toolbox\Baugruppenmeister\mehrere_Felder_ändern.resx">
+      <DependentUpon>mehrere_Felder_ändern.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MAI-Toolbox\BG_OCU_NAME.resx">
       <DependentUpon>BG_OCU_NAME.vb</DependentUpon>

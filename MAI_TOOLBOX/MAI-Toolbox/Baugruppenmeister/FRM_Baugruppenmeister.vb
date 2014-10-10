@@ -7,6 +7,7 @@ Public Class FRM_Baugruppenmeister
     Event Table_changed()
     Event Datei_Oeffnen(ByVal Path As String)
     Event BGNr_changed(ByVal BGNr As MAI_Teilenummer)
+    Event Mehrfeldbearbeitung()
 
     Private DGVlocation As Windows.Forms.DataGridViewCellEventArgs
 
@@ -72,16 +73,6 @@ Public Class FRM_Baugruppenmeister
 
     End Sub
 
-    Private Sub TSMI_mehrere_Paint(sender As Object, e As Windows.Forms.PaintEventArgs) Handles TSMI_mehrere.Paint
-
-        If DataGridView1.SelectedCells.Count <= 1 Then
-            TSMI_mehrere.Enabled = False
-        Else
-            TSMI_mehrere.Enabled = True
-        End If
-
-
-    End Sub
 
 
     'Zellen nach Änderung einfärben
@@ -126,11 +117,16 @@ Public Class FRM_Baugruppenmeister
         ' Fügen Sie Initialisierungen nach dem InitializeComponent()-Aufruf hinzu.
         Me.DoubleBuffered = True
 
-        TSMI_mehrere.Enabled = False
     End Sub
 
 
 
 
 
+    
+    Private Sub TSMI_mehrere_Click(sender As Object, e As EventArgs) Handles TSMI_mehrere.Click
+
+        RaiseEvent Mehrfeldbearbeitung()
+
+    End Sub
 End Class

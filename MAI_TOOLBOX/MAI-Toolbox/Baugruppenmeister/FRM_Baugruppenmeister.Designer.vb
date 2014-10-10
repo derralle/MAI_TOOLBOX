@@ -54,7 +54,8 @@ Partial Class FRM_Baugruppenmeister
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.TextBox_Baugruppennummer = New System.Windows.Forms.TextBox()
-        Me.TSMI_mehrere = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripTextBox()
+        Me.TSMI_mehrere = New System.Windows.Forms.ToolStripTextBox()
         Me.GroupBox1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.BaugruppeBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -267,12 +268,12 @@ Partial Class FRM_Baugruppenmeister
         '
         Me.DGV_CTMS1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TSMI_oeffnen, Me.TSMI_mehrere})
         Me.DGV_CTMS1.Name = "DGV_CTMS1"
-        Me.DGV_CTMS1.Size = New System.Drawing.Size(168, 70)
+        Me.DGV_CTMS1.Size = New System.Drawing.Size(284, 73)
         '
         'TSMI_oeffnen
         '
         Me.TSMI_oeffnen.Name = "TSMI_oeffnen"
-        Me.TSMI_oeffnen.Size = New System.Drawing.Size(167, 22)
+        Me.TSMI_oeffnen.Size = New System.Drawing.Size(283, 22)
         Me.TSMI_oeffnen.Text = "Teil öffnen"
         '
         'GroupBox2
@@ -328,11 +329,17 @@ Partial Class FRM_Baugruppenmeister
         Me.TextBox_Baugruppennummer.TabIndex = 2
         Me.TextBox_Baugruppennummer.Text = "00.00.00"
         '
+        'HelpToolStripMenuItem
+        '
+        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(160, 23)
+        Me.HelpToolStripMenuItem.Text = "Help"
+        '
         'TSMI_mehrere
         '
         Me.TSMI_mehrere.Name = "TSMI_mehrere"
-        Me.TSMI_mehrere.Size = New System.Drawing.Size(167, 22)
-        Me.TSMI_mehrere.Text = "mehrere ändern..."
+        Me.TSMI_mehrere.Size = New System.Drawing.Size(223, 23)
+        Me.TSMI_mehrere.Text = "mehrere Einträge bearbeiten ..."
         '
         'FRM_Baugruppenmeister
         '
@@ -350,6 +357,7 @@ Partial Class FRM_Baugruppenmeister
         CType(Me.BaugruppeBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.BG_Dataset, System.ComponentModel.ISupportInitialize).EndInit()
         Me.DGV_CTMS1.ResumeLayout(False)
+        Me.DGV_CTMS1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
@@ -386,5 +394,6 @@ Partial Class FRM_Baugruppenmeister
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents TextBox_Baugruppennummer As System.Windows.Forms.TextBox
     Friend WithEvents Button2 As System.Windows.Forms.Button
-    Friend WithEvents TSMI_mehrere As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripTextBox
+    Friend WithEvents TSMI_mehrere As System.Windows.Forms.ToolStripTextBox
 End Class

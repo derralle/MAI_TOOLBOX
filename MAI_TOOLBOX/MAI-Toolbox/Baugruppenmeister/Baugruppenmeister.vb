@@ -131,6 +131,39 @@ Public Class Baugruppenmeister
 
     End Sub
 
+
+
+    ''' <summary>
+    ''' Mehrere Felder der Tabelle werden bearbeitet
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub Mehrfeldbearbeitung() Handles Form.Mehrfeldbearbeitung
+
+        Dim MehrfeldForm As New mehrere_Felder_ändern
+
+        Dim Eingabewert As String
+
+        Dim SelectedCells As Windows.Forms.DataGridViewSelectedCellCollection
+
+
+
+        'Form anzeigen
+        MehrfeldForm.ShowDialog()
+        Eingabewert = MehrfeldForm.EingabeTextBox.Text
+
+        SelectedCells = Form.DataGridView1.SelectedCells
+
+        For Each item as In SelectedCells
+
+            item.
+
+        Next
+
+
+
+
+    End Sub
+
     Private Sub Datei_oeffnen(path As String) Handles Form.Datei_Oeffnen
 
         Dim openerrors As Integer
