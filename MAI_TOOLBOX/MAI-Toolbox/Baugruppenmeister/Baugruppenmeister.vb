@@ -87,9 +87,6 @@ Public Class Baugruppenmeister
             Form.getchanges = True
             Form.ShowDialog()
 
-
-
-
         End If
 
         Me.Finalize()
@@ -134,32 +131,32 @@ Public Class Baugruppenmeister
 
 
     ''' <summary>
-    ''' Mehrere Felder der Tabelle werden bearbeitet
+    ''' Mehrere markierte Felder der Tabelle werden bearbeitet
     ''' </summary>
     ''' <remarks></remarks>
     Private Sub Mehrfeldbearbeitung() Handles Form.Mehrfeldbearbeitung
 
         Dim MehrfeldForm As New mehrere_Felder_ändern
-
         Dim Eingabewert As String
-
-        Dim SelectedCells As Windows.Forms.DataGridViewSelectedCellCollection
-
-
 
         'Form anzeigen
         MehrfeldForm.ShowDialog()
-        Eingabewert = MehrfeldForm.EingabeTextBox.Text
+        Eingabewert = MehrfeldForm.EingabeTextBox.Text  'Textfeld übernehmen
 
-        SelectedCells = Form.DataGridView1.SelectedCells
+        'prüfen ob Textfeld nicht leer war
+        If MehrfeldForm.ReturnValue <> "" Then
 
-        For Each item as In SelectedCells
+            'für jede markierte Zelle den Inhalt ändern
+            For counter = 0 To (Form.DataGridView1.SelectedCells.Count - 1)
 
-            item.
+                Form.DataGridView1.SelectedCells(counter).Value = Eingabewert
 
-        Next
+            Next
 
+        End If
 
+        'Ressourchen freigeben
+        MehrfeldForm.Dispose()
 
 
     End Sub

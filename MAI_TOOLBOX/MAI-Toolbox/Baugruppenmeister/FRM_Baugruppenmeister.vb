@@ -74,6 +74,29 @@ Public Class FRM_Baugruppenmeister
     End Sub
 
 
+    ''' <summary>
+    ''' Geänderte Zellen nach Aktualisierung einfärben
+    ''' </summary>
+    ''' <param name="sender"></param>
+    ''' <param name="e"></param>
+    ''' <remarks></remarks>
+    Private Sub DataGridView1_CellPainting(sender As Object, e As DataGridViewCellPaintingEventArgs) Handles DataGridView1.CellPainting
+        Dim row As DataGridViewRow
+        Dim cell As DataGridViewCell
+        Dim color As New System.Drawing.Color
+
+        If e.State.Then Then
+            row = DataGridView1.Rows.Item(e.RowIndex)
+            cell = row.Cells(e.ColumnIndex)
+            cell.Style.ForeColor = Drawing.Color.DarkRed
+
+            For Each rowcell As DataGridViewCell In row.Cells
+                rowcell.Style.BackColor = Drawing.Color.LightYellow
+            Next
+        End If
+    End Sub
+
+
 
     'Zellen nach Änderung einfärben
     Private Sub DataGridView1_CellValueChanged(sender As Object, e As Windows.Forms.DataGridViewCellEventArgs) Handles DataGridView1.CellValueChanged
@@ -93,6 +116,9 @@ Public Class FRM_Baugruppenmeister
         End If
 
     End Sub
+
+    
+
 
     Private Sub CB_HBG_einbeziehen_CheckedChanged(sender As Object, e As EventArgs) Handles CB_HBG_einbeziehen.CheckedChanged
         RaiseEvent RefreshBGTable()
@@ -121,12 +147,13 @@ Public Class FRM_Baugruppenmeister
 
 
 
-
-
-    
     Private Sub TSMI_mehrere_Click(sender As Object, e As EventArgs) Handles TSMI_mehrere.Click
 
         RaiseEvent Mehrfeldbearbeitung()
+
+    End Sub
+
+    Private Sub DGV_CTMS1_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles DGV_CTMS1.Opening
 
     End Sub
 End Class
