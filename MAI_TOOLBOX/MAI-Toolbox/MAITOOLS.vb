@@ -102,7 +102,6 @@ Public Class MAITOOLS
 
 
 
-
         Dim newpath As String
         Dim path As String
         Dim name As String
@@ -1025,7 +1024,6 @@ Public Class MAITOOLS
     Public Function PROPFROMFILE_BG(ByRef doc As ModelDoc2) As Boolean
 
         Dim swAssy As AssemblyDoc
-        'Dim comps() As Component2
         Dim comps() As Object
         Dim compcount As Long
         Dim tmpmdl As ModelDoc2
@@ -1069,7 +1067,7 @@ Public Class MAITOOLS
 
 
         doc.EditRebuild3()
-        MsgBox("wieder jup")
+
         Return True
 
     End Function

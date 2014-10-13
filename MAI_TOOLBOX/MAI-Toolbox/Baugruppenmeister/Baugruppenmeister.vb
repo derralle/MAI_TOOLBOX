@@ -169,6 +169,8 @@ Public Class Baugruppenmeister
 
         swApp.OpenDoc6(path, swDocumentTypes_e.swDocPART, swOpenDocOptions_e.swOpenDocOptions_LoadModel, "", openerrors, openwarnings)
         swApp.IActivateDoc3(path, False, activateerrors)
+        Form.Close()
+        Form.Dispose()
 
 
     End Sub
@@ -536,6 +538,19 @@ Public Class Baugruppenmeister
     End Function
 
 
+
+    ''' <summary>
+    ''' Eigenschaften aus Dateinamen erzeugen und in Teile schreiben
+    ''' </summary>
+    ''' <remarks></remarks>
+    Private Sub EigenschaftenEinlesen() Handles Form.EigenschaftenEinlesen
+        Dim toolbox As New MAITOOLS(Me.swApp)
+        Dim Modeldoc As ModelDoc2 = swApp.ActiveDoc
+
+        toolbox.PROPFROMFILE_BG(Modeldoc)
+        refresh_table()
+
+    End Sub
 
 
 
