@@ -86,6 +86,7 @@ Public Class MAITOOLS
         End Try
     End Sub
 
+
     Public Sub AddBGList(ByVal modeldoc As ModelDoc2)
 
         If modeldoc.GetType = swDocumentTypes_e.swDocASSEMBLY Then
@@ -992,143 +993,7 @@ Public Class MAITOOLS
 
 
 
-    ''' <summary>
-    ''' Erzeugen eines konfigurierten Maßes z.B. für Zylinder oder Bewegungen.
-    ''' Wenn zwei Flächen angewählt wurden wird ein Abstandsmaß erzeugt dass
-    ''' mit verschiedenen Werten konfiguriert wird.
-    ''' </summary>
-    ''' <param name="doc"></param>
-    ''' <remarks></remarks>
-    Public Sub LIMIT_MATE(ByVal doc As IModelDoc2)
-
-        Dim swSelMgr As ISelectionMgr
-        Dim MateObj As IMate2
-        Dim SwAssem As IAssemblyDoc
-        Dim SelType1 As swSelectType_e
-        Dim SelType2 As swSelectType_e
-        Dim SelObj1 As IFace2
-        Dim SelObj2 As IFace2
-        Dim Entity1 As IEntity
-        'Dim Entity2 As Entity
-
-        'Dim Pos1 As Object = Nothing
-        'Dim Pos2 As Object = Nothing
-
-        Dim MeasureObj As Measure
-        Dim distance As Double
-
-
-
-
-        Dim DimError As Integer
-
-        'Abfrage ob Dokument eine Baugruppe ist
-        If doc.GetType <> swDocumentTypes_e.swDocASSEMBLY Then
-            Throw New AggregateException
-        End If
-
-
-        SwAssem = doc
-        swSelMgr = doc.SelectionManager
-
-        SelType1 = swSelMgr.GetSelectedObjectType3(1, -1)
-        SelType2 = swSelMgr.GetSelectedObjectType3(2, -1)
-
-
-        'Prüfen ob die ersten beiden Selektionen planare Flächen sind
-        If SelType1 = swSelectType_e.swSelFACES And SelType2 = swSelectType_e.swSelFACES Then
-
-            SelObj1 = swSelMgr.GetSelectedObject6(1, -1)
-            SelObj2 = swSelMgr.GetSelectedObject6(2, -1)
-
-            Entity1 = swSelMgr.GetSelectedObject6(1, -1)
-            'Entity2 = swSelMgr.GetSelectedObject6(2, -1)
-
-            'Entity1.GetDistance(Entity2, True, Nothing, Pos1, Pos2, distance)
-            'Messen des Abstandes der beiden Flächen
-            MeasureObj = doc.Extension.CreateMeasure
-            MeasureObj.ArcOption = 1
-            MeasureObj.Calculate(Nothing)
-
-            distance = MeasureObj.NormalDistance()
-
-            Debug.Print("Distance: " & MeasureObj.Distance * 1000 & "mm")
-            Debug.Print("NormalDistance: " & MeasureObj.NormalDistance * 1000 & "mm")
-            Debug.Print("Normal: " & MeasureObj.Normal * 1000 & "mm")
-
-
-            'MsgBox("Maß ist: " & distance * 1000 & "mm")
-
-
-           
-
-
-            '########################################
-            '#          Form ausführen              #
-            '########################################
-
-            Dim Form As New FRM_Zylinderkonfig
-
-            Form.abs = distance
-
-            Form.ShowDialog()
-
-            If Form.Abort Then
-                Exit Sub
-            End If
-
-
-            'Maßverknüpfung erzeugen
-
-            MateObj = SwAssem.AddMate3(swMateType_e.swMateDISTANCE, swMateAlign_e.swMateAlignCLOSEST, True, distance, distance, distance, 0, 0, 0, 0, 0, False, DimError)
-
-
-            '########################################
-            '#      Konfigurationen erzeugen        #
-            '########################################
-
-            Dim ConfigMgr As IConfigurationManager
-            Dim Config As IConfiguration
-            Dim Parentname As String    'Name der Ausgangskonfiguration
-
-            ConfigMgr = doc.ConfigurationManager
-            Config = ConfigMgr.ActiveConfiguration
-
-            Parentname = Config.Name
-
-            ConfigMgr.AddConfiguration("eingefahren", "Zylinder eingefahren", "alternatativname1", 1, Config.Name, "12345")
-            ConfigMgr.AddConfiguration("ausgefahren", "Zylinder ausgefahren", "alternatativname2", 1, Config.Name, "12345")
-            'doc.IGetConfigurationByName(Parentname)
-            doc.ShowConfiguration2(Parentname)
-            doc.EditRebuild3()
-
-            '############################################
-            '#      Maße an Konfiguationen anpassen     #
-            '############################################
-
-            Dim DimensionObj As IDimension
-
-            DimensionObj = MateObj.DisplayDimension2(0).GetDimension2(0)
-
-
-            DimensionObj.SetSystemValue3(distance, swSetValueInConfiguration_e.swSetValue_InSpecificConfigurations, Config.Name)
-
-
-            DimensionObj.SetSystemValue3(Form.huebe.Item(0), swSetValueInConfiguration_e.swSetValue_InSpecificConfigurations, "eingefahren")
-
-            DimensionObj.SetSystemValue3(Form.huebe.Item(1), swSetValueInConfiguration_e.swSetValue_InSpecificConfigurations, "ausgefahren")
-
-
-
-
-            doc.EditRebuild3()
-
-        Else
-            MsgBox("Fehler: keine parallelen Flächen markiert!")
-        End If
-
-
-    End Sub
+  
 
     ''' <summary>
     ''' Fixiert alle Komponenten im der Baugruppe und allen ihren Unterbaugruppen
