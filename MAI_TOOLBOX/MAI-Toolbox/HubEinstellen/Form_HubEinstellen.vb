@@ -1,6 +1,6 @@
 ﻿Imports System.Collections.Generic
 
-Public Class FRM_Zylinderkonfig
+Public Class Form_HubEinstellen
 
     Private _huebe As New List(Of Double)
 
@@ -77,4 +77,10 @@ Public Class FRM_Zylinderkonfig
         TB_Hubaus.Text = text
         TB_Hubges.Modified = False
     End Sub
+
+    Private Sub FRM_Zylinderkonfig_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
+
+
 End Class

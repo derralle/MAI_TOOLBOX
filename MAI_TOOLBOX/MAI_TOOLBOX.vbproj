@@ -215,13 +215,13 @@
     <Compile Include="MAI-Toolbox\FRM_UNAME.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MAI-Toolbox\FRM_Zylinderkonfig.Designer.vb">
-      <DependentUpon>FRM_Zylinderkonfig.vb</DependentUpon>
+    <Compile Include="MAI-Toolbox\HubEinstellen\Form_HubEinstellen.Designer.vb">
+      <DependentUpon>Form_HubEinstellen.vb</DependentUpon>
     </Compile>
-    <Compile Include="MAI-Toolbox\FRM_Zylinderkonfig.vb">
+    <Compile Include="MAI-Toolbox\HubEinstellen\Form_HubEinstellen.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MAI-Toolbox\HubEinstellen.vb" />
+    <Compile Include="MAI-Toolbox\HubEinstellen\HubEinstellen.vb" />
     <Compile Include="MAI-Toolbox\MAI_Teilenummer.vb" />
     <Compile Include="MAI-Toolbox\MAITOOLS.vb" />
     <Compile Include="MAI-Toolbox\Schutzzaun.vb" />
@@ -272,8 +272,8 @@
     <EmbeddedResource Include="MAI-Toolbox\FRM_UNAME.resx">
       <DependentUpon>FRM_UNAME.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MAI-Toolbox\FRM_Zylinderkonfig.resx">
-      <DependentUpon>FRM_Zylinderkonfig.vb</DependentUpon>
+    <EmbeddedResource Include="MAI-Toolbox\HubEinstellen\Form_HubEinstellen.resx">
+      <DependentUpon>Form_HubEinstellen.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <CustomToolNamespace>My.Resources</CustomToolNamespace>

@@ -695,11 +695,9 @@ Public Class SwAddin
     End Sub
 
     Sub HUB()
-        Dim doc As ModelDoc2
-        Dim HubEinstellenO As New HubEinstellen
-        doc = iSwApp.ActiveDoc
 
-        HubEinstellenO.LIMIT_MATE(doc)
+        Dim HubEinstellenO As New HubEinstellen(iSwApp)
+        
     End Sub
 
     'Beispiel
