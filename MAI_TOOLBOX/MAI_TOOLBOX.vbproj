@@ -223,6 +223,7 @@
     </Compile>
     <Compile Include="MAI-Toolbox\MAI_Teilenummer.vb" />
     <Compile Include="MAI-Toolbox\MAITOOLS.vb" />
+    <Compile Include="MAI-Toolbox\Schutzzaun.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
