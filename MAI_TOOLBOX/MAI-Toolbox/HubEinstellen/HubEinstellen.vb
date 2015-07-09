@@ -144,7 +144,7 @@ Public Class HubEinstellen
 
         If SelMgr.GetSelectedObjectType3(1, -1) = swSelectType_e.swSelFACES And SelMgr.GetSelectedObjectType3(2, -1) = swSelectType_e.swSelFACES Then
 
-            AbstandMessen()
+            AbstandMessen(Me.Face1, Me.Face2)
 
         End If
 
@@ -324,10 +324,10 @@ Public Class HubEinstellen
 
     End Sub
 
-    Private Sub AbstandMessen()
-        Dim MeasureObj As Measure = ModelDoc.Extension.CreateMeasure
-        XXX()
 
+    Private Sub AbstandMessen(face2 As SolidWorks.Interop.sldworks.Face2, face21 As SolidWorks.Interop.sldworks.Face2)
+
+        SelMgr.DeSelect2()
 
 
 
